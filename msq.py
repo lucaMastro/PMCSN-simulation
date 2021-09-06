@@ -176,6 +176,156 @@ def FindOne(events, isP = False):
                         s = i
     return (s)
 
+
+def evaluation(listOfSample):
+    l = len(listOfSample)
+    costs = [40, 50]
+    # gains from each request
+    revenues =[3, 5]
+    rent = 1300
+    # computing iva at 22%
+    iva = 22
+    titles = ["BAR:\n", "PIZZERIA:\n"]
+    global lastArrivalsTime
+    global areas
+    global indexes
+    if l == 1:
+        # STEADY ANALISYS
+        indexes = listOfSample[0].indexes 
+        index = indexes[0] + indexes[1]
+        print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
+        stop = STOP
+    else:
+        # TRANSIENT ANALISYS
+        print("\n\nTransient analisys:")
+
+        # computing means
+        #
+        # computing average index 
+        tmp = 0
+        numSample = len(samplingElementList)
+
+        for i in range(numSample):
+            tmp += samplingElementList[i].indexes[0] + \
+                samplingElementList[i].indexes[1]
+        index = int(tmp / numSample)
+        print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
+
+        # computing average number of elapsed days 
+        tmp = 0
+        for i in range(numSample):
+            tmp += samplingElementList[i].time.day
+        stop = int(tmp / numSample)
+
+        # computing average lastArrival
+        tmpB = 0
+        tmpP = 0
+        for i in range(numSample):
+            tmpB += samplingElementList[i].lastArrivals[0] 
+            tmpP += samplingElementList[i].lastArrivals[1]
+        lastArrivalsTime = [tmpB/numSample, tmpP/numSample]
+
+        # computing average areas
+        tmpB = 0
+        tmpP = 0
+        for i in range(numSample):
+            tmpB += samplingElementList[i].areas[0]
+            tmpP += samplingElementList[i].areas[1]
+        areas = [tmpB / numSample, tmpP / numSample]
+
+        # computing mean served and service time for each server:
+        for s in range(1, len(sum) - 1): 
+            if s == pArrivalIndex: #the arrivalP event, then skip
+                continue
+            service = 0
+            served = 0
+            for i in range(numSample):
+                service += samplingElementList[i].sum[s].service
+                served += samplingElementList[i].sum[s].served
+            sum[s].served = served / numSample 
+            sum[s].service = service / numSample
+
+    serviceTimes = [19 * 60 * stop, 2 * 60 * stop]
+    tmp = lastArrivalsTime[0] - START_B
+    tmp += 19 * 60 * (stop - 1) 
+    lastArrivalsTime[0] = tmp
+
+    tmp = lastArrivalsTime[1] - START_P
+    tmp += 2 * 60 * (stop - 1)
+    lastArrivalsTime[1] = tmp
+    for i in range(2):
+        print(titles[i])
+        print("  avg interarrivals .. = {0:6.2f}".format(lastArrivalsTime[i] /
+            indexes[i])) 
+        
+        print("  avg wait ........... = {0:6.2f}".format(areas[i] / indexes[i]))
+        # avg # in node is the mean population in the node on the "up-time"
+        print("  avg # in node ...... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
+
+        if (i == 0):
+            startingPoint = 1
+            endPoint = SERVERS_B + 1
+        else:
+            startingPoint = SERVERS_B + 1 
+            endPoint = len(events) - 1          #excluding sampling 
+        for s in range(startingPoint, endPoint):  # adjust area to calculate */ 
+            if (s != pArrivalIndex):
+                areas[i] -= sum[s].service              # averages for the queue   */    
+
+        print("  avg delay .......... = {0:6.2f}".format(areas[i] / indexes[i]))
+        print("  avg # in queue ..... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
+        print("\nthe server statistics are:\n")
+        print("    server     utilization     avg service        share\n")
+
+        for s in range(startingPoint, endPoint):  
+            if (s != pArrivalIndex):
+              print("{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}".format(s, sum[s].service
+                  / serviceTimes[i], sum[s].service / sum[s].served,float(sum[s].served)
+                  / indexes[i]))
+        if (i == 0):
+            print("\n\n")
+
+    # revenue analisys
+    rentCost = int(stop / 30) * rent # number of months
+    if (stop % 30 != 0):
+        rentCost += rent # adding a month rent
+
+    peopleCost= stop * costs[0] * SERVERS_B + stop * costs[1] * SERVERS_P / 2 
+
+    # computing total served requests for each type
+    total_B_services = 0
+    for s in range(1, SERVERS_B + 1):
+        total_B_services += sum[s].served
+
+    total_P_services = 0
+    for s in range(SERVERS_B + 2, len(events) - 1):     #excludin sampling event
+        total_P_services += sum[s].served
+
+    # grass revenue 
+    revenue = total_B_services * revenues[0] + total_P_services * revenues[1]
+
+    # each request costs to restaurant half of its selling cost
+    # meaning that if request B costs 3€, it has been bought at 1.50€
+    # by restaurant
+    materialCost = revenue / 2
+
+    # computing iva at 22%
+    ivaCost = revenue * iva / 100
+
+    print("\n\nREVENUE ({0} days):\n".format(stop))
+    print("  Gross revenue.. = {0:.2f} €".format(revenue))
+    print("  Personal cost.. = {0:.2f} €".format(peopleCost))
+    revenue -= peopleCost
+    print("  Material cost.. = {0:.2f} €".format(materialCost))
+    revenue -= materialCost 
+    print("  Rent costs..... = {0:.2f} €".format(rentCost))
+    revenue -= rentCost
+    print("  Iva costs...... = {0:.2f} €".format(ivaCost))
+    revenue -= ivaCost
+    print("  Revenue........ = {0:.2f} €".format(revenue))
+
+
+
 class Event:
     t = None  #next event time
     x = None  #event status, 0 or 1
@@ -438,267 +588,7 @@ while (t.day < STOP) or (number != 0):
 #EndWhile
 
 
-# STEADY ANALISYS
-index = indexes[0] + indexes[1]
-#pdb.set_trace()
-print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
 
-titles = ["BAR:\n", "PIZZERIA:\n"]
-
-# this simulation is for about 19h for day. Then, the time that has to be used
-# is:
-#   19 * 60 * t.day     <-- for B type
-#    2 * 60 * t.day     <-- for P type
-# Note that this time is not exact: in fact, each day at 2:00 arrivals are
-# stopped. However, departures can always be done even if time is over 2:00.
-serviceTimes = [19 * 60 * STOP, 2 * 60 * STOP]
-
-# computing the time of last departures
-#   for B type: t.day * 19 * 60 + ( lastBTypeArrival - START_B )
-tmp = lastArrivalsTime[0] - START_B
-tmp += 19 * 60 * (STOP - 1) 
-lastArrivalsTime[0] = tmp
-
-tmp = lastArrivalsTime[1] - START_P
-tmp += 2 * 60 * (STOP - 1)
-lastArrivalsTime[1] = tmp
-
-for i in range(2):
-    print(titles[i])
-    print("  avg interarrivals .. = {0:6.2f}".format(
-        lastArrivalsTime[i] / indexes[i])) 
-    
-    print("  avg wait ........... = {0:6.2f}".format(areas[i] / indexes[i]))
-    # avg # in node is the mean population in the node on the "up-time"
-    print("  avg # in node ...... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
-
-    if (i == 0):
-        startingPoint = 1
-        endPoint = SERVERS_B + 1
-    else:
-        startingPoint = SERVERS_B + 1 
-        endPoint = len(events) - 1          #excluding sampling 
-    for s in range(startingPoint, endPoint):  # adjust area to calculate */ 
-        if (s != pArrivalIndex):
-            areas[i] -= sum[s].service              # averages for the queue   */    
-
-    print("  avg delay .......... = {0:6.2f}".format(areas[i] / indexes[i]))
-    print("  avg # in queue ..... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
-
-
-    print("\nthe server statistics are:\n")
-    print("    server     utilization     avg service        share\n")
-
-    for s in range(startingPoint, endPoint):  
-        if (s != pArrivalIndex):
-          print("{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}".format(s, sum[s].service
-              / serviceTimes[i], sum[s].service / sum[s].served,float(sum[s].served)
-              / indexes[i]))
-    if (i == 0):
-        print("\n\n")
-
-
-# Revenue Analisys
-# each array is B_type for 1st position and P_type for 2nd position
-# reference link
-# https://aprireunbar.com/2015/01/15/valutare-lincasso-di-un-bar-per-ricavarvi-uno-stipendio-di-1200e-al-mese/
-#
-# people costs 
-costs = [40, 50]
-
-# gains from each request
-revenues =[3, 5]
-
-# rent cost
-rent = 1300
-rentCost = int(STOP / 30) * rent # number of months
-if (STOP % 30 != 0):
-    rentCost += rent # adding a month rent
-   
-# total people costs in period
-peopleCost= STOP * costs[0] * SERVERS_B + STOP * costs[1] * SERVERS_P / 2 
-
-# computing total served requests for each type
-total_B_services = 0
-for s in range(1, SERVERS_B + 1):
-    total_B_services += sum[s].served
-
-total_P_services = 0
-for s in range(SERVERS_B + 2, len(events) - 1):     #excludin sampling event
-    total_P_services += sum[s].served
-
-# grass revenue 
-revenue = total_B_services * revenues[0] + total_P_services * revenues[1]
-
-# each request costs to restaurant half of its selling cost
-# meaning that if request B costs 3€, it has been bought at 1.50€
-materialCost = revenue / 2
-
-# computing iva at 22%
-iva = 22
-ivaCost = revenue * iva / 100
-
-print("\n\nREVENUE:\n")
-print("  Gross revenue.. = {0:.2f} €".format(revenue))
-print("  Personal cost.. = {0:.2f} €".format(peopleCost))
-revenue -= peopleCost
-print("  Material cost.. = {0:.2f} €".format(materialCost))
-revenue -= materialCost 
-print("  Rent costs..... = {0:.2f} €".format(rentCost))
-revenue -= rentCost
-print("  Iva costs...... = {0:.2f} €".format(ivaCost))
-revenue -= ivaCost
-print("  Revenue........ = {0:.2f} €".format(revenue))
-
-
-
-# TRANSIENT ANALISYS
-print("\n\nTransient analisys:")
-
-# computing means
-#
-# computing average index 
-tmp = 0
-numSample = len(samplingElementList)
-
-for i in range(numSample):
-    tmp += samplingElementList[i].indexes[0] + \
-        samplingElementList[i].indexes[1]
-index = int(tmp / numSample)
-print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
-
-# computing average number of elapsed days 
-tmp = 0
-for i in range(numSample):
-    tmp += samplingElementList[i].time.day
-meanElapsedDay = int(tmp / numSample)
-
-serviceTimes = [19 * 60 * meanElapsedDay, 2 * 60 * meanElapsedDay]
-
-# computing average lastArrival
-tmpB = 0
-tmpP = 0
-for i in range(numSample):
-    tmpB += samplingElementList[i].lastArrivals[0] 
-    tmpP += samplingElementList[i].lastArrivals[1]
-lastArrivalsTime = [tmpB/numSample, tmpP/numSample]
-
-# computing the time of last departures
-#   for B type: t.day * 19 * 60 + ( lastBTypeArrival - START_B )
-tmp = lastArrivalsTime[0] - START_B
-tmp += 19 * 60 * (meanElapsedDay) 
-lastArrivalsTime[0] = tmp
-
-tmp = lastArrivalsTime[1] - START_P
-tmp += 2 * 60 * (meanElapsedDay)
-lastArrivalsTime[1] = tmp
-
-# computing average areas
-tmpB = 0
-tmpP = 0
-for i in range(numSample):
-    tmpB += samplingElementList[i].areas[0]
-    tmpP += samplingElementList[i].areas[1]
-areas = [tmpB / numSample, tmpP / numSample]
-
-# computing mean served and service time for each server:
-for s in range(1, len(sum) - 1): 
-    if s == pArrivalIndex:
-        continue
-    service = 0
-    served = 0
-    for i in range(numSample):
-        service += samplingElementList[i].sum[s].service
-        served += samplingElementList[i].sum[s].served
-    sum[s].served = served / numSample 
-    sum[s].service = service / numSample
-
-
-
-for i in range(2):
-    print(titles[i])
-    print("  avg interarrivals .. = {0:6.2f}".format(
-        lastArrivalsTime[i] / indexes[i])) 
-    
-    print("  avg wait ........... = {0:6.2f}".format(areas[i] / indexes[i]))
-    # avg # in node is the mean population in the node on the "up-time"
-    print("  avg # in node ...... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
-
-    if (i == 0):
-        startingPoint = 1
-        endPoint = SERVERS_B + 1
-    else:
-        startingPoint = SERVERS_B + 1 
-        endPoint = len(events) - 1          #excluding sampling 
-    for s in range(startingPoint, endPoint):  # adjust area to calculate */ 
-        if (s != pArrivalIndex):
-            areas[i] -= sum[s].service              # averages for the queue   */    
-
-    print("  avg delay .......... = {0:6.2f}".format(areas[i] / indexes[i]))
-    print("  avg # in queue ..... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
-
-
-    print("\nthe server statistics are:\n")
-    print("    server     utilization     avg service        share\n")
-
-    for s in range(startingPoint, endPoint):  
-        if (s != pArrivalIndex):
-          print("{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}".format(s, sum[s].service
-              / serviceTimes[i], sum[s].service / sum[s].served,float(sum[s].served)
-              / indexes[i]))
-    if (i == 0):
-        print("\n\n")
-
-
-# Revenue Analisys
-# each array is B_type for 1st position and P_type for 2nd position
-# reference link
-# https://aprireunbar.com/2015/01/15/valutare-lincasso-di-un-bar-per-ricavarvi-uno-stipendio-di-1200e-al-mese/
-#
-# people costs 
-costs = [40, 50]
-
-# gains from each request
-revenues =[3, 5]
-
-# rent cost
-rent = 1300
-rentCost = int(meanElapsedDay / 30) * rent # number of months
-if (meanElapsedDay % 30 != 0):
-    rentCost += rent # adding a month rent
-   
-# total people costs in period
-peopleCost= meanElapsedDay * costs[0] * SERVERS_B + \
-        meanElapsedDay * costs[1] * SERVERS_P / 2 
-
-# computing total served requests for each type
-total_B_services = 0
-for s in range(1, SERVERS_B + 1):
-    total_B_services += sum[s].served
-
-total_P_services = 0
-for s in range(SERVERS_B + 2, len(events) - 1):     #excludin sampling event
-    total_P_services += sum[s].served
-
-# grass revenue 
-revenue = total_B_services * revenues[0] + total_P_services * revenues[1]
-
-# each request costs to restaurant half of its selling cost
-# meaning that if request B costs 3€, it has been bought at 1.50€
-materialCost = revenue / 2
-
-# computing iva at 22%
-iva = 22
-ivaCost = revenue * iva / 100
-
-print("\n\nREVENUE:\n")
-print("  Gross revenue.. = {0:.2f} €".format(revenue))
-print("  Personal cost.. = {0:.2f} €".format(peopleCost))
-revenue -= peopleCost
-print("  Material cost.. = {0:.2f} €".format(materialCost))
-revenue -= materialCost 
-print("  Rent costs..... = {0:.2f} €".format(rentCost))
-revenue -= rentCost
-print("  Iva costs...... = {0:.2f} €".format(ivaCost))
-revenue -= ivaCost
-print("  Revenue........ = {0:.2f} €".format(revenue))
+lastSample = SamplingElement(areas, indexes, lastArrivalsTime, sum, t, numbers)
+evaluation([lastSample])
+evaluation(samplingElementList)
