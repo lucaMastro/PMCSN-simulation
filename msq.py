@@ -16,6 +16,7 @@
 
 from rngs import plantSeeds, random, selectStream
 from math import log
+import copy
 import pdb
 
 # time in which arrival rate changes. it is built by taking hours in which
@@ -37,7 +38,6 @@ SERVERS_P = 2                       # number of type P servers              */
 
 
 arrivalTemps = [START_B, START_P]
-t = None 
 
 #these values will be used for exponential mean, based on the current or next
 #timing 
@@ -45,6 +45,21 @@ weekInterarrivalTypeB = [6, 6, 12, 4, 6, 6]
 weekendInterarrivalTypeB = [4, 4, 6, 3, 4, 2]
 weekInterarrivalTypeP = 6
 weekendInterarrivalTypeP = 3/2
+
+
+def Uniform(a,b):  
+# --------------------------------------------
+# * generate a Uniform random variate, use a < b 
+# * --------------------------------------------
+# */
+  return (a + (b - a) * random())  
+
+def getSamplingTime():
+    selectStream(4) 
+    # choosing a value between 20 and 22: otherwise P-type variables may not 
+    # be sampled
+    return (Uniform(SLOTSTIME[(len(SLOTSTIME) -2)], 
+        SLOTSTIME[len(SLOTSTIME) - 1]))
 
 
 def Exponential(m):
@@ -147,7 +162,7 @@ def FindOne(events, isP = False):
     if (isP): #just changing starting point and end-point
         # in this way, it skips the B-servers and the P-arrival event
         startingPoint += SERVERS_B + 1 
-        endingPoint = len(events)
+        endingPoint = len(events) - 1
     else:
         endingPoint = SERVERS_B + 1
 
@@ -203,10 +218,48 @@ class Time:
                 break
         self.timeSlot = newSlot
 
+    def copy(self):
+        return copy.deepcopy(self)
+
 class AccumSum:
                           # accumulated sums of                */
     service = None          #   service times                    */
     served = None           #   number served                    */
+
+    def copy(self):
+        return copy.deepcopy(self)
+        
+
+class SamplingElement:
+    indexes = None
+    lastArrivals = None
+    areas = None
+    sum = None 
+    time = None 
+    numeberB = None
+    numeberP = None 
+
+
+    def __init__(self, areas, indexes, lastArrivalsTime, sum, t, numbers):
+        newAreas = [i for i in areas]
+        self.areas = newAreas
+
+        newIndexes = [i for i in indexes]
+        self.indexes = newIndexes
+
+        newArrivals = [i for i in lastArrivalsTime]
+        self.lastArrivals = newArrivals
+
+        newSum = []
+        for s in range(len(sum)):
+            newSum.append(sum[s].copy())
+        self.sum = newSum
+
+        self.time = t.copy()
+
+        self.numeberB = numbers[0]
+        self.numeberP = numbers[1]
+
 
 ############################Main Program###################################
 
@@ -221,15 +274,16 @@ t = Time()
 #   ------------------|
 #   2 | completion B2 |
 #   ------------------|
-#   3 | completion B3 |
+#   3 | arrival P     |
 #   ------------------|
-#   4 | arrival P     |
+#   4 | completion P1 |
 #   ------------------|
-#   5 | completion P1 |
+#   5 | completion P2 |
 #   ------------------|
-#   6 | completion P2 |
+#   6 | sampling      |
 #   ------------------|
-numEvents = SERVERS_B + 1 + SERVERS_P + 1 
+#
+numEvents = SERVERS_B + 1 + SERVERS_P + 1 + 1
 pArrivalIndex = SERVERS_B + 1
 
 # The following variables are meant to store the last arrival of each time
@@ -245,20 +299,33 @@ numbers = [0, 0]        # [ numberB, numberP ]
 number = 0              # total number of B and P requests
 indexes = [0, 0]        # [ indexB, indexP ]
 areas   = [0, 0]         # time integrated number in the node */
-sum=[AccumSum() for i in range(0, numEvents)]
+sum=[AccumSum() for i in range(0, numEvents - 1)]
+
+samplingElementList = []
 
 initializedP = False #this variable is used to "open door" to P-arrivals
+
+# select time in which sampling events will be scheduled: it will be scheduled
+# every day at same time
+events[len(events) - 1].t = getSamplingTime()
+events[len(events) - 1].x = 1
+
 plantSeeds(0)
 events[0].t   = GetArrivalB()
 events[0].x   = 1
-for s in range(1, numEvents):
+
+for s in range(1, numEvents - 1):       #excluding sampling events
     events[s].t     = START_B          # this value is arbitrary because */
     events[s].x     = 0              # all servers are initially idle  */
     sum[s].service = 0.0
     sum[s].served  = 0
 
 
-while (t.day <= STOP) or (number != 0):
+# t.day < STOP and not <= because if you want to perform 365 days starting from
+# 0 (t.day is initialized to 0), you have to terminate when the 364th day ends
+while (t.day < STOP) or (number != 0):
+    #initializing sampling
+
     e = NextEvent(events)                  # next event index */
     t.next = events[e].t                        # next event time  */
     areas[0] += (t.next - t.current) * numbers[0]     # update Bintegral  */
@@ -276,7 +343,7 @@ while (t.day <= STOP) or (number != 0):
     if (e == 0):                                  # process a B-arrival*/
         numbers[0] += 1
 
-        # if jumped into this block of code, a B type arryval is accepted
+        # if jumped into this block of code, a B type arrival is accepted
         lastArrivalsTime[0] = events[0].t 
         events[0].t = GetArrivalB()
 
@@ -312,14 +379,21 @@ while (t.day <= STOP) or (number != 0):
         
         if (numbers[1] <= SERVERS_P):
             service  = GetServiceP()
+            s = FindOne(events, True)
             if (s >= 0):
-                s = FindOne(events, True)
                 sum[s].service += service
                 sum[s].served += 1
                 events[s].t = t.current + service
                 events[s].x = 1
         #EndIf
     #EndIf
+
+    elif (e == len(events) - 1):
+        # it's a sampling event
+        currSample = SamplingElement(areas, indexes, lastArrivalsTime,
+                sum, t, numbers)
+        samplingElementList.append(currSample)
+        events[e].x = 0
 
     #it's a departure
     else:
@@ -351,6 +425,7 @@ while (t.day <= STOP) or (number != 0):
     #it means that a day is over
     if ((events[0].x == 0) and (number == 0)):
 
+        events[len(events) - 1].x = 1
         initializedP = False
         t.current = START_B
         arrivalTemps = [START_B, START_P]
@@ -363,6 +438,7 @@ while (t.day <= STOP) or (number != 0):
 #EndWhile
 
 
+# STEADY ANALISYS
 index = indexes[0] + indexes[1]
 #pdb.set_trace()
 print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
@@ -401,7 +477,7 @@ for i in range(2):
         endPoint = SERVERS_B + 1
     else:
         startingPoint = SERVERS_B + 1 
-        endPoint = len(events) 
+        endPoint = len(events) - 1          #excluding sampling 
     for s in range(startingPoint, endPoint):  # adjust area to calculate */ 
         if (s != pArrivalIndex):
             areas[i] -= sum[s].service              # averages for the queue   */    
@@ -448,7 +524,7 @@ for s in range(1, SERVERS_B + 1):
     total_B_services += sum[s].served
 
 total_P_services = 0
-for s in range(SERVERS_B + 2, len(events)):
+for s in range(SERVERS_B + 2, len(events) - 1):     #excludin sampling event
     total_P_services += sum[s].served
 
 # grass revenue 
@@ -476,3 +552,153 @@ print("  Revenue........ = {0:.2f} €".format(revenue))
 
 
 
+# TRANSIENT ANALISYS
+print("\n\nTransient analisys:")
+
+# computing means
+#
+# computing average index 
+tmp = 0
+numSample = len(samplingElementList)
+
+for i in range(numSample):
+    tmp += samplingElementList[i].indexes[0] + \
+        samplingElementList[i].indexes[1]
+index = int(tmp / numSample)
+print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
+
+# computing average number of elapsed days 
+tmp = 0
+for i in range(numSample):
+    tmp += samplingElementList[i].time.day
+meanElapsedDay = int(tmp / numSample)
+
+serviceTimes = [19 * 60 * meanElapsedDay, 2 * 60 * meanElapsedDay]
+
+# computing average lastArrival
+tmpB = 0
+tmpP = 0
+for i in range(numSample):
+    tmpB += samplingElementList[i].lastArrivals[0] 
+    tmpP += samplingElementList[i].lastArrivals[1]
+lastArrivalsTime = [tmpB/numSample, tmpP/numSample]
+
+# computing the time of last departures
+#   for B type: t.day * 19 * 60 + ( lastBTypeArrival - START_B )
+tmp = lastArrivalsTime[0] - START_B
+tmp += 19 * 60 * (meanElapsedDay) 
+lastArrivalsTime[0] = tmp
+
+tmp = lastArrivalsTime[1] - START_P
+tmp += 2 * 60 * (meanElapsedDay)
+lastArrivalsTime[1] = tmp
+
+# computing average areas
+tmpB = 0
+tmpP = 0
+for i in range(numSample):
+    tmpB += samplingElementList[i].areas[0]
+    tmpP += samplingElementList[i].areas[1]
+areas = [tmpB / numSample, tmpP / numSample]
+
+# computing mean served and service time for each server:
+for s in range(1, len(sum) - 1): 
+    if s == pArrivalIndex:
+        continue
+    service = 0
+    served = 0
+    for i in range(numSample):
+        service += samplingElementList[i].sum[s].service
+        served += samplingElementList[i].sum[s].served
+    sum[s].served = served / numSample 
+    sum[s].service = service / numSample
+
+
+
+for i in range(2):
+    print(titles[i])
+    print("  avg interarrivals .. = {0:6.2f}".format(
+        lastArrivalsTime[i] / indexes[i])) 
+    
+    print("  avg wait ........... = {0:6.2f}".format(areas[i] / indexes[i]))
+    # avg # in node is the mean population in the node on the "up-time"
+    print("  avg # in node ...... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
+
+    if (i == 0):
+        startingPoint = 1
+        endPoint = SERVERS_B + 1
+    else:
+        startingPoint = SERVERS_B + 1 
+        endPoint = len(events) - 1          #excluding sampling 
+    for s in range(startingPoint, endPoint):  # adjust area to calculate */ 
+        if (s != pArrivalIndex):
+            areas[i] -= sum[s].service              # averages for the queue   */    
+
+    print("  avg delay .......... = {0:6.2f}".format(areas[i] / indexes[i]))
+    print("  avg # in queue ..... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
+
+
+    print("\nthe server statistics are:\n")
+    print("    server     utilization     avg service        share\n")
+
+    for s in range(startingPoint, endPoint):  
+        if (s != pArrivalIndex):
+          print("{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}".format(s, sum[s].service
+              / serviceTimes[i], sum[s].service / sum[s].served,float(sum[s].served)
+              / indexes[i]))
+    if (i == 0):
+        print("\n\n")
+
+
+# Revenue Analisys
+# each array is B_type for 1st position and P_type for 2nd position
+# reference link
+# https://aprireunbar.com/2015/01/15/valutare-lincasso-di-un-bar-per-ricavarvi-uno-stipendio-di-1200e-al-mese/
+#
+# people costs 
+costs = [40, 50]
+
+# gains from each request
+revenues =[3, 5]
+
+# rent cost
+rent = 1300
+rentCost = int(meanElapsedDay / 30) * rent # number of months
+if (meanElapsedDay % 30 != 0):
+    rentCost += rent # adding a month rent
+   
+# total people costs in period
+peopleCost= meanElapsedDay * costs[0] * SERVERS_B + \
+        meanElapsedDay * costs[1] * SERVERS_P / 2 
+
+# computing total served requests for each type
+total_B_services = 0
+for s in range(1, SERVERS_B + 1):
+    total_B_services += sum[s].served
+
+total_P_services = 0
+for s in range(SERVERS_B + 2, len(events) - 1):     #excludin sampling event
+    total_P_services += sum[s].served
+
+# grass revenue 
+revenue = total_B_services * revenues[0] + total_P_services * revenues[1]
+
+# each request costs to restaurant half of its selling cost
+# meaning that if request B costs 3€, it has been bought at 1.50€
+materialCost = revenue / 2
+
+# computing iva at 22%
+iva = 22
+ivaCost = revenue * iva / 100
+
+print("\n\nREVENUE:\n")
+print("  Gross revenue.. = {0:.2f} €".format(revenue))
+print("  Personal cost.. = {0:.2f} €".format(peopleCost))
+revenue -= peopleCost
+print("  Material cost.. = {0:.2f} €".format(materialCost))
+revenue -= materialCost 
+print("  Rent costs..... = {0:.2f} €".format(rentCost))
+revenue -= rentCost
+print("  Iva costs...... = {0:.2f} €".format(ivaCost))
+revenue -= ivaCost
+print("  Revenue........ = {0:.2f} €".format(revenue))
