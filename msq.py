@@ -438,7 +438,7 @@ while (t.day < c.STOP) or (number != 0):
     e = NextEvent(events)                  # next event index */
     t.next = events[e].t                        # next event time  */
     areas[0] += (t.next - t.current) * numbers[0]     # update Bintegral  */
-    areas[1] += (t.next - t.current) * numbers[1]     # update Bintegral  */
+    areas[1] += (t.next - t.current) * numbers[1]     # update Pintegral  */
     t.current = t.next                            # advance the clock*/
     #checking if time slot changed:
     t.changeSlot()
@@ -551,3 +551,50 @@ while (t.day < c.STOP) or (number != 0):
 lastSample = SamplingElement(areas, indexes, lastArrivalsTime, sum, t, numbers)
 evaluation([lastSample])
 evaluation(samplingElementList)
+
+
+# create a csv for analisys of tmp values
+firstLine = "day,# job, # job B, # job P, last arrival B [H], last arrival P [H], area B, area P, # served, # served B, # served P\n"
+
+with open('output/transient.csv', 'w') as transientOut:
+    transientOut.write(firstLine)
+
+    line = ''
+    precIndexB = 0
+    precIndexP = 0
+    for i in range(len(samplingElementList)):
+        elem = samplingElementList[i]
+        day = elem.time.day
+
+        tmpB = elem.indexes[0] 
+        tmpP = elem.indexes[1] 
+        jobB = tmpB - precIndexB 
+        jobP = tmpP - precIndexP 
+        precIndexB = tmpB
+        precIndexP = tmpP
+
+        totalJob = jobB + jobP 
+        lastArrB = elem.lastArrivals[0]
+        lastArrP = elem.lastArrivals[1]
+        areaB = elem.areas[0]
+        areaP = elem.areas[1]
+        
+        
+        servedB = 0
+        servedP = 0
+        for s in range(1, len(sum) - 1):
+            if s == pArrivalIndex:
+                continue
+            elif s < pArrivalIndex:
+                servedB += elem.sum[s].served 
+            else:
+                servedP += elem.sum[s].served 
+
+        totalServed = servedB + servedP 
+
+        line \
+        = '{0},{1},{2},{3},{4:.2f},{5:.2f},{6:.2f},{7:.2f},{8},{9},{10}\n'. \
+                format(day, totalJob, jobB, jobP, lastArrB / 60, lastArrP / 60, areaB,
+                        areaP, totalServed, servedB, servedP)
+        transientOut.write(line)
+
