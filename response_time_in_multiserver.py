@@ -1,5 +1,6 @@
 from math import factorial
 from math import inf
+import constants as c
 
 def compute_P0(m, rho):
     sum = 0
@@ -39,25 +40,28 @@ if __name__ == '__main__':
     #mi = float(input('give me service rate: '))
     #m = int(input('give me server s number: '))
     
-    typeP = True
+    typeP = False
 
     if (not typeP):
         # typeB
-        fasce = [(i * 60) for i in [3, 3, 5, 2, 2, 4]]
+        fasce = c.SLOTS_DURATION_B  
+        #fasce = [(i * 60) for i in [3, 3, 5, 2, 2, 4]]
         dayDuration = 19 #h
-        interarrivalsWeek = [6, 6, 12, 4, 6, 6 ]
-        interarrivalsWeekEnd = [4, 4, 6, 3, 4, 2 ]
+        interarrivalsWeek = c.WEEK_INTERARRIVAL_B 
+        interarrivalsWeekEnd = c.WEEKEND_INTERARRIVAL_B
         mi = 0.5
         m = 2
 
     else:
         # typeP
-        fasce = [120] #min
+        fasce = c.SLOTS_DURATION_P
         dayDuration = 2 #h
-        interarrivalsWeek = [6] 
-        interarrivalsWeekEnd = [3/2]
+        interarrivalsWeek = [c.WEEK_INTERARRIVAL_P] 
+        interarrivalsWeekEnd = [c.WEEKEND_INTERARRIVAL_P]
         mi = 1/3 
         m = 2
+
+    debug(fasce)
 
     P0_week = []
     PQ_week = []

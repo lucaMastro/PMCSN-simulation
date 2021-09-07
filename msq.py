@@ -1,50 +1,9 @@
-# ------------------------------------------------------------------------- 
-# * This program is a next-event simulation of a multi-server, single-queue 
-# * service node.  The service node is assumed to be initially idle, no 
-# * arrivals are permitted after the terminal time STOP and the node is then 
-# * purged by processing any remaining jobs. 
-# * 
-# * Name              : msq.c (Multi-Server Queue)
-# * Author            : Steve Park & Dave Geyer 
-# * Language          : ANSI C 
-# * Latest Revision   : 10-19-98 
-#  # Translated by   : Philip Steele 
-#  # Language        : Python 4.3
-#  # Latest Revision : 3/26/14
-# * ------------------------------------------------------------------------- 
-# */
-
 from rngs import plantSeeds, random, selectStream
 from math import log
 import copy
-import pdb
 
-# time in which arrival rate changes. it is built by taking hours in which
-# rates change and multiplying it by 60 minutes
-SLOTSTIME = [ (i * 60) for i in [7, 10, 13, 18, 20, 22] ]
+import constants as c
 
-START_B = SLOTSTIME[0]              # initial (open the door) for B requests:
-                                    # 420 [MIN] = 7:00 am */
-START_P = SLOTSTIME[4]              # open the door for P requests:
-                                    # 1200 MIN = 20:00
-STOP_B = 26 * 60                   # 2:00 am == 26:00. STOP_B = 26 * 60
-                                    # this is for B-requests
-STOP_P = SLOTSTIME[5]
-                                    
-STOP  = 365                # terminal (close the door) time [DAYS] */
-
-SERVERS_B = 2                       # number of type B servers              */
-SERVERS_P = 2                       # number of type P servers              */
-
-
-arrivalTemps = [START_B, START_P]
-
-#these values will be used for exponential mean, based on the current or next
-#timing 
-weekInterarrivalTypeB = [6, 6, 12, 4, 6, 6]
-weekendInterarrivalTypeB = [4, 4, 6, 3, 4, 2]
-weekInterarrivalTypeP = 6
-weekendInterarrivalTypeP = 3/2
 
 
 def Uniform(a,b):  
@@ -58,8 +17,8 @@ def getSamplingTime():
     selectStream(4) 
     # choosing a value between 20 and 22: otherwise P-type variables may not 
     # be sampled
-    return (Uniform(SLOTSTIME[(len(SLOTSTIME) -2)], 
-        SLOTSTIME[len(SLOTSTIME) - 1]))
+    return (Uniform(c.SLOTSTIME[(len(c.SLOTSTIME) -2)], 
+        c.SLOTSTIME[len(c.SLOTSTIME) - 1]))
 
 
 def Exponential(m):
@@ -75,14 +34,14 @@ def getCorrectInterarrival(isP = False):
     m = 0
     if (t.dayOfWeek > 4):
         if (isP):
-            m = weekendInterarrivalTypeP
+            m = c.WEEKEND_INTERARRIVAL_P
         else:
-            m = weekendInterarrivalTypeB[t.timeSlot]
+            m = c.WEEKEND_INTERARRIVAL_B[t.timeSlot]
     else: # week day
         if (isP):
-            m = weekInterarrivalTypeP
+            m = c.WEEK_INTERARRIVAL_P
         else:
-            m = weekInterarrivalTypeB[t.timeSlot]
+            m = c.WEEK_INTERARRIVAL_B[t.timeSlot]
     return m
 
 
@@ -92,12 +51,12 @@ def GetArrivalB():
 # * generate the next arrival time, with rate 1/2
 # * ---------------------------------------------
 # */ 
-    global arrivalTemps
+    global ARRIVAL_TEMPS
 
     selectStream(0) 
     m = getCorrectInterarrival()
-    arrivalTemps[0] += Exponential(m)
-    return (arrivalTemps[0])
+    c.ARRIVAL_TEMPS[0] += Exponential(m)
+    return (c.ARRIVAL_TEMPS[0])
 
 
 def GetArrivalP():
@@ -105,13 +64,13 @@ def GetArrivalP():
 # * generate the next arrival time, with rate 1/2
 # * ---------------------------------------------
 # */ 
-    global arrivalTemps
+    global ARRIVAL_TEMPS
 
     selectStream(1) 
     m = getCorrectInterarrival(True)
     #print(t.dayOfWeek, t.current, m)
-    arrivalTemps[1] += Exponential(m)
-    return (arrivalTemps[1]) 
+    c.ARRIVAL_TEMPS[1] += Exponential(m)
+    return (c.ARRIVAL_TEMPS[1]) 
 
 def GetServiceB():
 # --------------------------------------------
@@ -161,10 +120,10 @@ def FindOne(events, isP = False):
     startingPoint = 1
     if (isP): #just changing starting point and end-point
         # in this way, it skips the B-servers and the P-arrival event
-        startingPoint += SERVERS_B + 1 
+        startingPoint += c.SERVERS_B + 1 
         endingPoint = len(events) - 1
     else:
-        endingPoint = SERVERS_B + 1
+        endingPoint = c.SERVERS_B + 1
 
     s = -1
     for i in range(startingPoint, endingPoint):
@@ -194,7 +153,7 @@ def evaluation(listOfSample):
         indexes = listOfSample[0].indexes 
         index = indexes[0] + indexes[1]
         print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
-        stop = STOP
+        stop = c.STOP
     else:
         # TRANSIENT ANALISYS
         print("\n\nTransient analisys:")
@@ -246,11 +205,11 @@ def evaluation(listOfSample):
             sum[s].service = service / numSample
 
     serviceTimes = [19 * 60 * stop, 2 * 60 * stop]
-    tmp = lastArrivalsTime[0] - START_B
+    tmp = lastArrivalsTime[0] - c.START_B
     tmp += 19 * 60 * (stop - 1) 
     lastArrivalsTime[0] = tmp
 
-    tmp = lastArrivalsTime[1] - START_P
+    tmp = lastArrivalsTime[1] - c.START_P
     tmp += 2 * 60 * (stop - 1)
     lastArrivalsTime[1] = tmp
     for i in range(2):
@@ -264,9 +223,9 @@ def evaluation(listOfSample):
 
         if (i == 0):
             startingPoint = 1
-            endPoint = SERVERS_B + 1
+            endPoint = c.SERVERS_B + 1
         else:
-            startingPoint = SERVERS_B + 1 
+            startingPoint = c.SERVERS_B + 1 
             endPoint = len(events) - 1          #excluding sampling 
         for s in range(startingPoint, endPoint):  # adjust area to calculate */ 
             if (s != pArrivalIndex):
@@ -290,15 +249,15 @@ def evaluation(listOfSample):
     if (stop % 30 != 0):
         rentCost += rent # adding a month rent
 
-    peopleCost= stop * costs[0] * SERVERS_B + stop * costs[1] * SERVERS_P / 2 
+    peopleCost= stop * costs[0] * c.SERVERS_B + stop * costs[1] * c.SERVERS_P / 2 
 
     # computing total served requests for each type
     total_B_services = 0
-    for s in range(1, SERVERS_B + 1):
+    for s in range(1, c.SERVERS_B + 1):
         total_B_services += sum[s].served
 
     total_P_services = 0
-    for s in range(SERVERS_B + 2, len(events) - 1):     #excludin sampling event
+    for s in range(c.SERVERS_B + 2, len(events) - 1):     #excludin sampling event
         total_P_services += sum[s].served
 
     # grass revenue 
@@ -348,7 +307,7 @@ class Time:
     timeSlot = None         # current slot indicator
     
     def __init__(self):
-        self.current = START_B         
+        self.current = c.START_B         
         self.day = 0 
         self.dayOfWeek = 1 # starting from the first working day
         self.timeSlot = 0
@@ -356,13 +315,13 @@ class Time:
 
     def changeSlot(self):
     #   note that t.current cannot be lower than the first element of the
-    #   SLOTSTIME: t.current is initialized at START_B every 'new day starts',
-    #   and START_B is the first element of SLOTSTIME.
+    #   c.SLOTSTIME: t.current is initialized at c.START_B every 'new day starts',
+    #   and c.START_B is the first element of c.SLOTSTIME.
         newSlot = 0
-        for i in range(1, len(SLOTSTIME)):
+        for i in range(1, len(c.SLOTSTIME)):
             # finding the biggest possible slotsTime that is lower than current.
             # if time is equal to slotTime[i], the arrival rate is changed yet.
-            if (SLOTSTIME[i] <= self.current):
+            if (c.SLOTSTIME[i] <= self.current):
                 newSlot = i
             else: #others are bigger 
                 break
@@ -433,13 +392,13 @@ t = Time()
 #   6 | sampling      |
 #   ------------------|
 #
-numEvents = SERVERS_B + 1 + SERVERS_P + 1 + 1
-pArrivalIndex = SERVERS_B + 1
+numEvents = c.SERVERS_B + 1 + c.SERVERS_P + 1 + 1
+pArrivalIndex = c.SERVERS_B + 1
 
 # The following variables are meant to store the last arrival of each time
 # in the last day: in fact, it needs to compute the last arrival time for
 # statistical analisys. the compution will be done in the following way:
-#   for B type: t.day * 19 * 60 + ( t.lastBTypeArrival - START_B )
+#   for B type: t.day * 19 * 60 + ( t.lastBTypeArrival - c.START_B )
 # in the simulated system, everything happens during the 19 hour between
 # 7:00 and 2:00.
 # [ lastBTyypeArrival, lastPTypeArrival ]
@@ -465,15 +424,15 @@ events[0].t   = GetArrivalB()
 events[0].x   = 1
 
 for s in range(1, numEvents - 1):       #excluding sampling events
-    events[s].t     = START_B          # this value is arbitrary because */
+    events[s].t     = c.START_B          # this value is arbitrary because */
     events[s].x     = 0              # all servers are initially idle  */
     sum[s].service = 0.0
     sum[s].served  = 0
 
 
-# t.day < STOP and not <= because if you want to perform 365 days starting from
+# t.day < c.STOP and not <= because if you want to perform 365 days starting from
 # 0 (t.day is initialized to 0), you have to terminate when the 364th day ends
-while (t.day < STOP) or (number != 0):
+while (t.day < c.STOP) or (number != 0):
     #initializing sampling
 
     e = NextEvent(events)                  # next event index */
@@ -485,7 +444,7 @@ while (t.day < STOP) or (number != 0):
     t.changeSlot()
 
     #check if the pizzeria can open
-    if (t.current >= START_P) and (not initializedP):
+    if (t.current >= c.START_P) and (not initializedP):
         events[pArrivalIndex].t = GetArrivalP()
         events[pArrivalIndex].x = 1
         initializedP = True
@@ -499,11 +458,11 @@ while (t.day < STOP) or (number != 0):
 
         # close the B-door in two cases: at the end of a day and at the end of
         # simulation
-        if (events[0].t > STOP_B) or (t.day > STOP):
+        if (events[0].t > c.STOP_B) or (t.day > c.STOP):
             events[0].x = 0
         #EndIf
         
-        if (numbers[0] <= SERVERS_B):
+        if (numbers[0] <= c.SERVERS_B):
             service = GetServiceB()
             s = FindOne(events)
             if (s >= 0):
@@ -523,11 +482,11 @@ while (t.day < STOP) or (number != 0):
         lastArrivalsTime[1] = events[pArrivalIndex].t 
         events[pArrivalIndex].t = GetArrivalP()
 
-        if (events[pArrivalIndex].t > STOP_P): 
+        if (events[pArrivalIndex].t > c.STOP_P): 
             events[pArrivalIndex].x = 0
         #EndIf
         
-        if (numbers[1] <= SERVERS_P):
+        if (numbers[1] <= c.SERVERS_P):
             service  = GetServiceP()
             s = FindOne(events, True)
             if (s >= 0):
@@ -551,7 +510,7 @@ while (t.day < STOP) or (number != 0):
             indexes[0] += 1
             numbers[0] -= 1
             s = e
-            if (numbers[0] >= SERVERS_B):
+            if (numbers[0] >= c.SERVERS_B):
                 service = GetServiceB()
                 sum[s].service += service
                 sum[s].served += 1
@@ -562,7 +521,7 @@ while (t.day < STOP) or (number != 0):
             indexes[1] += 1
             numbers[1] -= 1
             s = e
-            if (numbers[1] >= SERVERS_P):
+            if (numbers[1] >= c.SERVERS_P):
                 service = GetServiceP()
                 sum[s].service += service
                 sum[s].served += 1
@@ -577,8 +536,8 @@ while (t.day < STOP) or (number != 0):
 
         events[len(events) - 1].x = 1
         initializedP = False
-        t.current = START_B
-        arrivalTemps = [START_B, START_P]
+        t.current = c.START_B
+        c.ARRIVAL_TEMPS = [c.START_B, c.START_P]
         events[0].t = GetArrivalB() 
         events[0].x = 1 
         t.day += 1
