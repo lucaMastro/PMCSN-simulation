@@ -138,12 +138,6 @@ def FindOne(events, isP = False):
 
 def evaluation(listOfSample):
     l = len(listOfSample)
-    # costs = [40, 50]
-    # gains from each request
-    # revenues =[3, 5]
-    # rent = 1300
-    # computing iva at 22%
-    # iva = 22
     titles = ["BAR:\n", "PIZZERIA:\n"]
     global lastArrivalsTime
     global areas
@@ -161,13 +155,15 @@ def evaluation(listOfSample):
         # computing means
         #
         # computing average index 
-        tmp = 0
         numSample = len(samplingElementList)
-
+        
+        indexes = [0, 0] 
         for i in range(numSample):
-            tmp += samplingElementList[i].indexes[0] + \
-                samplingElementList[i].indexes[1]
-        index = int(tmp / numSample)
+            indexes[0] += samplingElementList[i].indexes[0] 
+            indexes[1] += samplingElementList[i].indexes[1]
+        indexes = [int(i / numSample) for i in indexes]
+        index = indexes[0] + indexes[1]
+
         print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
 
         # computing average number of elapsed days 
