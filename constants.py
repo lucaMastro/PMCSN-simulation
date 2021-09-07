@@ -28,7 +28,8 @@ WEEK_INTERARRIVAL_P = 6
 WEEKEND_INTERARRIVAL_P = 3/2
 
 COSTS = [40, 50]
-REVENUES = [3, 5]
-RENT = 1300         # € for month
+REVENUES = [4, 7]
+RENT = 1500         # € for month
 IVA = 22            # 22%
+BILL_COSTS = 2000   # € for month
 

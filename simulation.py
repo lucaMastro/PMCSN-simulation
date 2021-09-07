@@ -245,9 +245,10 @@ def evaluation(listOfSample):
             print("\n\n")
 
     # revenue analisys
-    rentCost = int(stop / 30) * c.RENT # number of months
-    if (stop % 30 != 0):
-        rentCost += c.RENT # adding a month rent
+    monthsNum = int(stop / 30) # number of months
+    # if ( stop % 30 != 0):
+    #    monthsNum += 1
+    rentCost = monthsNum * c.RENT 
 
     peopleCost= stop * c.COSTS[0] * c.SERVERS_B + stop * c.COSTS[1] * c.SERVERS_P / 2 
 
@@ -271,6 +272,9 @@ def evaluation(listOfSample):
     # computing iva at 22%
     ivaCost = revenue * c.IVA / 100
 
+    #computing bill costs
+    billCosts = monthsNum * c.BILL_COSTS 
+
     print("\n\nREVENUE ({0} days):\n".format(stop))
     print("  Gross revenue.. = {0:.2f} €".format(revenue))
     print("  Personal cost.. = {0:.2f} €".format(peopleCost))
@@ -281,6 +285,8 @@ def evaluation(listOfSample):
     revenue -= rentCost
     print("  Iva costs...... = {0:.2f} €".format(ivaCost))
     revenue -= ivaCost
+    print("  Bill costs..... = {0:.2f} €".format(billCosts))
+    revenue -= billCosts 
     print("  Revenue........ = {0:.2f} €".format(revenue))
 
 
@@ -579,10 +585,6 @@ with open('output/transient.csv', 'w') as transientOut:
         areaP = elem.areas[1]
         
         stop = elem.time.day + 1
-        if (stop % 30 == 0):
-            rentCost = int(stop / 30) * c.RENT # number of months
-        else:
-            rentCost = 0 
 
         #daily people cost
         peopleCost = c.COSTS[0] * c.SERVERS_B + \
@@ -601,7 +603,11 @@ with open('output/transient.csv', 'w') as transientOut:
         # computing iva at 22%
         ivaCost = revenue * c.IVA / 100
 
-        totCost = peopleCost + materialCost + rentCost + ivaCost 
+        totCost = peopleCost + materialCost + ivaCost 
+        if (stop % 30 == 0):
+            totCost += c.RENT
+            totCost += c.BILL_COSTS 
+
         line = \
         '{0},{1},{2},{3},{4:.2f},{5:.2f},{6:.2f},{7:.2f},'. \
         format(day + 1, totalJob, jobB, jobP, lastArrB / 60, lastArrP / 60, areaB,\
@@ -609,7 +615,7 @@ with open('output/transient.csv', 'w') as transientOut:
         line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f}'.format(revenueB,\
                 revenueP, revenue, totCost)
         if (stop % 30 == 0):
-            line += ",# added rent cost"
+            line += ",# added rent and bill costs"
         line += "\n"
         
         transientOut.write(line)
