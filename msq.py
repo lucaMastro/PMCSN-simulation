@@ -138,12 +138,12 @@ def FindOne(events, isP = False):
 
 def evaluation(listOfSample):
     l = len(listOfSample)
-    costs = [40, 50]
+    # costs = [40, 50]
     # gains from each request
-    revenues =[3, 5]
-    rent = 1300
+    # revenues =[3, 5]
+    # rent = 1300
     # computing iva at 22%
-    iva = 22
+    # iva = 22
     titles = ["BAR:\n", "PIZZERIA:\n"]
     global lastArrivalsTime
     global areas
@@ -245,11 +245,11 @@ def evaluation(listOfSample):
             print("\n\n")
 
     # revenue analisys
-    rentCost = int(stop / 30) * rent # number of months
+    rentCost = int(stop / 30) * c.RENT # number of months
     if (stop % 30 != 0):
-        rentCost += rent # adding a month rent
+        rentCost += c.RENT # adding a month rent
 
-    peopleCost= stop * costs[0] * c.SERVERS_B + stop * costs[1] * c.SERVERS_P / 2 
+    peopleCost= stop * c.COSTS[0] * c.SERVERS_B + stop * c.COSTS[1] * c.SERVERS_P / 2 
 
     # computing total served requests for each type
     total_B_services = 0
@@ -261,7 +261,7 @@ def evaluation(listOfSample):
         total_P_services += sum[s].served
 
     # grass revenue 
-    revenue = total_B_services * revenues[0] + total_P_services * revenues[1]
+    revenue = total_B_services * c.REVENUES[0] + total_P_services * c.REVENUES[1]
 
     # each request costs to restaurant half of its selling cost
     # meaning that if request B costs 3€, it has been bought at 1.50€
@@ -269,7 +269,7 @@ def evaluation(listOfSample):
     materialCost = revenue / 2
 
     # computing iva at 22%
-    ivaCost = revenue * iva / 100
+    ivaCost = revenue * c.IVA / 100
 
     print("\n\nREVENUE ({0} days):\n".format(stop))
     print("  Gross revenue.. = {0:.2f} €".format(revenue))
@@ -404,9 +404,9 @@ pArrivalIndex = c.SERVERS_B + 1
 # [ lastBTyypeArrival, lastPTypeArrival ]
 lastArrivalsTime = [0, 0]
 events = [Event() for i in range(numEvents)]
-numbers = [0, 0]        # [ numberB, numberP ]
+numbers = [0, 0]        # [ numberB, numberP ]: jobs in the node
 number = 0              # total number of B and P requests
-indexes = [0, 0]        # [ indexB, indexP ]
+indexes = [0, 0]        # [ indexB, indexP ]: processed jobs
 areas   = [0, 0]         # time integrated number in the node */
 sum=[AccumSum() for i in range(0, numEvents - 1)]
 
@@ -475,7 +475,6 @@ while (t.day < c.STOP) or (number != 0):
 
     #EndIf
     elif (e == pArrivalIndex): # process a P-arrival*/
-        #pdb.set_trace()
         numbers[1] += 1
 
         # if jumped into this block of code, a P type arryval is accepted
@@ -553,13 +552,13 @@ evaluation([lastSample])
 evaluation(samplingElementList)
 
 
-# create a csv for analisys of tmp values
-firstLine = "day,# job, # job B, # job P, last arrival B [H], last arrival P [H], area B, area P, # served, # served B, # served P\n"
+# create a csv for analisys 
+firstLine = "day,# job, # job B, # job P, last arrival B [H], last arrival" + \
+        " P [H], area B, area P, revenue B, revenue P, revenue, costs\n"
 
 with open('output/transient.csv', 'w') as transientOut:
     transientOut.write(firstLine)
 
-    line = ''
     precIndexB = 0
     precIndexP = 0
     for i in range(len(samplingElementList)):
@@ -579,22 +578,39 @@ with open('output/transient.csv', 'w') as transientOut:
         areaB = elem.areas[0]
         areaP = elem.areas[1]
         
+        stop = elem.time.day + 1
+        if (stop % 30 == 0):
+            rentCost = int(stop / 30) * c.RENT # number of months
+        else:
+            rentCost = 0 
+
+        #daily people cost
+        peopleCost = c.COSTS[0] * c.SERVERS_B + \
+                c.COSTS[1] * c.SERVERS_P / 2 
+
+        # grass revenue 
+        revenueB = jobB * c.REVENUES[0] 
+        revenueP = jobP * c.REVENUES[1]
+        revenue = revenueB + revenueP 
+
+        # each request costs to restaurant half of its selling cost
+        # meaning that if request B costs 3€, it has been bought at 1.50€
+        # by restaurant
+        materialCost = revenue / 2
+
+        # computing iva at 22%
+        ivaCost = revenue * c.IVA / 100
+
+        totCost = peopleCost + materialCost + rentCost + ivaCost 
+        line = \
+        '{0},{1},{2},{3},{4:.2f},{5:.2f},{6:.2f},{7:.2f},'. \
+        format(day + 1, totalJob, jobB, jobP, lastArrB / 60, lastArrP / 60, areaB,\
+                areaP) 
+        line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f}'.format(revenueB,\
+                revenueP, revenue, totCost)
+        if (stop % 30 == 0):
+            line += ",# added rent cost"
+        line += "\n"
         
-        servedB = 0
-        servedP = 0
-        for s in range(1, len(sum) - 1):
-            if s == pArrivalIndex:
-                continue
-            elif s < pArrivalIndex:
-                servedB += elem.sum[s].served 
-            else:
-                servedP += elem.sum[s].served 
-
-        totalServed = servedB + servedP 
-
-        line \
-        = '{0},{1},{2},{3},{4:.2f},{5:.2f},{6:.2f},{7:.2f},{8},{9},{10}\n'. \
-                format(day, totalJob, jobB, jobP, lastArrB / 60, lastArrP / 60, areaB,
-                        areaP, totalServed, servedB, servedP)
         transientOut.write(line)
 
