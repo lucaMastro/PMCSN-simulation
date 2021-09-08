@@ -2,7 +2,7 @@ from rngs import plantSeeds, random, selectStream
 from math import log
 import copy
 
-import constants as c
+import configurations as c
 
 
 
@@ -600,19 +600,16 @@ with open('output/transient.csv', 'w') as transientOut:
         ivaCost = revenue * c.IVA / 100
 
         totCost = peopleCost + materialCost + ivaCost 
-        if (stop % 30 == 0):
-            totCost += c.RENT
-            totCost += c.BILL_COSTS 
+        # rent and bills costs are payed at the end of month. to seplify, they
+        # are split out during the days 
+        totCost += (c.RENT + c.BILL_COSTS) / 30                                                  
 
         line = \
         '{0},{1},{2},{3},{4:.2f},{5:.2f},{6:.2f},{7:.2f},'. \
         format(day + 1, totalJob, jobB, jobP, lastArrB / 60, lastArrP / 60, areaB,\
                 areaP) 
-        line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f}'.format(revenueB,\
+        line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f}\n'.format(revenueB,\
                 revenueP, revenue, totCost)
-        if (stop % 30 == 0):
-            line += ",# added rent and bill costs"
-        line += "\n"
         
         transientOut.write(line)
 

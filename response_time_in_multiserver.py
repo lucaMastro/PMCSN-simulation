@@ -1,6 +1,6 @@
 from math import factorial
 from math import inf
-import constants as c
+import configurations as c
 
 def compute_P0(m, rho):
     sum = 0
@@ -60,8 +60,6 @@ if __name__ == '__main__':
         interarrivalsWeekEnd = [c.WEEKEND_INTERARRIVAL_P]
         mi = 1/3 
         m = 2
-
-    debug(fasce)
 
     P0_week = []
     PQ_week = []
