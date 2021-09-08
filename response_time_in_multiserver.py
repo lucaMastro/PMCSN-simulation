@@ -40,7 +40,8 @@ if __name__ == '__main__':
     #mi = float(input('give me service rate: '))
     #m = int(input('give me server s number: '))
     
-    typeP = False
+    typeP = True
+#    typeP = False
 
     if (not typeP):
         # typeB
@@ -120,14 +121,6 @@ if __name__ == '__main__':
             E_T = E_TQ + E_Si  
 
 
-            if (rho > 1):
-                rho = 1
-                PQ = 1
-                P0 = 0
-                E_NQ = fasce[j] * (lambda_ - m * mi) 
-                E_TQ = E_NQ / lambda_ 
-                E_T = E_TQ + E_Si  
-
             pos.append(P0)
             pqs.append(PQ)
             rhos.append(rho)
@@ -164,7 +157,6 @@ if __name__ == '__main__':
     for i in range(len(fasce)):
         tmp += (lambdasWeekEnd[i] * fasce[i])
    
-    # working 6 day per week
     sum = sum * 5 + tmp * 2
     
     mean_lambda_job_on_min = sum / (7 * dayDuration * 60)
@@ -181,6 +173,7 @@ if __name__ == '__main__':
     tmp = 0
     for i in range(len(fasce)):
         tmp += (E_NQ_weekEnd[i] * fasce[i])/(dayDuration * 60)
+    print(tmp)
     sum = 5 * sum + 2*tmp 
     sum /= 7
     print("E(NQ) = {0:.2f}".format(sum))

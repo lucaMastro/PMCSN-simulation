@@ -79,7 +79,7 @@ def GetServiceB():
 # */ 
     selectStream(2)
     #service type B has a rate of 1/2
-    return Exponential(2)
+    return Exponential(c.MEAN_SERVICE_TIME_B)
   
 def GetServiceP():
 # --------------------------------------------
@@ -89,7 +89,7 @@ def GetServiceP():
     selectStream(3)
     #service type P has a rate of 1/3
     #67% is under the mean: perfect case for a pizza :P
-    return Exponential(3)
+    return Exponential(c.MEAN_SERVICE_TIME_P)
 
 
 def NextEvent(events):
@@ -348,8 +348,8 @@ class SamplingElement:
     areas = None
     sum = None 
     time = None 
-    numeberB = None
-    numeberP = None 
+    numberB = None
+    numberP = None 
 
 
     def __init__(self, areas, indexes, lastArrivalsTime, sum, t, numbers):
@@ -369,8 +369,8 @@ class SamplingElement:
 
         self.time = t.copy()
 
-        self.numeberB = numbers[0]
-        self.numeberP = numbers[1]
+        self.numberB = numbers[0]
+        self.numberP = numbers[1]
 
 
 ############################Main Program###################################
@@ -557,10 +557,14 @@ evaluation(samplingElementList)
 
 
 # create a csv for analisys 
-firstLine = "day,# job, # job B, # job P, last arrival B [H], last arrival" + \
-        " P [H], area B, area P, revenue B, revenue P, revenue, costs\n"
+firstLine = "day,# job completati, # job B completati, # job P completati," + \
+        "#job B nel nodo, # job P nel nodo, # coda B, #coda P," + \
+        "last arrival B [H], last arrival" + \
+        " P [H], area B, area P, revenue B, revenue P, revenue, costs," + \
+        "incremental revenue, incremental costs\n"
 
-with open('output/transient.csv', 'w') as transientOut:
+fileName = 'output/transient_m={}.csv'.format(c.SERVERS_B)
+with open(fileName, 'w') as transientOut:
     transientOut.write(firstLine)
 
     precIndexB = 0
@@ -568,9 +572,19 @@ with open('output/transient.csv', 'w') as transientOut:
     for i in range(len(samplingElementList)):
         elem = samplingElementList[i]
         day = elem.time.day
+        
+        queueB = elem.numberB - c.SERVERS_B 
+        if (queueB < 0):
+            queueB = 0
+        queueP = elem.numberP - c.SERVERS_P 
+        if (queueP < 0):
+            queueP = 0
 
         tmpB = elem.indexes[0] 
         tmpP = elem.indexes[1] 
+        incRevenue = tmpB * c.REVENUES[0] 
+        incRevenue += tmpP * c.REVENUES[1]
+
         jobB = tmpB - precIndexB 
         jobP = tmpP - precIndexP 
         precIndexB = tmpB
@@ -587,6 +601,8 @@ with open('output/transient.csv', 'w') as transientOut:
         #daily people cost
         peopleCost = c.COSTS[0] * c.SERVERS_B + \
                 c.COSTS[1] * c.SERVERS_P / 2 
+        
+        incCosts = peopleCost * stop 
 
         # grass revenue 
         revenueB = jobB * c.REVENUES[0] 
@@ -597,21 +613,26 @@ with open('output/transient.csv', 'w') as transientOut:
         # meaning that if request B costs 3€, it has been bought at 1.50€
         # by restaurant
         materialCost = revenue / 2
+        incCosts += incRevenue / 2
 
         # computing iva at 22%
         ivaCost = revenue * c.IVA / 100
+        incCosts += incRevenue * c.IVA / 100
 
         totCost = peopleCost + materialCost + ivaCost 
         # rent and bills costs are payed at the end of month. to seplify, they
         # are split out during the days 
-        totCost += (c.RENT + c.BILL_COSTS) / 30                                                  
+        totCost += (c.RENT + c.BILL_COSTS) / 30
+        incCosts += (c.RENT + c.BILL_COSTS) * stop / 30
 
         line = \
-        '{0},{1},{2},{3},{4:.2f},{5:.2f},{6:.2f},{7:.2f},'. \
-        format(day + 1, totalJob, jobB, jobP, lastArrB / 60, lastArrP / 60, areaB,\
+        '{0},{1},{2},{3},{4},{5},{6},{7},{8},{9:.2f},{10:.2f},{11:.2f},'. \
+        format(day + 1, totalJob, jobB, jobP, currSample.numberB,  
+                currSample.numberP, queueB, queueP, \
+                lastArrB / 60, lastArrP / 60, areaB,\
                 areaP) 
-        line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f}\n'.format(revenueB,\
-                revenueP, revenue, totCost)
+        line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f},{4:.2f},{5:.2f}\n'.format(revenueB,\
+                revenueP, revenue, totCost, incRevenue, incCosts)
         
         transientOut.write(line)
 
