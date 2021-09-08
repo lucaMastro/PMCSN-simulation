@@ -272,18 +272,19 @@ def evaluation(listOfSample):
     billCosts = monthsNum * c.BILL_COSTS 
 
     print("\n\nREVENUE ({0} days):\n".format(stop))
-    print("  Gross revenue.. = {0:.2f} €".format(revenue))
-    print("  Personal cost.. = {0:.2f} €".format(peopleCost))
+    print("  Gross revenue...... = {0:.2f} €".format(revenue))
+    print("  Personal cost...... = {0:.2f} €".format(peopleCost))
     revenue -= peopleCost
-    print("  Material cost.. = {0:.2f} €".format(materialCost))
+    print("  Material cost...... = {0:.2f} €".format(materialCost))
     revenue -= materialCost 
-    print("  Rent costs..... = {0:.2f} €".format(rentCost))
+    print("  Rent costs......... = {0:.2f} €".format(rentCost))
     revenue -= rentCost
-    print("  Iva costs...... = {0:.2f} €".format(ivaCost))
+    print("  Iva costs.......... = {0:.2f} €".format(ivaCost))
     revenue -= ivaCost
-    print("  Bill costs..... = {0:.2f} €".format(billCosts))
+    print("  Bill costs......... = {0:.2f} €".format(billCosts))
     revenue -= billCosts 
-    print("  Revenue........ = {0:.2f} €".format(revenue))
+    print("  Revenue for year... = {0:.2f} €".format(revenue))
+    print("  Revenue for month.. = {0:.2f} €".format(revenue / monthsNum))
 
 
 
@@ -504,6 +505,7 @@ while (t.day < c.STOP) or (number != 0):
                 sum, t, numbers)
         samplingElementList.append(currSample)
         events[e].x = 0
+        events[e].t = getSamplingTime()
 
     #it's a departure
     else:
