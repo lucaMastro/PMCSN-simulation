@@ -17,7 +17,7 @@ def getSamplingTime():
     selectStream(4) 
     # choosing a value between 20 and 22: otherwise P-type variables may not 
     # be sampled
-    return (Uniform(c.SLOTSTIME[(len(c.SLOTSTIME) -2)], 
+    return (Uniform(c.SLOTSTIME[len(c.SLOTSTIME) - 2], 
         c.SLOTSTIME[len(c.SLOTSTIME) - 1]))
 
 
@@ -560,8 +560,8 @@ evaluation(samplingElementList)
 firstLine = "day,# job completati, # job B completati, # job P completati," + \
         "#job B nel nodo, # job P nel nodo, # coda B, #coda P," + \
         "last arrival B [H], last arrival" + \
-        " P [H], area B, area P, revenue B, revenue P, revenue, costs," + \
-        "incremental revenue, incremental costs\n"
+        " P [H], area B, area P, revenue B, revenue P, revenue, costs, " + \
+        "daily revenue, incremental grass revenue, incremental revenue, incremental costs\n"
 
 fileName = 'output/transient_m={}.csv'.format(c.SERVERS_B)
 with open(fileName, 'w') as transientOut:
@@ -626,13 +626,14 @@ with open(fileName, 'w') as transientOut:
         incCosts += (c.RENT + c.BILL_COSTS) * stop / 30
 
         line = \
-        '{0},{1},{2},{3},{4},{5},{6},{7},{8},{9:.2f},{10:.2f},{11:.2f},'. \
-        format(day + 1, totalJob, jobB, jobP, currSample.numberB,  
-                currSample.numberP, queueB, queueP, \
+        '{0},{1},{2},{3},{4},{5},{6},{7},{8:.2f},{9:.2f},{10:.2f},{11:.2f},'. \
+        format(day + 1, totalJob, jobB, jobP, elem.numberB,  
+                elem.numberP, queueB, queueP, \
                 lastArrB / 60, lastArrP / 60, areaB,\
                 areaP) 
-        line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f},{4:.2f},{5:.2f}\n'.format(revenueB,\
-                revenueP, revenue, totCost, incRevenue, incCosts)
+        line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f},{4:.2f},{5:.2f},{6:.2f},{7:.2f}\n'.format(revenueB,\
+                revenueP, revenue, totCost, revenue - totCost, incRevenue,
+incRevenue - incCosts,incCosts)
         
         transientOut.write(line)
 

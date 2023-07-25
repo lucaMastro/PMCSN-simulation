@@ -21,7 +21,7 @@ SERVERS_P = 2   # number of type P servers
 ARRIVAL_TEMPS = [START_B, START_P]
 
 #these values will be used for exponential mean, based on the current or next
-#timing 
+#timing, in minutes 
 WEEK_INTERARRIVAL_B = [6, 12, 6, 4, 6]
 WEEKEND_INTERARRIVAL_B = [4, 6, 3, 4, 2]
 WEEK_INTERARRIVAL_P = 6
