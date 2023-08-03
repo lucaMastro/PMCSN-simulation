@@ -4,3 +4,6 @@ report.out
 report.pytxcode
 report.synctex.gz
 report.toc
+*.nix
+.direnv
+.envrc

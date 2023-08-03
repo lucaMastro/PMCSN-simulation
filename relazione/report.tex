@@ -129,6 +129,10 @@
 \setlength\parindent{0pt}
 \newcommand{\image}[1]{\input{|"/home/luca/latex_scripts/add_image.py '#1'"}}
 
+%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\bup}[0]{$\mathcal{B} \cup \mathcal{P}$}
+
+
 \begin{document}
 
 \title{
@@ -147,95 +151,72 @@
 \newpage
 \section{Traccia della Simulazione}
 \subsection{Caso di studio}
-Si vuole valutare l'idea di aprire un locale in un piccolo paese. L'attività
-dovrà offrire ai clienti servizi di bar e di pizzeria. Il locale è già
-provvisto di tutto l'arredamento e lo si affitterà per un costo 1500 $\mbox{\euro}$ al mese.
-Il pizzaiolo scelto per i servizi di pizzeria ha comunicato che, nel
-forno presente, si possono preparare contemporaneamente al massimo 2 pizze,
-ognuna delle quali può essere preparata con un tempo medio di 3 minuti.
-Inoltre, si è già trovato un accordo con lui: lavorerà ogni giorno della
-settimana dalle ore 20:00 alle ore 22:00, percependo una paga di
-50 $\mbox{\euro}$ al giorno con il vincolo che tutte le ordinazioni arrivate prececedentemente alle 22:00 
-verranno sempre completate, anche se per farlo dovrà continuare a sfornare
-pizze oltre questo orario. Per quanto riguarda le richieste al bar, si vuole
-che "l'ultimo giro" venga chiamato alle ore 02:00, senza accettare altre
-richieste successive a quell'orario ma completando tutte quelle ancora
-presenti. \newline
-Dopo un'osservazione settimanale di altri locali che offrono servizi simili, si
-è notato che il numero di clienti che arrivano al locale si differenzia per
-fasce orarie della giornata diverse. Inoltre, nel fine settimana, la frequenza
-delle richieste nelle fasce orarie identificate è maggiore rispetto a quella
-settimanale. Si riportano di seguito delle tabelle riassuntive per le frequenze
-di arrivo nei due casi.
+Si vuole valutare l'idea di aprire un locale in un piccolo paese. L'attività dovrà offrire ai clienti servizi di bar e di pizzeria. Il locale è già provvisto di tutto l'arredamento e lo si affitterà per un costo 1500 $\mbox{\euro}$ al mese. Il pizzaiolo scelto per i servizi di pizzeria ha comunicato che, nel forno presente, si possono preparare contemporaneamente al massimo 2 pizze, ognuna delle quali può essere preparata con un tempo medio di 3 minuti. Inoltre, si è già trovato un accordo con lui: lavorerà ogni giorno della settimana dalle ore 19:00 alle ore 23:00, percependo una paga di 50 $\mbox{\euro}$ al giorno con il vincolo che tutte le ordinazioni arrivate prececedentemente alle 23:00 
+verranno sempre completate, anche se per farlo dovrà continuare a sfornare pizze oltre questo orario. Per quanto riguarda le richieste al bar, si vuole che "l'ultimo giro" venga chiamato alle ore 03:00, senza accettare altre richieste successive a quell'orario ma completando tutte quelle ancora presenti. \newline
+Dopo un'osservazione settimanale di altri locali che offrono servizi simili, si è notato che il numero di clienti che arrivano al locale si differenzia per fasce orarie della giornata diverse. Inoltre, nel fine settimana, la frequenza delle richieste nelle fasce orarie identificate è maggiore rispetto a quella settimanale. Infine, si è osservato che nella fascia oraria tra le 15:00 e le 18:00 le richieste sono talmente poche che non è conveninente mantenere il locale aperto. Si riportano di seguito delle tabelle riassuntive per le frequenze di arrivo:
 
+\target{tabelle riassuntiva dei tassi di arrivo}
 \begin{table}[!htb]
-  \begin{minipage}{.5\linewidth}
-    \centering
+\begin{minipage}{.5\linewidth}
+\centering
     
-        \begin{tabular}{ |c|c|c| }
-          \hline
-          \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
-          \hline
-          \hline
-          07:00 $\rightarrow$ 13:00 & 10 j/h & \xmark \\
-          \hline
-          13:00 $\rightarrow$ 18:00 & 5 j/h & \xmark \\
-          \hline
-          18:00 $\rightarrow$ 20:00 & 10 j/h & \xmark \\
-          \hline
-          20:00 $\rightarrow$ 22:00 & 15 j/h & 10 j/h \\
-          \hline
-          22:00 $\rightarrow$ 02:00 & 10 j/h & \xmark \\
-          \hline
-        \end{tabular}
-        \bigskip
-        
-		\textit{Frequenze di arrivo settimanali} 
-  \end{minipage}
-  \begin{minipage}{.5\linewidth}
-    \centering
-        \begin{tabular}{ |c|c|c| }
-          \hline
-          \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor} $\lambda${\textsubscript{B,WE}}
-      & \cellcolor{cellcolor}$\lambda${\textsubscript{P,WE}} \\
-          \hline
-          \hline
-          07:00 $\rightarrow$ 13:00 & 15 j/h & \xmark \\
-          \hline
-          13:00 $\rightarrow$ 18:00 &10 j/h & \xmark \\
-          \hline
-          18:00 $\rightarrow$ 20:00 & 20 j/h & \xmark \\
-          \hline
-          20:00 $\rightarrow$ 22:00 & 15 j/h & 30 j/h \\
-          \hline
-          22:00 $\rightarrow$ 02:00 & 30 j/h & \xmark \\
-          \hline
-        \end{tabular}
-        \bigskip
-        
-        \textit{Frequenze di arrivo fine-settimanali} 
-  \end{minipage} 
+\begin{tabular}{ |c|c|c| }
+\hline
+\cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
+	\hline
+	\hline
+    07:00 $\rightarrow$ 11:00 & 10 j/h & \xmark \\
+    \hline
+    11:00 $\rightarrow$ 15:00 & 5 j/h & \xmark \\
+    \hline
+    15:00 $\rightarrow$ 18:00 & \xmark & \xmark \\
+    \hline
+    18:00 $\rightarrow$ 19:00 & 10 j/h & \xmark \\
+    \hline
+    19:00 $\rightarrow$ 23:00 & 15 j/h & 10 j/h \\
+    \hline
+    22:00 $\rightarrow$ 02:00 & 10 j/h & \xmark \\
+    \hline
+    \end{tabular}
+	\bigskip 
+	       
+	\textit{Frequenze di arrivo settimanali} 
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\centering
+\begin{tabular}{ |c|c|c| }
+\hline
+\cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor} $\lambda${\textsubscript{B,WE}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,WE}} \\
+	\hline
+	\hline
+	07:00 $\rightarrow$ 13:00 & 15 j/h & \xmark \\
+	\hline
+	13:00 $\rightarrow$ 18:00 &10 j/h & \xmark \\
+    \hline
+	15:00 $\rightarrow$ 18:00 & \xmark & \xmark \\
+    \hline
+    18:00 $\rightarrow$ 19:00 & 20 j/h & \xmark \\
+    \hline
+    19:00 $\rightarrow$ 23:00 & 15 j/h & 30 j/h \\
+    \hline
+    23:00 $\rightarrow$ 03:00 & 30 j/h & \xmark \\
+    \hline
+    \end{tabular}
+	\bigskip 
+	   
+	\textit{Frequenze di arrivo fine-settimanali} 
+\end{minipage} 
 \end{table}
 
 \bigskip
 
 \subsection{Obiettivi}
 Obiettivo dell'analisi è la valutazione del numero di baristi da
-assumere, col fine 
-ultimo di massimizzare i guadagni. Si considera una paga di
-40 $\mbox{\euro}$ al giorno per ognuno di loro; si assume che ogni
-barista sia in grado di servire un'ordinazione in 2 minuti, durante i quali si
-dedica esclusivamente a quella richiesta. Si assume inoltre che il prezzo medio
-delle richieste di tipo B sia di 5 $\mbox{\euro}$, mentre quello delle
-richieste di tipo P sia di 7 $\mbox{\euro}$. Si vuole, però, che i seguenti 
-vincoli siano sempre rispettati:
+assumere, col fine ultimo di massimizzare i guadagni. Si considera una paga di 40 $\mbox{\euro}$ al giorno per ognuno di loro, assumendo per loro turni di 8 ore. Si assume che ogni barista sia in grado di servire un'ordinazione in 2 minuti, durante i quali si dedica esclusivamente a quella richiesta. Si assume inoltre che il prezzo medio delle richieste di tipo B sia di 5 $\mbox{\euro}$, mentre quello delle richieste di tipo P sia di 7 $\mbox{\euro}$. Si vuole, però, che i seguenti vincoli siano sempre rispettati:
 \begin{itemize}
-  \item Ogni ordinazione al bar deve essere servita in un tempo strettamente
-minore di 3 minuti;
-  \item Ogni ordinazione per la pizzeria sia servita in un tempo strettamente
-minore di 10 minuti 
+  \item Ogni ordinazione al bar deve essere servita in un tempo strettamente minore di 3 minuti;
+  \item Ogni ordinazione per la pizzeria sia servita in un tempo strettamente minore di 10 minuti 
 \end{itemize}
-
 
 \newpage
 \section{Modello concettuale}
@@ -248,8 +229,8 @@ $\lambda\textsubscript{B}$ e $\lambda\textsubscript{P}$, che sono rispettivament
 \subsection{Eventi del sistema e variabili di stato}
 \subsection{Eventi}
 \begin{center}
-  \begin{tabular}{ |c|c|c|c| }
-    \hline
+\begin{tabular}{ |c|c|c|c| }
+	\hline
     \cellcolor{cellcolor}Indice & \cellcolor{cellcolor}Descrizione & \cellcolor{cellcolor}Attributo 1 & \cellcolor{cellcolor}Attributo 2 \\
     \hline
     \hline
@@ -269,7 +250,7 @@ $\lambda\textsubscript{B}$ e $\lambda\textsubscript{P}$, che sono rispettivament
     \hline
     m + 5 & Evento di campionamento & t & x \\
     \hline
-  \end{tabular}
+\end{tabular}
 \end{center}
 L'attributo \emph{t} indentifica il tempo schedulato per la successiva occorrenza
 dell'evento di quel tipo; l'attributo \emph{x} identifica lo stato di attività
@@ -280,91 +261,146 @@ dell'evento.
   \item $l\textsubscript{B}(t)$: numero di richieste di tipo B al centro all'istante $t$
   \item $l\textsubscript{P}(t)$: numero di richieste di tipo P al centro all'istante $t$
   \item $X\textsubscript{s}(t)$: stato del servente $s$ all'istante $t$, 
-  con $s \in [1, m + 2]$. \newline
-  Si è indicato con $m+1$ e $m+2$ i serventi relativi alla pizzeria.  
+  con $s \in$ \bup, dove \bup{} è l'insieme dei serventi di tipo \textit{B} unito all'insieme dei serventi di tipo \textit{P}.
   \[
       X\textsubscript{s}(t) = 
   \begin{cases}
       1& \text{se servente s è occupato}\\ 
       0              & \text{altrimenti}
   \end{cases}
-  \]
-%  \item $B(t)$: numero di richieste di tipo B completate all'istante t
-%  \item $P(t)$: numero di richieste di tipo P completate all'istante t
-%  \item $r\textsubscript{B}(t)$: guadagno dovuto alle richieste di tipo
-%B all'istante t 
-%  \item $r\textsubscript{P}(t)$: guadagno dovuto alle richieste di tipo
-%P all'istante t 
-%  \item $c(t)$: spese totali dell'attività all'istante t
+  \]	
 \end{itemize}
 
 \section{Modello delle specifiche}
-%\subsection{Eventi}
-%\begin{enumerate}
-%  \item Arrivo di una richiesta di tipo B:
-%    \begin{itemize}
-%      \item $l\textsubscript{B}(t)$ viene incrementato di 1
-%      \item Se $l\textsubscript{B}(t) < m \implies$ c'è almeno un server libero \textit{s} che viene
-%      selezionato per servire la richiesta e $X\textsubscript{s}(t) \leftarrow
-%1$
-%    \end{itemize}
+
+\subsection{Periodo di osservazione}
+Il periodo di osservazione è quello di un intero anno e ogni giorno si osserva l'intera giornata lavorativa costituita dalle due fasce orarie riportate precedentemente nelle \attach{tabelle riassuntiva dei tassi di arrivo}.
+
+\subsection{Distribuzione degli arrivi}
+I valori dei vari tassi di arrivo sono stati raccolti analizzando un caso reale, anche se si tratta comunque di una stima. Per rappresentare il processo degli arrivi è stata utilizzata la distribuzione esponenziale, utilizzando $\lambda$ diversi per ogni fascia oraria. Inoltre, all'interno della singola fascia oraria, gli arrivi potrebbero essere modellati come una distribuzione gaussiana, centrata attorno all'ora in cui le richieste sono più probabili. A partire da questa osservazione, si è scelto di utilizzare la distribuzione esponenziale per modellare gli arrivi, ma la media utilizzata è pesata opportunamente per una probabilità che è tanto più alta quanto più il tempo di simulazione è vicino all'ora di massima affluenza per quella fascia oraria. Per modellare questo, si definiscono delle frequenze di interarrivo medie per ogni fascia oraria, riportate qui in minuti:
+\bigskip
+
+\begin{minipage}{.5\textwidth}
+\centering             
+\begin{tabular}{ |c|c|c| }
+	\hline
+    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
+	\hline
+    \hline
+   	\ &\ &\ \\
+	07:00 $\rightarrow$ 13:00 & $\frac{1}{6}$ j/min & \xmark \\
+    \ &\ &\ \\
+    \hline
+    
+    \ &\ &\ \\
+	13:00 $\rightarrow$ 18:00 & $\frac{1}{12}$ j/min & \xmark \\
+    \ &\ &\ \\
+    \hline
+    
+    \ &\ &\ \\
+	18:00 $\rightarrow$ 20:00 & $\frac{1}{6}$ j/min & \xmark \\
+    \ &\ &\ \\
+    \hline
+    
+    \ &\ &\ \\
+	20:00 $\rightarrow$ 22:00 & $\frac{1}{4}$ j/min & $\frac{1}{6}$ j/min \\
+    \ &\ &\ \\
+    \hline
+    
+    \ &\ &\ \\
+	22:00 $\rightarrow$ 02:00 & $\frac{1}{6}$ j/min & \xmark \\
+    \ &\ &\ \\
+    \hline
+\end{tabular}
+\bigskip
+              
+\textit{Frequenze di arrivo settimanali}
+\end{minipage}
 %
-%  \item Completamento di richiesta di tipo B da parte del servente $s$:
-%    \begin{itemize}
-%      \item $l\textsubscript{B}(t)$ viene decrementato di 1
-%      \item $B(t)$ viene incrementato di 1
-%      \item Se $l\textsubscript{B}(t) \geq m \implies$ viene scelto un job dalla coda di B per
-%      essere servito, altrimenti $X\textsubscript{s}(t) \leftarrow 0$ 
-%    \end{itemize}
-%
-%  \item Arrivo di una richiesta di tipo P:
-%    \begin{itemize}
-%      \item $l\textsubscript{P}(t)$ viene incrementato di 1
-%      \item Se $l\textsubscript{P}(t) < 2 \implies$ c'è almeno un server libero s che viene
-%      selezionato per servire la richiesta e $X\textsubscript{s}(t) \leftarrow
-%1$
-%    \end{itemize}
-%
-%  \item Completamento di richiesta di tipo P da parte del servente $s$:
-%    \begin{itemize}
-%      \item $l\textsubscript{P}(t)$ viene decrementato di 1
-%      \item $P(t)$ viene incrementato di 1
-%      \item Se $l\textsubscript{P}(t) \geq 2 \implies$ viene scelto un job dalla coda di P per
-%      essere servito, altrimenti $X\textsubscript{s}(t) \leftarrow 0$ 
-%    \end{itemize}
-%
-%  \item Campionamento: lo stato non viene alterato ma vengono raccolti i dati
-%attuali del sistema
-%\end{enumerate}
-%
-%Si definisce quindi una lista di eventi:
-%\begin{center}
-%  \begin{tabular}{ |c|c|c|c| }
-%    \hline
-%    \cellcolor{cellcolor}Indice & \cellcolor{cellcolor}Descrizione & \cellcolor{cellcolor}Attributo 1 & \cellcolor{cellcolor}Attributo 2 \\
-%    \hline
-%    \hline
-%    1 & Arrivo di tipo B & t & x \\
-%    \hline
-%    2 & Completamento dal server $B_1$ & t & x \\
-%    \hline
-%    .. & .. & t & x \\
-%    \hline
-%    m + 1 & Completamento dal server $B_m$ & t & x \\
-%    \hline
-%    m + 2 & Arrivo di tipo P & t & x \\
-%    \hline
-%    m + 3 & Completamento dal server $P_1$ & t & x \\
-%    \hline
-%    m + 4 & Completamento dal server $P_2$ & t & x \\
-%    \hline
-%    m + 5 & Evento di campionamento & t & x \\
-%    \hline
-%  \end{tabular}
-%\end{center}
-%L'attributo \emph{t} indentifica il tempo schedulato per la successiva occorrenza
-%dell'evento di quel tipo; l'attributo \emph{x} identifica lo stato di attività
-%dell'evento.
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{tabular}{ |c|c|c| }
+	\hline
+    \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,WE}}
+    &\cellcolor{cellcolor} $\lambda${\textsubscript{P,WE}} \\
+    \hline
+    \hline
+    
+    \ &\ &\ \\
+	07:00 $\rightarrow$ 13:00 & $\frac{1}{4}$ j/min & \xmark \\ 
+    \ &\ &\ \\
+    \hline
+    
+    \ &\ &\ \\
+	13:00 $\rightarrow$ 18:00 & $\frac{1}{6}$ j/min & \xmark \\
+    \ &\ &\ \\
+    \hline
+    
+    \ &\ &\ \\
+	18:00 $\rightarrow$ 20:00 & $\frac{1}{3}$ j/min & \xmark \\
+    \ &\ &\ \\
+    \hline
+    
+    \ &\ &\ \\
+	20:00 $\rightarrow$ 22:00 & $\frac{1}{4}$ j/min & $\frac{1}{2}$ j/min \\
+    \ &\ &\ \\
+    \hline
+    
+    \ &\ &\ \\
+	22:00 $\rightarrow$ 02:00 & $\frac{1}{2}$ j/min & \xmark \\
+    \ &\ &\ \\
+    \hline
+\end{tabular}
+\bigskip
+              
+\textit{Frequenze di arrivo fine-settimanali} 
+\end{minipage} 
+\bigskip
+
+Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ |c|c|c| }
+	\hline
+    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\mu$ & \cellcolor{cellcolor}$\sigma$\\
+	\hline
+    \hline
+
+  	07:00 $\rightarrow$ 11:00 & 8 & 1.2 \\
+    \hline	
+	
+	11:00 $\rightarrow$ 15:00 & 13.5 & 2 \\
+    \hline
+  
+	18:00 $\rightarrow$ 19:00 & 18.5 & 0.4 \\  
+    \hline
+    
+	19:00 $\rightarrow$ 23:00 & 22.5 & 2\\
+    \hline
+    
+    23:00 $\rightarrow$ 02:00 & 24 & 0.9 \\
+    \hline    
+\end{tabular}
+\end{table}
+
+La loro rappresentazione grafica è riportata \hyperlink{rappresentazione grafica gaussiane}{in fondo al documento}. 
+\bigskip
+
+Ora, supponiamo di essere all'istante di simulazione $t_0$ di un giorno settimanale, nella prima fascia oraria; in questo caso $\lambda = \frac{1}{6}\ j/min$ .  Per generare il prossimo tempo di interarrivo, si definisce:
+\[
+\lambda' = \lambda \cdot f^n(t_0)
+\]
+dove $f^n(t_0)$ è il valore della distribuzione normale relativa alla fascia oraria valutata in $t_0$ e normalizzata rispetto alla fascia oraria. Nell'esempio:
+\[
+f^n(t_0) = \frac{f(t_0)}{F(11) - F(7)}
+\]
+con $F(x)$ funzione cumulativa della distribuzione relativa alla fascia oraria 07:00 $\rightarrow$ 11:00.\\
+Dopo aver calcolato in questo modo $\lambda'$, si procede a generare il nuovo tempo di interarrivo con \texttt{Exponential(1/}$\lambda'$\texttt{)}.\\
+
+Non si è usata una gaussiana direttamente come distribuizione del tempo di interarrivo perché avrebbe modellato una cosa diversa: avrei rappresentato che i tempi sono molto più vicini al valor medio della distribuzione all'interno dell'intero intervallo, invece si vuole modellare che il tempo di interarrivo diminuisce in un intorno di un tempo specifico
+
+
 
 
 \subsection{Assunzioni}
@@ -373,139 +409,16 @@ dell'evento.
   \[ 
     l\textsubscript{B}(0) + l\textsubscript{P}(0) = P(0) + B(0) = 0 
 \]
-  Come conseguenza, il primo evento deve essere necessariamente un Arrivo.
+  Come conseguenza, il primo evento deve essere necessariamente un arrivo e, in particolare, è un arrivo di tipo \textit{B}: la pizzeria apre alle 19.
   \item Stato finale di ogni giorno vuoto:
 \[
     X\textsubscript{s}(T) = 0\ \ \ \forall s \in \mathcal{B} \cup \mathcal{P}
 \]
-  Con $T$ tempo di chiusura giornaliero e $\mathcal{B} \cup \mathcal{P}$ l'unione dell'insieme dei serventi di tipo \textit{B} e \textit{P}.
+  Con $T$ tempo di chiusura giornaliero e $\mathcal{B} \cup \mathcal{P}$ l'unione dell'insieme dei serventi di tipo \textit{B} e \textit{P}. Come conseguenza, l'ultimo evento non può essere un arrivo, e sarà quindi o una partenza o un campionamento.
 
-  \item Il processo degli arrivi di tipo \textit{B} deve essere interrotto alle 02:00,
-mentre quello degli arrivi di tipo P deve essere interrotto alle 22:00.
+  \item I tempi di servizio di ognuno dei serventi si assumono  esponenziali e indipendenti dalla fascia oraria. In particolare, ogni servente di tipo \textit{B} lavora con frequenza media pari a $\mu\textsubscript{B} = \frac{1}{2}\ j/min$; ogni servente di tipo \textit{P} lavora con frequenza media pari a $\mu\textsubscript{P} = \frac{1}{3}\ j/min$.
+
   
-  \item Alla chiusura del processo degli arrivi, le richieste in coda
-continuano ad essere servite fino al loro esaurimento.
-
-  \item L'ultimo evento non può essere un arrivo, e sarà quindi o una partenza
-o un campionamento.
-
-  \item Per la selezione del servente si usa una politica di Equity.
-
-  \item Gli arrivi sono di Poisson e seguono una distribuzione esponenziale
-con media $\frac{1}{\lambda\textsubscript{h}}$, con $\lambda\textsubscript{h}$ tasso di arrivo per quella
-specifica fascia oraria.
-
-  \item I tempi di servizio di ognuno dei serventi si assume  esponenziale. In particolare, ogni servente di tipo \textit{B} lavora con frequenza media pari a: $\frac{1}{\mu\textsubscript{B}}$; ogni servente di tipo \textit{P} lavora con frequenza media pari a: $\frac{1}{\mu\textsubscript{P}}$.
-
-  \item Il tempo di fine simulazione è $\tau$ e si avrà che:
-\[
-  \sum_{s \in \mathcal{B} \cup \mathcal{P}}X\textsubscript{s}(\tau) = 0
-\]
-
-\newpage
-  \item I tassi di arrivo, riporati in minuti, sono i seguenti:
-
-    \begin{table}[!htb]
-        \begin{minipage}{.5\linewidth}
-          \centering
-             
-              \begin{tabular}{ |c|c|c| }
-                \hline
-                \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
-                \hline
-                \hline
-                \ &\ &\ \\
-                07:00 $\rightarrow$ 13:00 & $\frac{1}{6}$ j/min & \xmark \\
-                \ &\ &\ \\
-                \hline
-                \ &\ &\ \\
-                13:00 $\rightarrow$ 18:00 & $\frac{1}{12}$ j/min & \xmark \\
-                \ &\ &\ \\
-                \hline
-                \ &\ &\ \\
-                18:00 $\rightarrow$ 20:00 & $\frac{1}{6}$ j/min & \xmark \\
-                \ &\ &\ \\
-                \hline
-                \ &\ &\ \\
-                20:00 $\rightarrow$ 22:00 & $\frac{1}{4}$ j/min & $\frac{1}{6}$ j/min \\
-                \ &\ &\ \\
-                \hline
-                \ &\ &\ \\
-                22:00 $\rightarrow$ 02:00 & $\frac{1}{6}$ j/min & \xmark \\
-                \ &\ &\ \\
-                \hline
-              \end{tabular}
-              \bigskip
-              
-			\textit{Frequenze di arrivo settimanali}
-        \end{minipage}
-        \begin{minipage}{.5\linewidth}
-          \centering
-              \begin{tabular}{ |c|c|c| }
-                \hline
-                \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,WE}}
-            &\cellcolor{cellcolor} $\lambda${\textsubscript{P,WE}} \\
-                \hline
-                \hline
-                \ &\ &\ \\
-                07:00 $\rightarrow$ 13:00 & $\frac{1}{4}$ j/min & \xmark \\ 
-                \ &\ &\ \\
-                \hline
-                \ &\ &\ \\
-                13:00 $\rightarrow$ 18:00 & $\frac{1}{6}$ j/min & \xmark \\
-                \ &\ &\ \\
-                \hline
-                \ &\ &\ \\
-                18:00 $\rightarrow$ 20:00 & $\frac{1}{3}$ j/min & \xmark \\
-                \ &\ &\ \\
-                \hline
-                \ &\ &\ \\
-                20:00 $\rightarrow$ 22:00 & $\frac{1}{4}$ j/min & $\frac{1}{2}$ j/min \\
-                \ &\ &\ \\
-                \hline
-                \ &\ &\ \\
-                22:00 $\rightarrow$ 02:00 & $\frac{1}{2}$ j/min & \xmark \\
-                \ &\ &\ \\
-                \hline
-              \end{tabular}
-              \bigskip
-              
-			\textit{Frequenze di arrivo fine-settimanali} 
-        \end{minipage} 
-    \end{table}
-
-  \item Le frequenze di uscita medie del singolo server sono indipendenti dalle
-fasce orarie e si assumono uguali tra serventi dello stesso tipo e sono le 
-seguenti: \newline
-
-    \begin{table}[!htb]
-        \begin{minipage}{.5\linewidth}
-          \centering
-            \begin{tabular}{ |c| }
-              \hline
-              \cellcolor{cellcolor}$\mu{\textsubscript{B}}$ \\
-              \hline
-              \hline
-              \ \\
-              $\frac{1}{2} \frac{j}{min}$ \\
-              \ \\
-              \hline
-            \end{tabular}
-        \end{minipage}
-        \begin{minipage}{.5\linewidth}
-          \centering
-          \begin{tabular}{ |c| }
-            \hline
-            \cellcolor{cellcolor}$\mu{\textsubscript{P}}$ \\
-            \hline
-            \hline
-            \ \\
-            $\frac{1}{3}$ j/min \\
-            \ \\
-            \hline
-          \end{tabular}
-        \end{minipage} 
-    \end{table}
 \end{itemize}
 
 \newpage
@@ -1225,5 +1138,41 @@ Si può notare che, al crescere di $m$, la differenza dei tempi con il caso $m
 - 1$ è sempre minore: questo si può spiegare considerando che i tassi di arrivo
 non sono stati cambiati: aumentando $m$, quindi, si va a diminuire il tempo di
 coda di ogni job, che tende quindi a 0.
+
+
+\section{Immagini}
+
+\target{rappresentazione grafica gaussiane}
+\subsection{Distribuzioni gaussiane per gli arrivi}
+\[
+y=\frac{1}{\sqrt{2\pi}\sigma}e^\frac{-(x-\mu)^2}{2\sigma^2}
+\]
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{7-11-gaussian}
+\centering \textit{Fascia oraria: 07:00 $\rightarrow$ 11:00}
+\[ \mu = 8;\ \sigma = 1.2 \]
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{11-15-gaussian}
+\centering \textit{Fascia oraria: 11:00 $\rightarrow$ 15:00}
+\[ \mu = 13.5;\ \sigma = 2 \]
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{18-19-gaussian}
+\centering \textit{Fascia oraria: 18:00 $\rightarrow$ 19:00}
+\[ \mu = 18.5;\ \sigma = 0.4 \]
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{19-23-gaussian}
+\centering \textit{Fascia oraria: 19:00 $\rightarrow$ 23:00}
+\[ \mu = 22.5;\ \sigma = 2 \]
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{23-02-gaussian}
+\centering \textit{Fascia oraria: 23:00 $\rightarrow$ 02:00}
+\[ \mu = 24;\ \sigma = 0.9 \]
+\end{figure}
 
 \end{document}
