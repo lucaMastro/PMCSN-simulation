@@ -165,17 +165,17 @@ Dopo un'osservazione settimanale di altri locali che offrono servizi simili, si 
 \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
 	\hline
 	\hline
-    07:00 $\rightarrow$ 11:00 & 10 j/h & \xmark \\
+    07:00 $\rightarrow$ 11:00 & 30 j/h & \xmark \\
     \hline
-    11:00 $\rightarrow$ 15:00 & 5 j/h & \xmark \\
+    11:00 $\rightarrow$ 15:00 & 12.5 j/h & \xmark \\
     \hline
     15:00 $\rightarrow$ 18:00 & \xmark & \xmark \\
     \hline
-    18:00 $\rightarrow$ 19:00 & 10 j/h & \xmark \\
+    18:00 $\rightarrow$ 19:00 & 25 j/h & \xmark \\
     \hline
-    19:00 $\rightarrow$ 23:00 & 15 j/h & 10 j/h \\
+    19:00 $\rightarrow$ 23:00 & 12.5 j/h & 10 j/h \\
     \hline
-    22:00 $\rightarrow$ 02:00 & 10 j/h & \xmark \\
+    23:00 $\rightarrow$ 02:00 & 10 j/h & \xmark \\
     \hline
     \end{tabular}
 	\bigskip 
@@ -189,17 +189,17 @@ Dopo un'osservazione settimanale di altri locali che offrono servizi simili, si 
 \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor} $\lambda${\textsubscript{B,WE}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,WE}} \\
 	\hline
 	\hline
-	07:00 $\rightarrow$ 13:00 & 15 j/h & \xmark \\
+	07:00 $\rightarrow$ 13:00 & 30 j/h & \xmark \\
 	\hline
-	13:00 $\rightarrow$ 18:00 &10 j/h & \xmark \\
+	13:00 $\rightarrow$ 18:00 & 20 j/h & \xmark \\
     \hline
 	15:00 $\rightarrow$ 18:00 & \xmark & \xmark \\
     \hline
-    18:00 $\rightarrow$ 19:00 & 20 j/h & \xmark \\
+    18:00 $\rightarrow$ 19:00 & 45 j/h & \xmark \\
     \hline
-    19:00 $\rightarrow$ 23:00 & 15 j/h & 30 j/h \\
+    19:00 $\rightarrow$ 23:00 & 22.5 j/h & 40 j/h \\
     \hline
-    23:00 $\rightarrow$ 03:00 & 30 j/h & \xmark \\
+    23:00 $\rightarrow$ 03:00 & 20 j/h & \xmark \\
     \hline
     \end{tabular}
 	\bigskip 
@@ -234,21 +234,21 @@ $\lambda\textsubscript{B}$ e $\lambda\textsubscript{P}$, che sono rispettivament
     \cellcolor{cellcolor}Indice & \cellcolor{cellcolor}Descrizione & \cellcolor{cellcolor}Attributo 1 & \cellcolor{cellcolor}Attributo 2 \\
     \hline
     \hline
-    1 & Arrivo di tipo B & t & x \\
+    0 & Arrivo di tipo B & t & x \\
     \hline
-    2 & Completamento dal server $B_1$ & t & x \\
+    1 & Completamento dal server $B_1$ & t & x \\
     \hline
     .. & .. & t & x \\
     \hline
-    m + 1 & Completamento dal server $B_m$ & t & x \\
+    m & Completamento dal server $B_m$ & t & x \\
     \hline
-    m + 2 & Arrivo di tipo P & t & x \\
+    m + 1 & Arrivo di tipo P & t & x \\
     \hline
-    m + 3 & Completamento dal server $P_1$ & t & x \\
+    m + 2 & Completamento dal server $P_1$ & t & x \\
     \hline
-    m + 4 & Completamento dal server $P_2$ & t & x \\
+    m + 3 & Completamento dal server $P_2$ & t & x \\
     \hline
-    m + 5 & Evento di campionamento & t & x \\
+    m + 4 & Evento di campionamento & t & x \\
     \hline
 \end{tabular}
 \end{center}
@@ -287,29 +287,29 @@ I valori dei vari tassi di arrivo sono stati raccolti analizzando un caso reale,
     \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
 	\hline
     \hline
-   	\ &\ &\ \\
-	07:00 $\rightarrow$ 13:00 & $\frac{1}{6}$ j/min & \xmark \\
-    \ &\ &\ \\
+
+	07:00 $\rightarrow$ 11:00 & 0.5 j/min & \xmark \\
+
     \hline
     
-    \ &\ &\ \\
-	13:00 $\rightarrow$ 18:00 & $\frac{1}{12}$ j/min & \xmark \\
-    \ &\ &\ \\
+
+	11:00 $\rightarrow$ 15:00 & 0.21 j/min & \xmark \\
+
     \hline
     
-    \ &\ &\ \\
-	18:00 $\rightarrow$ 20:00 & $\frac{1}{6}$ j/min & \xmark \\
-    \ &\ &\ \\
+
+	18:00 $\rightarrow$ 19:00 & 0.42 j/min & \xmark \\
+
     \hline
     
-    \ &\ &\ \\
-	20:00 $\rightarrow$ 22:00 & $\frac{1}{4}$ j/min & $\frac{1}{6}$ j/min \\
-    \ &\ &\ \\
+
+	19:00 $\rightarrow$ 23:00 & 0.21 j/min & 0.17 j/min \\
+
     \hline
     
-    \ &\ &\ \\
-	22:00 $\rightarrow$ 02:00 & $\frac{1}{6}$ j/min & \xmark \\
-    \ &\ &\ \\
+
+	23:00 $\rightarrow$ 02:00 & 0.17 j/min & \xmark \\
+
     \hline
 \end{tabular}
 \bigskip
@@ -326,29 +326,29 @@ I valori dei vari tassi di arrivo sono stati raccolti analizzando un caso reale,
     \hline
     \hline
     
-    \ &\ &\ \\
-	07:00 $\rightarrow$ 13:00 & $\frac{1}{4}$ j/min & \xmark \\ 
-    \ &\ &\ \\
+
+	07:00 $\rightarrow$ 11:00 & 0.5 j/min & \xmark \\ 
+
     \hline
     
-    \ &\ &\ \\
-	13:00 $\rightarrow$ 18:00 & $\frac{1}{6}$ j/min & \xmark \\
-    \ &\ &\ \\
+
+	11:00 $\rightarrow$ 15:00 & 0.34 j/min & \xmark \\
+
     \hline
     
-    \ &\ &\ \\
-	18:00 $\rightarrow$ 20:00 & $\frac{1}{3}$ j/min & \xmark \\
-    \ &\ &\ \\
+
+	18:00 $\rightarrow$ 19:00 & 0.75 j/min & \xmark \\
+
     \hline
     
-    \ &\ &\ \\
-	20:00 $\rightarrow$ 22:00 & $\frac{1}{4}$ j/min & $\frac{1}{2}$ j/min \\
-    \ &\ &\ \\
+
+	19:00 $\rightarrow$ 23:00 & 0.375 j/min & 1 j/min \\
+
     \hline
     
-    \ &\ &\ \\
-	22:00 $\rightarrow$ 02:00 & $\frac{1}{2}$ j/min & \xmark \\
-    \ &\ &\ \\
+
+	23:00 $\rightarrow$ 02:00 & 0.34 j/min & \xmark \\
+
     \hline
 \end{tabular}
 \bigskip
@@ -387,7 +387,7 @@ Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:
 La loro rappresentazione grafica è riportata \hyperlink{rappresentazione grafica gaussiane}{in fondo al documento}. 
 \bigskip
 
-Ora, supponiamo di essere all'istante di simulazione $t_0$ di un giorno settimanale, nella prima fascia oraria; in questo caso $\lambda = \frac{1}{6}\ j/min$ .  Per generare il prossimo tempo di interarrivo, si definisce:
+Ora, supponiamo di essere all'istante di simulazione $t_0$ di un giorno settimanale, nella prima fascia oraria; in questo caso $\lambda = 0.5\ j/min$ .  Per generare il prossimo tempo di interarrivo, si definisce:
 \[
 \lambda' = \lambda \cdot f^n(t_0)
 \]
@@ -395,7 +395,7 @@ dove $f^n(t_0)$ è il valore della distribuzione normale relativa alla fascia or
 \[
 f^n(t_0) = \frac{f(t_0)}{F(11) - F(7)}
 \]
-con $F(x)$ funzione cumulativa della distribuzione relativa alla fascia oraria 07:00 $\rightarrow$ 11:00.\\
+con $F(x)$ funzione cumulativa della distribuzione gaussiana relativa alla fascia oraria 07:00 $\rightarrow$ 11:00.\\
 Dopo aver calcolato in questo modo $\lambda'$, si procede a generare il nuovo tempo di interarrivo con \texttt{Exponential(1/}$\lambda'$\texttt{)}.\\
 
 Non si è usata una gaussiana direttamente come distribuizione del tempo di interarrivo perché avrebbe modellato una cosa diversa: avrei rappresentato che i tempi sono molto più vicini al valor medio della distribuzione all'interno dell'intero intervallo, invece si vuole modellare che il tempo di interarrivo diminuisce in un intorno di un tempo specifico

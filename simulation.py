@@ -1,153 +1,24 @@
-from rngs import plantSeeds, random, selectStream
-from math import log
-import copy
 
-import configurations as c
-
-
-
-def Uniform(a,b):  
-# --------------------------------------------
-# * generate a Uniform random variate, use a < b 
-# * --------------------------------------------
-# */
-  return (a + (b - a) * random())  
-
-def getSamplingTime():
-    selectStream(4) 
-    # choosing a value between 20 and 22: otherwise P-type variables may not 
-    # be sampled
-    return (Uniform(c.SLOTSTIME[len(c.SLOTSTIME) - 2], 
-        c.SLOTSTIME[len(c.SLOTSTIME) - 1]))
+from support.functions import *
+from support.rngs import plantSeeds
+from support.SamplingEvent import SamplingEvent
+from support.Time import Time
+from support.Statistics import Statistics
+from support.SamplingList import SamplingList
+import support.Config as config
 
 
-def Exponential(m):
-# ---------------------------------------------------
-# * generate an Exponential random variate, use m > 0.0 
-# * ---------------------------------------------------
-# */
-    return (-m * log(1.0 - random()))
-
-
-def getCorrectInterarrival(isP = False):
-#   checking if it's a weekend:
-    m = 0
-    if (t.dayOfWeek > 4):
-        if (isP):
-            m = c.WEEKEND_INTERARRIVAL_P
-        else:
-            m = c.WEEKEND_INTERARRIVAL_B[t.timeSlot]
-    else: # week day
-        if (isP):
-            m = c.WEEK_INTERARRIVAL_P
-        else:
-            m = c.WEEK_INTERARRIVAL_B[t.timeSlot]
-    return m
-
-
-
-def GetArrivalB():
-# ---------------------------------------------
-# * generate the next arrival time, with rate 1/2
-# * ---------------------------------------------
-# */ 
-    global ARRIVAL_TEMPS
-
-    selectStream(0) 
-    m = getCorrectInterarrival()
-    c.ARRIVAL_TEMPS[0] += Exponential(m)
-    return (c.ARRIVAL_TEMPS[0])
-
-
-def GetArrivalP():
-# ---------------------------------------------
-# * generate the next arrival time, with rate 1/2
-# * ---------------------------------------------
-# */ 
-    global ARRIVAL_TEMPS
-
-    selectStream(1) 
-    m = getCorrectInterarrival(True)
-    #print(t.dayOfWeek, t.current, m)
-    c.ARRIVAL_TEMPS[1] += Exponential(m)
-    return (c.ARRIVAL_TEMPS[1]) 
-
-def GetServiceB():
-# --------------------------------------------
-# * generate the next service time with rate 1/6
-# * --------------------------------------------
-# */ 
-    selectStream(2)
-    #service type B has a rate of 1/2
-    return Exponential(c.MEAN_SERVICE_TIME_B)
-  
-def GetServiceP():
-# --------------------------------------------
-# * generate the next service time with rate 1/6
-# * --------------------------------------------
-# */ 
-    selectStream(3)
-    #service type P has a rate of 1/3
-    #67% is under the mean: perfect case for a pizza :P
-    return Exponential(c.MEAN_SERVICE_TIME_P)
-
-
-def NextEvent(events):
-    # ---------------------------------------
-# * return the index of the next event type
-# * ---------------------------------------
-# */
-
-    i = 0
-    while (events[i].x == 0):       # find the index of the first 'active' */
-        i += 1                        # element in the event list            */ 
-    #EndWhile
-    e = i
-    while (i < len(events) - 1):         # now, check the others to find which  */
-        i += 1                        # event type is most imminent          */
-        if ((events[i].x == 1) and (events[i].t < events[e].t)):
-            e = i
-    #EndWhile
-
-    return (e)
-
-def FindOne(events, isP = False):
-# -----------------------------------------------------
-# * return the index of the available server idle longest
-# * -----------------------------------------------------
-# */
-    
-    startingPoint = 1
-    if (isP): #just changing starting point and end-point
-        # in this way, it skips the B-servers and the P-arrival event
-        startingPoint += c.SERVERS_B + 1 
-        endingPoint = len(events) - 1
-    else:
-        endingPoint = c.SERVERS_B + 1
-
-    s = -1
-    for i in range(startingPoint, endingPoint):
-        if (events[i].x == 0): # and (events[i].t < events[s].t)):
-                if (s == -1):
-                    s = i
-                else:
-                    if (events[i].t < events[s].t):
-                        s = i
-    return (s)
-
-
-def evaluation(listOfSample):
+""" def evaluation(stats, listOfSample):
     l = len(listOfSample)
     titles = ["BAR:\n", "PIZZERIA:\n"]
-    global lastArrivalsTime
-    global areas
-    global indexes
+    indexes = None
+
     if l == 1:
         # STEADY ANALISYS
         indexes = listOfSample[0].indexes 
         index = indexes[0] + indexes[1]
         print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
-        stop = c.STOP
+        stop = config.STOP
     else:
         # TRANSIENT ANALISYS
         print("\n\nTransient analisys:")
@@ -166,12 +37,16 @@ def evaluation(listOfSample):
 
         print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
 
+        # ?????????????
         # computing average number of elapsed days 
         tmp = 0
         for i in range(numSample):
             tmp += samplingElementList[i].time.day
         stop = int(tmp / numSample)
 
+        # ?????????????? quando faccio il sampling l'ultimo arrivo potrebbe non essere 
+        # avvenuto: infatti il sampling avviene in un momento random dell'ultima fascia 
+        # oraria, e non è detto che poi non ce ne siano altri
         # computing average lastArrival
         tmpB = 0
         tmpP = 0
@@ -189,6 +64,9 @@ def evaluation(listOfSample):
         areas = [tmpB / numSample, tmpP / numSample]
 
         # computing mean served and service time for each server:
+        # there is a AccumSum obj for each event in eventList. the last one is the
+        # sampling element: that's why it's excluded. Also exclude the B Arrival index, that
+        # is 0
         for s in range(1, len(sum) - 1): 
             if s == pArrivalIndex: #the arrivalP event, then skip
                 continue
@@ -201,11 +79,11 @@ def evaluation(listOfSample):
             sum[s].service = service / numSample
 
     serviceTimes = [19 * 60 * stop, 2 * 60 * stop]
-    tmp = lastArrivalsTime[0] - c.START_B
+    tmp = lastArrivalsTime[0] - config.START_B
     tmp += 19 * 60 * (stop - 1) 
     lastArrivalsTime[0] = tmp
 
-    tmp = lastArrivalsTime[1] - c.START_P
+    tmp = lastArrivalsTime[1] - config.START_P
     tmp += 2 * 60 * (stop - 1)
     lastArrivalsTime[1] = tmp
     for i in range(2):
@@ -219,9 +97,9 @@ def evaluation(listOfSample):
 
         if (i == 0):
             startingPoint = 1
-            endPoint = c.SERVERS_B + 1
+            endPoint = config.SERVERS_B + 1
         else:
-            startingPoint = c.SERVERS_B + 1 
+            startingPoint = config.SERVERS_B + 1 
             endPoint = len(events) - 1          #excluding sampling 
         for s in range(startingPoint, endPoint):  # adjust area to calculate */ 
             if (s != pArrivalIndex):
@@ -244,21 +122,21 @@ def evaluation(listOfSample):
     monthsNum = int(stop / 30) # number of months
     # if ( stop % 30 != 0):
     #    monthsNum += 1
-    rentCost = monthsNum * c.RENT 
+    rentCost = monthsNum * config.RENT 
 
-    peopleCost= stop * c.COSTS[0] * c.SERVERS_B + stop * c.COSTS[1] * c.SERVERS_P / 2 
+    peopleCost= stop * config.COSTS[0] * config.SERVERS_B + stop * config.COSTS[1] * config.SERVERS_P / 2 
 
     # computing total served requests for each type
     total_B_services = 0
-    for s in range(1, c.SERVERS_B + 1):
+    for s in range(1, config.SERVERS_B + 1):
         total_B_services += sum[s].served
 
     total_P_services = 0
-    for s in range(c.SERVERS_B + 2, len(events) - 1):     #excludin sampling event
+    for s in range(config.SERVERS_B + 2, len(events) - 1):     #excludin sampling event
         total_P_services += sum[s].served
 
     # grass revenue 
-    revenue = total_B_services * c.REVENUES[0] + total_P_services * c.REVENUES[1]
+    revenue = total_B_services * config.REVENUES[0] + total_P_services * config.REVENUES[1]
 
     # each request costs to restaurant half of its selling cost
     # meaning that if request B costs 3€, it has been bought at 1.50€
@@ -266,10 +144,10 @@ def evaluation(listOfSample):
     materialCost = revenue / 2
 
     # computing iva at 22%
-    ivaCost = revenue * c.IVA / 100
+    ivaCost = revenue * config.IVA
 
     #computing bill costs
-    billCosts = monthsNum * c.BILL_COSTS 
+    billCosts = monthsNum * config.BILL_COSTS 
 
     print("\n\nREVENUE ({0} days):\n".format(stop))
     print("  Gross revenue...... = {0:.2f} €".format(revenue))
@@ -285,355 +163,305 @@ def evaluation(listOfSample):
     revenue -= billCosts 
     print("  Revenue for year... = {0:.2f} €".format(revenue))
     print("  Revenue for month.. = {0:.2f} €".format(revenue / monthsNum))
+     """
 
 
 
-class Event:
-    t = None  #next event time
-    x = None  #event status, 0 or 1
-
-class Time:
-    current = None          # current time in minutes            */
-    next = None             # next (most imminent) event time in minutes  */
-    day = None              # used to trace all days simulated. The end of
-                            # simulation is computed on this value
-
-    dayOfWeek = None        # used to trace week or weekend interarrivals
-    # monday = 0            
-    # tuesday = 1
-    # wednesday = 2
-    # thursday = 3
-    # friday = 4
-    # saturday = 5
-    # sunday = 6
-
-    timeSlot = None         # current slot indicator
+def processArrivalB(stats:Statistics, time:Time):
+    global dayArrivals
+    stats.numbers[0] += 1 
+    stats.number += 1
     
-    def __init__(self):
-        self.current = c.START_B         
-        self.day = 0 
-        self.dayOfWeek = 1 # starting from the first working day
-        self.timeSlot = 0
-        self.notWorkingDays = 0
+    stats.lastArrivalsTime[0] = stats.events[0].t 
 
-    def changeSlot(self):
-    #   note that t.current cannot be lower than the first element of the
-    #   c.SLOTSTIME: t.current is initialized at c.START_B every 'new day starts',
-    #   and c.START_B is the first element of c.SLOTSTIME.
-        newSlot = 0
-        for i in range(1, len(c.SLOTSTIME)):
-            # finding the biggest possible slotsTime that is lower than current.
-            # if time is equal to slotTime[i], the arrival rate is changed yet.
-            if (c.SLOTSTIME[i] <= self.current):
-                newSlot = i
-            else: #others are bigger 
-                break
-        self.timeSlot = newSlot
+    m = getCorrectInterarrivalB(time)
+    b_time = GetArrivalB(m)
 
-    def copy(self):
-        return copy.deepcopy(self)
-
-class AccumSum:
-                          # accumulated sums of                */
-    service = None          #   service times                    */
-    served = None           #   number served                    */
-
-    def copy(self):
-        return copy.deepcopy(self)
-        
-
-class SamplingElement:
-    indexes = None
-    lastArrivals = None
-    areas = None
-    sum = None 
-    time = None 
-    numberB = None
-    numberP = None 
+    stats.updateArrivalB(dayArrivals[0], b_time)
+    dayArrivals[0] += b_time
+    
+    if (stats.numbers[0] <= config.SERVERS_B):
+        # there is an idle B-server
+        service = GetServiceB()
+        s = FindOneB(stats.events)
+        if (s >= 0):
+            stats.sum[s].service += service
+            stats.sum[s].served += 1
+            # the s server will be idle at t.current + service
+            stats.events[s].t = time.current + service
+            stats.events[s].x = 1
 
 
-    def __init__(self, areas, indexes, lastArrivalsTime, sum, t, numbers):
-        newAreas = [i for i in areas]
-        self.areas = newAreas
+def processArrivalP(stats:Statistics, time:Time):
+    global dayArrivals
+    #print("P-ARRIVAL")
+    pArrivalIndex = config.SERVERS_B + 1
+    stats.numbers[1] += 1
+    stats.number += 1
 
-        newIndexes = [i for i in indexes]
-        self.indexes = newIndexes
+    stats.lastArrivalsTime[1] = stats.events[pArrivalIndex].t 
 
-        newArrivals = [i for i in lastArrivalsTime]
-        self.lastArrivals = newArrivals
+    m = getCorrectInterarrivalP(time.dayOfWeek)
+    p_time = GetArrivalP(m)
 
-        newSum = []
-        for s in range(len(sum)):
-            newSum.append(sum[s].copy())
-        self.sum = newSum
+    dayArrivals[1] += p_time
 
-        self.time = t.copy()
+    # schedule next arrival
+    stats.updateArrivalP(dayArrivals[1])
 
-        self.numberB = numbers[0]
-        self.numberP = numbers[1]
+    if (stats.numbers[1] <= config.SERVERS_P):
+        service  = GetServiceP()
+        s = FindOneP(stats.events)
+        global p_servers_usage 
+        p_servers_usage[str(s)] += 1
+        if (s >= 0):
+            stats.sum[s].service += service
+            stats.sum[s].served += 1
+            stats.events[s].t = t.current + service
+            stats.events[s].x = 1
+
+def processDepartureB(stats:Statistics, time:Time, serverIndex:int):
+    stats.processedJobs[0] += 1
+    stats.numbers[0] -= 1
+    stats.number -= 1
+    
+    if (stats.numbers[0] >= config.SERVERS_B):
+        service = GetServiceB()
+        stats.sum[serverIndex].service += service
+        stats.sum[serverIndex].served += 1
+        stats.events[serverIndex].t = time.current + service
+    else:
+        stats.events[serverIndex].x = 0
+
+def processDepartureP(stats:Statistics, time:Time, serverIndex:int):
+    # print("P-DEPARTURE")
+    stats.processedJobs[1] += 1
+    stats.numbers[1] -= 1
+    stats.number -= 1
+    
+    if (stats.numbers[1] >= config.SERVERS_P):
+        service = GetServiceP()
+        stats.sum[serverIndex].service += service
+        stats.sum[serverIndex].served += 1
+        stats.events[serverIndex].t = time.current + service
+    else:
+        stats.events[serverIndex].x = 0
 
 
 ############################Main Program###################################
+if __name__ == '__main__':
+    global dayArrivals
+    global p_servers_usage
+    p_servers_usage = {'4': 0, '5': 0}
 
-t = Time()
+    t = Time()
+    dayArrivals = [config.START_B, config.START_P]
 
-# events table:
-#   index | event     |
-#   ------------------|
-#   0 | arrival B     |
-#   ------------------|
-#   1 | completion B1 |
-#   ------------------|
-#   2 | completion B2 |
-#   ------------------|
-#   3 | arrival P     |
-#   ------------------|
-#   4 | completion P1 |
-#   ------------------|
-#   5 | completion P2 |
-#   ------------------|
-#   6 | sampling      |
-#   ------------------|
-#
-numEvents = c.SERVERS_B + 1 + c.SERVERS_P + 1 + 1
-pArrivalIndex = c.SERVERS_B + 1
+    # events table:
+    #   index | event     |
+    #   ------------------|
+    #   0 | arrival B     |
+    #   ------------------|
+    #   1 | completion B1 |
+    #   ------------------|
+    #   2 | completion B2 |
+    #   ------------------|
+    #   3 | arrival P     |
+    #   ------------------|
+    #   4 | completion P1 |
+    #   ------------------|
+    #   5 | completion P2 |
+    #   ------------------|
+    #   6 | sampling      |
+    #   ------------------|
+    #
+    numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
+    pArrivalIndex = config.SERVERS_B + 1
 
-# The following variables are meant to store the last arrival of each time
-# in the last day: in fact, it needs to compute the last arrival time for
-# statistical analisys. the compution will be done in the following way:
-#   for B type: t.day * 19 * 60 + ( t.lastBTypeArrival - c.START_B )
-# in the simulated system, everything happens during the 19 hour between
-# 7:00 and 2:00.
-# [ lastBTyypeArrival, lastPTypeArrival ]
-lastArrivalsTime = [0, 0]
-events = [Event() for i in range(numEvents)]
-numbers = [0, 0]        # [ numberB, numberP ]: jobs in the node
-number = 0              # total number of B and P requests
-indexes = [0, 0]        # [ indexB, indexP ]: processed jobs
-areas   = [0, 0]         # time integrated number in the node */
-sum=[AccumSum() for i in range(0, numEvents - 1)]
+    # samplingElementList = []
+    samplingElementList = SamplingList()
+    # initializedP = False #this variable is used to "open door" to P-arrivals
+    stats = Statistics(numEvents)
 
-samplingElementList = []
+    plantSeeds(0)
 
-initializedP = False #this variable is used to "open door" to P-arrivals
+    # select time in which sampling events will be scheduled: it will be scheduled
+    # every day at same time
+    samplingTime = getSamplingTime()
+    stats.setSamplingTime(samplingTime)
 
-# select time in which sampling events will be scheduled: it will be scheduled
-# every day at same time
-events[len(events) - 1].t = getSamplingTime()
-events[len(events) - 1].x = 1
+    # set the first B arrival
+    m = getCorrectInterarrivalB(t)
+    firstB_ArrivalTime = GetArrivalB(m)
+    stats.updateArrivalB(dayArrivals[0], firstB_ArrivalTime)
+    dayArrivals[0] += firstB_ArrivalTime
 
-plantSeeds(0)
-events[0].t   = GetArrivalB()
-events[0].x   = 1
-
-for s in range(1, numEvents - 1):       #excluding sampling events
-    events[s].t     = c.START_B          # this value is arbitrary because */
-    events[s].x     = 0              # all servers are initially idle  */
-    sum[s].service = 0.0
-    sum[s].served  = 0
-
-
-# t.day < c.STOP and not <= because if you want to perform 365 days starting from
-# 0 (t.day is initialized to 0), you have to terminate when the 364th day ends
-while (t.day < c.STOP) or (number != 0):
-    #initializing sampling
-
-    e = NextEvent(events)                  # next event index */
-    t.next = events[e].t                        # next event time  */
-    areas[0] += (t.next - t.current) * numbers[0]     # update Bintegral  */
-    areas[1] += (t.next - t.current) * numbers[1]     # update Pintegral  */
-    t.current = t.next                            # advance the clock*/
-    #checking if time slot changed:
-    t.changeSlot()
-
-    #check if the pizzeria can open
-    if (t.current >= c.START_P) and (not initializedP):
-        events[pArrivalIndex].t = GetArrivalP()
-        events[pArrivalIndex].x = 1
-        initializedP = True
-
-    if (e == 0):                                  # process a B-arrival*/
-        numbers[0] += 1
-
-        # if jumped into this block of code, a B type arrival is accepted
-        lastArrivalsTime[0] = events[0].t 
-        events[0].t = GetArrivalB()
-
-        # close the B-door in two cases: at the end of a day and at the end of
-        # simulation
-        if (events[0].t > c.STOP_B) or (t.day > c.STOP):
-            events[0].x = 0
-        #EndIf
+    # schedule the first P arrival
+    m = getCorrectInterarrivalP(t.dayOfWeek)
+    firstP_Time = GetArrivalP(m)
+    dayArrivals[1] += firstP_Time
+    stats.updateArrivalP(dayArrivals[1])
+    
+    # t.day < config.STOP and not <= because if you want to perform 365 days starting from
+    # 0 (t.day is initialized to 0), you have to terminate when the 364th day ends
+    
+    if config.DEBUG:
+        print('START')
+    while (t.day < config.STOP) or (stats.number != 0):
+        #initializing sampling
         
-        if (numbers[0] <= c.SERVERS_B):
-            service = GetServiceB()
-            s = FindOne(events)
-            if (s >= 0):
-                sum[s].service += service
-                sum[s].served += 1
-                events[s].t = t.current + service
-                events[s].x = 1
-            #Endif
-        #EndIf
+        e = NextEvent(stats.events)     # next event index */
+        t.next = stats.events[e].t      # next event time  */
 
-    #EndIf
-    elif (e == pArrivalIndex): # process a P-arrival*/
-        numbers[1] += 1
+        if config.DEBUG:
+            print(f'day num: {t.day}')
+            print(f'curr time: {t.current} == {t.current / 60}')
+            stats.printEvents()
+            print(f'number: {stats.number}')
+            print(f'numbers[0]: {stats.numbers[0]}')
+            print(f'numbers[1]: {stats.numbers[1]}')
+            print(f'weekday: {t.dayOfWeek}')
+            print(f'event index: {e}')
+            print()
 
-        # if jumped into this block of code, a P type arryval is accepted
-        lastArrivalsTime[1] = events[pArrivalIndex].t 
-        events[pArrivalIndex].t = GetArrivalP()
-
-        if (events[pArrivalIndex].t > c.STOP_P): 
-            events[pArrivalIndex].x = 0
-        #EndIf
+        stats.areas[0] += (t.next - t.current) * stats.numbers[0]     # update Bintegral  */
+        stats.areas[1] += (t.next - t.current) * stats.numbers[1]     # update Pintegral  */
         
-        if (numbers[1] <= c.SERVERS_P):
-            service  = GetServiceP()
-            s = FindOne(events, True)
-            if (s >= 0):
-                sum[s].service += service
-                sum[s].served += 1
-                events[s].t = t.current + service
-                events[s].x = 1
-        #EndIf
-    #EndIf
+        # advance the clock
+        t.current = t.next
+        #checking if time slot changed:
+        t.changeSlot()
 
-    elif (e == len(events) - 1):
-        # it's a sampling event
-        currSample = SamplingElement(areas, indexes, lastArrivalsTime,
-                sum, t, numbers)
-        samplingElementList.append(currSample)
-        events[e].x = 0
-        events[e].t = getSamplingTime()
+        if (e == 0): 
+             # process a B-arrival 
+            processArrivalB(stats, t)
+                
+        elif (e == pArrivalIndex): # process a P-arrival*/
+            processArrivalP(stats, t)
 
-    #it's a departure
-    else:
-        if (e < pArrivalIndex): #B-type
-            indexes[0] += 1
-            numbers[0] -= 1
-            s = e
-            if (numbers[0] >= c.SERVERS_B):
-                service = GetServiceB()
-                sum[s].service += service
-                sum[s].served += 1
-                events[s].t = t.current + service
-            else:
-                events[s].x = 0
-        else: #P-type
-            indexes[1] += 1
-            numbers[1] -= 1
-            s = e
-            if (numbers[1] >= c.SERVERS_P):
-                service = GetServiceP()
-                sum[s].service += service
-                sum[s].served += 1
-                events[s].t = t.current + service
-            else:
-                events[s].x = 0
-        
-    #EndElse
-    number = numbers[0] + numbers[1]
-    #it means that a day is over
-    if ((events[0].x == 0) and (number == 0)):
+        elif (e == len(stats.events) - 1):
+            # it's a sampling event
+            currSample = SamplingEvent(stats, t)
+            samplingElementList.append(currSample)
+            stats.events[e].x = 0
 
-        events[len(events) - 1].x = 1
-        initializedP = False
-        t.current = c.START_B
-        c.ARRIVAL_TEMPS = [c.START_B, c.START_P]
-        events[0].t = GetArrivalB() 
-        events[0].x = 1 
-        t.day += 1
-        t.dayOfWeek = (t.dayOfWeek + 1) % 7
-        
+        #it's a departure
+        else:
+            if (e < pArrivalIndex): #B-type
+                processDepartureB(stats, t, e)
 
-#EndWhile
+            else: #P-type
+                processDepartureP(stats, t, e)
+            
 
+        stats.number = stats.numbers[0] + stats.numbers[1]
+        if (stats.events[0].x == 0) and (stats.number == 0):
+            
+            #it means that a day is over: re-initialize all variables and let days advance:
+            dayArrivals = [config.START_B, config.START_P]
+            
+            t.newDay()
+            m = getCorrectInterarrivalB(t)
+            newDayFirstArrivalB = GetArrivalB(m)
+            dayArrivals[0] += newDayFirstArrivalB
 
+            m = getCorrectInterarrivalP(t.dayOfWeek)
+            newDayFirstArrivalP = GetArrivalP(m)
+            dayArrivals[1] += newDayFirstArrivalP
 
-lastSample = SamplingElement(areas, indexes, lastArrivalsTime, sum, t, numbers)
-evaluation([lastSample])
-evaluation(samplingElementList)
+            stats.newDay(dayArrivals)
+    
 
+    lastSample = SamplingEvent(stats, t)
+    # evaluation([lastSample])
+    # evaluation(samplingElementList)
 
-# create a csv for analisys 
-firstLine = "day,# job completati, # job B completati, # job P completati," + \
-        "#job B nel nodo, # job P nel nodo, # coda B, #coda P," + \
-        "last arrival B [H], last arrival" + \
-        " P [H], area B, area P, revenue B, revenue P, revenue, costs, " + \
-        "daily revenue, incremental grass revenue, incremental revenue, incremental costs\n"
+    if config.DEBUG:
+        print('WHILE ENDED')
+        print(stats.number)
+        print(t.day)
+        print(p_servers_usage)
 
-fileName = 'output/transient_m={}.csv'.format(c.SERVERS_B)
-with open(fileName, 'w') as transientOut:
-    transientOut.write(firstLine)
+    """
+    # create a csv for analisys 
+    firstLine = "day,# job completati, # job B completati, # job P completati," + \
+            "#job B nel nodo, # job P nel nodo, # coda B, #coda P," + \
+            "last arrival B [H], last arrival" + \
+            " P [H], area B, area P, revenue B, revenue P, revenue, costs, " + \
+            "daily revenue, incremental grass revenue, incremental revenue, incremental costs\n"
 
-    precIndexB = 0
-    precIndexP = 0
-    for i in range(len(samplingElementList)):
-        elem = samplingElementList[i]
-        day = elem.time.day
-        
-        queueB = elem.numberB - c.SERVERS_B 
-        if (queueB < 0):
-            queueB = 0
-        queueP = elem.numberP - c.SERVERS_P 
-        if (queueP < 0):
-            queueP = 0
+    fileName = 'output/transient_m={}.csv'.format(config.SERVERS_B)
+    with open(fileName, 'w') as transientOut:
+        transientOut.write(firstLine)
 
-        tmpB = elem.indexes[0] 
-        tmpP = elem.indexes[1] 
-        incRevenue = tmpB * c.REVENUES[0] 
-        incRevenue += tmpP * c.REVENUES[1]
+        precIndexB = 0
+        precIndexP = 0
+        for i in range(len(samplingElementList)):
+            elem = samplingElementList[i]
+            day = elem.time.day
+            
+            queueB = elem.numberB - config.SERVERS_B 
+            if (queueB < 0):
+                queueB = 0
+            queueP = elem.numberP - config.SERVERS_P 
+            if (queueP < 0):
+                queueP = 0
 
-        jobB = tmpB - precIndexB 
-        jobP = tmpP - precIndexP 
-        precIndexB = tmpB
-        precIndexP = tmpP
+            tmpB = elem.indexes[0] 
+            tmpP = elem.indexes[1] 
+            incRevenue = tmpB * config.REVENUES[0] 
+            incRevenue += tmpP * config.REVENUES[1]
 
-        totalJob = jobB + jobP 
-        lastArrB = elem.lastArrivals[0]
-        lastArrP = elem.lastArrivals[1]
-        areaB = elem.areas[0]
-        areaP = elem.areas[1]
-        
-        stop = elem.time.day + 1
+            jobB = tmpB - precIndexB 
+            jobP = tmpP - precIndexP 
+            precIndexB = tmpB
+            precIndexP = tmpP
 
-        #daily people cost
-        peopleCost = c.COSTS[0] * c.SERVERS_B + \
-                c.COSTS[1] * c.SERVERS_P / 2 
-        
-        incCosts = peopleCost * stop 
+            totalJob = jobB + jobP 
+            lastArrB = elem.lastArrivals[0]
+            lastArrP = elem.lastArrivals[1]
+            areaB = elem.areas[0]
+            areaP = elem.areas[1]
+            
+            stop = elem.time.day + 1
 
-        # grass revenue 
-        revenueB = jobB * c.REVENUES[0] 
-        revenueP = jobP * c.REVENUES[1]
-        revenue = revenueB + revenueP 
+            #daily people cost
+            peopleCost = config.COSTS[0] * config.SERVERS_B + \
+                    config.COSTS[1] * config.SERVERS_P / 2 
+            
+            incCosts = peopleCost * stop 
 
-        # each request costs to restaurant half of its selling cost
-        # meaning that if request B costs 3€, it has been bought at 1.50€
-        # by restaurant
-        materialCost = revenue / 2
-        incCosts += incRevenue / 2
+            # grass revenue 
+            revenueB = jobB * config.REVENUES[0] 
+            revenueP = jobP * config.REVENUES[1]
+            revenue = revenueB + revenueP 
 
-        # computing iva at 22%
-        ivaCost = revenue * c.IVA / 100
-        incCosts += incRevenue * c.IVA / 100
+            # each request costs to restaurant half of its selling cost
+            # meaning that if request B costs 3€, it has been bought at 1.50€
+            # by restaurant
+            materialCost = revenue / 2
+            incCosts += incRevenue / 2
 
-        totCost = peopleCost + materialCost + ivaCost 
-        # rent and bills costs are payed at the end of month. to seplify, they
-        # are split out during the days 
-        totCost += (c.RENT + c.BILL_COSTS) / 30
-        incCosts += (c.RENT + c.BILL_COSTS) * stop / 30
+            # computing iva at 22%
+            ivaCost = revenue * config.IVA / 100
+            incCosts += incRevenue * config.IVA / 100
 
-        line = \
-        '{0},{1},{2},{3},{4},{5},{6},{7},{8:.2f},{9:.2f},{10:.2f},{11:.2f},'. \
-        format(day + 1, totalJob, jobB, jobP, elem.numberB,  
-                elem.numberP, queueB, queueP, \
-                lastArrB / 60, lastArrP / 60, areaB,\
-                areaP) 
-        line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f},{4:.2f},{5:.2f},{6:.2f},{7:.2f}\n'.format(revenueB,\
-                revenueP, revenue, totCost, revenue - totCost, incRevenue,
-incRevenue - incCosts,incCosts)
-        
-        transientOut.write(line)
+            totCost = peopleCost + materialCost + ivaCost 
+            # rent and bills costs are payed at the end of month. to seplify, they
+            # are split out during the days 
+            totCost += (config.RENT + config.BILL_COSTS) / 30
+            incCosts += (config.RENT + config.BILL_COSTS) * stop / 30
 
+            line = \
+            '{0},{1},{2},{3},{4},{5},{6},{7},{8:.2f},{9:.2f},{10:.2f},{11:.2f},'. \
+            format(day + 1, totalJob, jobB, jobP, elem.numberB,  
+                    elem.numberP, queueB, queueP, \
+                    lastArrB / 60, lastArrP / 60, areaB,\
+                    areaP) 
+            line += '{0:.2f},{1:.2f},{2:.2f},{3:.2f},{4:.2f},{5:.2f},{6:.2f},{7:.2f}\n'.format(revenueB,\
+                    revenueP, revenue, totCost, revenue - totCost, incRevenue,
+    incRevenue - incCosts,incCosts)
+            
+            transientOut.write(line)
+
+ """
