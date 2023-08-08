@@ -6,7 +6,7 @@ from support.Time import Time
 from support.Statistics import Statistics
 from support.SamplingList import SamplingList
 import support.Config as config
-
+from support.GaussianWeighter import GaussianWeighter
 
 """ def evaluation(stats, listOfSample):
     l = len(listOfSample)
@@ -169,13 +169,15 @@ import support.Config as config
 
 def processArrivalB(stats:Statistics, time:Time):
     global dayArrivals
+    global gaussianWeighter
     stats.numbers[0] += 1 
     stats.number += 1
     
     stats.lastArrivalsTime[0] = stats.events[0].t 
 
-    m = getCorrectInterarrivalB(time)
-    b_time = GetArrivalB(m)
+    m = getCorrectLambdaB(time)
+    m = gaussianWeighter.gaussianWeightedLambdaB(m, time.current, time.timeSlot)
+    b_time = GetArrivalB(1/m)
 
     stats.updateArrivalB(dayArrivals[0], b_time)
     dayArrivals[0] += b_time
@@ -194,6 +196,7 @@ def processArrivalB(stats:Statistics, time:Time):
 
 def processArrivalP(stats:Statistics, time:Time):
     global dayArrivals
+    global gaussianWeighter
     #print("P-ARRIVAL")
     pArrivalIndex = config.SERVERS_B + 1
     stats.numbers[1] += 1
@@ -201,8 +204,9 @@ def processArrivalP(stats:Statistics, time:Time):
 
     stats.lastArrivalsTime[1] = stats.events[pArrivalIndex].t 
 
-    m = getCorrectInterarrivalP(time.dayOfWeek)
-    p_time = GetArrivalP(m)
+    m = getCorrectLambdaP(time)
+    m = gaussianWeighter.gaussianWeightedLambdaP(m, time.current)
+    p_time = GetArrivalP(1/m)
 
     dayArrivals[1] += p_time
 
@@ -252,10 +256,13 @@ def processDepartureP(stats:Statistics, time:Time, serverIndex:int):
 if __name__ == '__main__':
     global dayArrivals
     global p_servers_usage
+    global gaussianWeighter
+    
     p_servers_usage = {'4': 0, '5': 0}
 
     t = Time()
     dayArrivals = [config.START_B, config.START_P]
+    gaussianWeighter = GaussianWeighter()
 
     # events table:
     #   index | event     |
@@ -291,13 +298,13 @@ if __name__ == '__main__':
     stats.setSamplingTime(samplingTime)
 
     # set the first B arrival
-    m = getCorrectInterarrivalB(t)
+    m = getCorrectLambdaB(t)
     firstB_ArrivalTime = GetArrivalB(m)
     stats.updateArrivalB(dayArrivals[0], firstB_ArrivalTime)
     dayArrivals[0] += firstB_ArrivalTime
 
     # schedule the first P arrival
-    m = getCorrectInterarrivalP(t.dayOfWeek)
+    m = getCorrectLambdaP(t)
     firstP_Time = GetArrivalP(m)
     dayArrivals[1] += firstP_Time
     stats.updateArrivalP(dayArrivals[1])
@@ -313,6 +320,14 @@ if __name__ == '__main__':
         e = NextEvent(stats.events)     # next event index */
         t.next = stats.events[e].t      # next event time  */
 
+        stats.areas[0] += (t.next - t.current) * stats.numbers[0]     # update Bintegral  */
+        stats.areas[1] += (t.next - t.current) * stats.numbers[1]     # update Pintegral  */
+        
+        # advance the clock
+        t.current = t.next
+        #checking if time slot changed:
+        t.changeSlot()
+
         if config.DEBUG:
             print(f'day num: {t.day}')
             print(f'curr time: {t.current} == {t.current / 60}')
@@ -321,16 +336,9 @@ if __name__ == '__main__':
             print(f'numbers[0]: {stats.numbers[0]}')
             print(f'numbers[1]: {stats.numbers[1]}')
             print(f'weekday: {t.dayOfWeek}')
-            print(f'event index: {e}')
+            print(f'next event index: {e}')
+            print(f'timeSlot: {t.timeSlot}')
             print()
-
-        stats.areas[0] += (t.next - t.current) * stats.numbers[0]     # update Bintegral  */
-        stats.areas[1] += (t.next - t.current) * stats.numbers[1]     # update Pintegral  */
-        
-        # advance the clock
-        t.current = t.next
-        #checking if time slot changed:
-        t.changeSlot()
 
         if (e == 0): 
              # process a B-arrival 
@@ -361,11 +369,11 @@ if __name__ == '__main__':
             dayArrivals = [config.START_B, config.START_P]
             
             t.newDay()
-            m = getCorrectInterarrivalB(t)
+            m = getCorrectLambdaB(t)
             newDayFirstArrivalB = GetArrivalB(m)
             dayArrivals[0] += newDayFirstArrivalB
 
-            m = getCorrectInterarrivalP(t.dayOfWeek)
+            m = getCorrectLambdaP(t)
             newDayFirstArrivalP = GetArrivalP(m)
             dayArrivals[1] += newDayFirstArrivalP
 

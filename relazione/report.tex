@@ -381,6 +381,16 @@ Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:
     
     23:00 $\rightarrow$ 02:00 & 24 & 0.9 \\
     \hline    
+    \hline
+    
+    \multicolumn{3}{|c|}{\cellcolor{cellcolor} Pizzeria}\\
+    \hline
+    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\mu$ & \cellcolor{cellcolor}$\sigma$\\
+	\hline
+    \hline
+    19:00 $\rightarrow$ 23:00 & 20.5 & 1\\
+    \hline
+    
 \end{tabular}
 \end{table}
 
@@ -1163,8 +1173,14 @@ y=\frac{1}{\sqrt{2\pi}\sigma}e^\frac{-(x-\mu)^2}{2\sigma^2}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\textwidth]{19-23-gaussian}
-\centering \textit{Fascia oraria: 19:00 $\rightarrow$ 23:00}
+\centering \textit{Fascia oraria: 19:00 $\rightarrow$ 23:00, bar}
 \[ \mu = 22.5;\ \sigma = 2 \]
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{19-23-gaussian-pizza}
+\centering \textit{Fascia oraria: 19:00 $\rightarrow$ 23:00, pizzeria}
+\[ \mu = 20.5;\ \sigma = 1 \]
 \end{figure}
 
 \begin{figure}

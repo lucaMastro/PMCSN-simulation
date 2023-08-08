@@ -14,8 +14,8 @@ SECOND_HALFDAY_OPEN_TIME = SLOTSTIME[3]
 # initial (open the door) for B requests: 420 [MIN] = 7:00 am 
 START_B = SLOTSTIME[0]  
 
-# open the door for P requests:  1200 MIN = 20:00
-START_P = SLOTSTIME[4]  
+# time in which P arrival process starts
+START_P = SLOTSTIME[4]
 
 # 2:00 am == 26:00. STOP_B = 26 * 60 this is for B-requests
 STOP_B = 26 * 60        
@@ -45,7 +45,10 @@ RENT = 1500         # € for month
 IVA = 0.22            # 22%
 BILL_COSTS = 2000   # € for month
 
-GAUSSIAN_MEANS = [8, 13.5, 0, 18.5, 22.5, 24]
-GAUSSIAN_VARIANCES = [1.2, 2, 0, 0.4, 2, 0.9]
+GAUSSIAN_MEANS_B = [8, 13.5, 0, 18.5, 22.5, 24] # in hours
+GAUSSIAN_STD_DEV_B = [1.2, 2, 0, 0.4, 2, 0.9]
+
+GAUSSIAN_MEAN_P = 20.5 
+GAUSSIAN_STD_DEV_P = 1
 
 DEBUG = True

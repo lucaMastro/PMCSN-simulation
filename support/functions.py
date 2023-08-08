@@ -28,31 +28,95 @@ def getSamplingTime():
     return (Uniform(config.SLOTSTIME[len(config.SLOTSTIME) - 2], 
         config.SLOTSTIME[len(config.SLOTSTIME) - 1]))
 
-def getCorrectInterarrivalB(time:Time):
+def getCorrectLambdaB(time:Time):
     # time: current instance of class Time
     # checking if it's a weekend:
     m = 0
     if (time.dayOfWeek > 4):
-        m = 1 / config.WEEKEND_LAMBDA_B[time.timeSlot]
+        m = config.WEEKEND_LAMBDA_B[time.timeSlot]
     else: # week day
-        m = 1 / config.WEEK_LAMBDA_B[time.timeSlot]
+        m = config.WEEK_LAMBDA_B[time.timeSlot]
     
+    """ normalizedLamda = m
     # weight m with gaussian value
-    
-    return m
+    if gaussianWeighter:
 
-def getCorrectInterarrivalP(dayOfWeek:int):
+        mu = config.GAUSSIAN_MEANS_B[time.timeSlot]
+        sigma = config.GAUSSIAN_STD_DEV_B[time.timeSlot]
+        normalizedLamda = gaussianWeightedLambda(m, mu,sigma, time.current, time.timeSlot)
+    
+        if config.DEBUG:
+            print(f'mu = {mu}, sigma = {sigma}')
+            print(f'normalizedLamda = {normalizedLamda}')
+            #input()
+    
+    return 1/normalizedLamda """
+    return m
+    
+
+
+def getCorrectLambdaP(time:Time):
     # time: current instance of class Time
     # checking if it's a weekend:
     m = 0
-    if (dayOfWeek > 4):
-        m = 1 / config.WEEKEND_LAMBDA_P
+    if (time.dayOfWeek > 4):
+        m = config.WEEKEND_LAMBDA_P
     else: # week day
-        m = 1 / config.WEEK_LAMBDA_P
+        m = config.WEEK_LAMBDA_P
 
+    """ normalizedLamda = m
     # weight m with gaussian value
-    
+    if not isFirstGenaration:
+        mu = config.GAUSSIAN_MEAN_P
+        sigma = config.GAUSSIAN_STD_DEV_P
+        normalizedLamda = gaussianWeightedLambda(m, mu,sigma, time.current, time.timeSlot)
+
+        if config.DEBUG:
+            print(f'normalizedLamda = {normalizedLamda}')
+            #input()
+    return 1/normalizedLamda """
     return m
+    
+
+
+""" def gaussianWeightedLambda(originalLambda:float, mu:float, sigma:float, currenTime:float, timeSlot:int):   
+    # generating new slotstime list containing also the hour 26 == 02 a.m.:
+    slots = [ 7, 11, 15, 18, 19, 23, 26] 
+
+    # find the boundaries of the interval with respect to which to normalize
+    # timeSlot is in [0, 5]. 
+    # If 0 -> slots[0] - slots[1]  
+    # ...
+    # If 5 -> slots[5] - slots[6]
+    lowerBound = slots[timeSlot]
+    upperBound = slots[timeSlot + 1]
+
+    # find normalization value: e.g: F(11) - F(7)
+    F_upperBound = norm.cdf(upperBound, loc = mu, scale = sigma)
+    F_lowerBound = norm.cdf(lowerBound, loc = mu, scale = sigma)
+    normalizationValue = F_upperBound - F_lowerBound 
+        
+    # computing the density value
+
+    # again in hours
+    t0 = currenTime / 60
+    f_t0 = norm.pdf(t0, loc=mu, scale=sigma)
+    
+    # make the normalization:
+    fn_t0 = f_t0 / normalizationValue
+
+    if config.DEBUG:
+        print(f'mu = {mu}, sigma = {sigma}')
+        print(f'lowerBound = {lowerBound}, upperBound = {upperBound}')
+        print(f'F_lowerBound = {F_lowerBound}, F_upperBound = {F_upperBound}, diff={normalizationValue}')
+        print(f't0 = {t0}')
+        print(f'f_t0 = {f_t0}')
+        print(f'fn_t0 = {fn_t0}')
+    return originalLambda * fn_t0
+ """
+
+
+
 
 
 def GetArrivalB(meanTime:int):

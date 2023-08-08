@@ -19,7 +19,7 @@ class Time:
     timeSlot = None         # current slot indicator
     
     def __init__(self):
-        self.current = c.START_B         
+        self.current = c.START_B
         self.day = 0 
         self.dayOfWeek = 0 # starting from the first working day
         self.timeSlot = 0
