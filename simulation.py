@@ -384,6 +384,7 @@ if __name__ == '__main__':
     # evaluation([lastSample])
     # evaluation(samplingElementList)
 
+    samplingElementList.makeCorrectStdDev()
     if config.DEBUG:
         print('WHILE ENDED')
         print(stats.number)

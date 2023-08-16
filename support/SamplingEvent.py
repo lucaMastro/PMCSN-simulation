@@ -78,7 +78,16 @@ def computeAvgNumQueue(stats:Statistics, time:Time, kindP=False):
 
 
 def computeAvgServerStats(stats:Statistics, time:Time, kindP=False):
-    dict_list = []
+    # server stats are utilization, service, share. They are kept in a dict of dict:
+    # {
+    #   s: {
+    #       'utilization': 0
+    #       'service': 0
+    #       'share': 0
+    #   }
+    # }
+    #
+    ext_dict = dict()
     firstServerIndex = None
     # the following keep lastServerIndex + 1. It's the right extreme of for cycle
     lastServerIndexPlus = None
@@ -94,14 +103,14 @@ def computeAvgServerStats(stats:Statistics, time:Time, kindP=False):
     
     for s in range(firstServerIndex, lastServerIndexPlus):
         d = dict()
-        d['server'] = s
+        #d['server'] = s
         d['utilization'] = stats.sum[s].service / time.current
-        d['avg_service'] = stats.sum[s].service / stats.sum[s].served
+        d['service'] = stats.sum[s].service / stats.sum[s].served
         d['share'] = stats.sum[s].served / processedJobs
 
-        dict_list.append(d)
+        ext_dict[s] = d
 
-    return dict_list
+    return ext_dict
 
 
 class SamplingEvent:
@@ -111,16 +120,16 @@ class SamplingEvent:
     avgNumNodes = None
     avgDelays = None
     avgNumQueues = None
-    serversStats = None
+    avgServersStats = None
 
     def __init__(self, stats:Statistics, time:Time):
                 
         self.avgInterarrivals = [computeAvgInterarrivals(stats), computeAvgInterarrivals(stats,True) ]
-        self.avgWait = [computeAvgWait(stats), computeAvgWait(stats, True)]
-        self.avgNumNode = [computeAvgNumNode(stats, time), computeAvgNumNode(stats, time, True)]
-        self.avgDelay = [computeAvgDelay(stats), computeAvgDelay(stats, True)]
-        self.avgNumQueue = [computeAvgNumQueue(stats, time), computeAvgNumQueue(stats, time, True)]
-        self.serverStats = [computeAvgServerStats(stats, time), computeAvgServerStats(stats, time)] 
+        self.avgWaits = [computeAvgWait(stats), computeAvgWait(stats, True)]
+        self.avgNumNodes = [computeAvgNumNode(stats, time), computeAvgNumNode(stats, time, True)]
+        self.avgDelays = [computeAvgDelay(stats), computeAvgDelay(stats, True)]
+        self.avgNumQueues = [computeAvgNumQueue(stats, time), computeAvgNumQueue(stats, time, True)]
+        self.avgServersStats = [computeAvgServerStats(stats, time), computeAvgServerStats(stats, time, True)] 
         
 
     
