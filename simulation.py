@@ -163,7 +163,7 @@ from support.GaussianWeighter import GaussianWeighter
     revenue -= billCosts 
     print("  Revenue for year... = {0:.2f} €".format(revenue))
     print("  Revenue for month.. = {0:.2f} €".format(revenue / monthsNum))
-     """
+    """
 
 
 
@@ -176,8 +176,8 @@ def processArrivalB(stats:Statistics, time:Time):
     stats.lastArrivalsTime[0] = stats.events[0].t 
 
     m = getCorrectLambdaB(time)
-    m = gaussianWeighter.gaussianWeightedLambdaB(m, time.current, time.timeSlot)
-    b_time = GetArrivalB(1/m)
+    gaussianFactor = gaussianWeighter.gaussianWeighterFactorB(time.current, time.timeSlot)
+    b_time = GetArrivalB(1/m) * gaussianFactor
 
     stats.updateArrivalB(dayArrivals[0], b_time)
     dayArrivals[0] += b_time
@@ -205,8 +205,8 @@ def processArrivalP(stats:Statistics, time:Time):
     stats.lastArrivalsTime[1] = stats.events[pArrivalIndex].t 
 
     m = getCorrectLambdaP(time)
-    m = gaussianWeighter.gaussianWeightedLambdaP(m, time.current)
-    p_time = GetArrivalP(1/m)
+    gaussianFactor = gaussianWeighter.gaussianFactorP(time.current)
+    p_time = GetArrivalP(1/m) * gaussianFactor
 
     dayArrivals[1] += p_time
 
@@ -314,7 +314,7 @@ if __name__ == '__main__':
     
     if config.DEBUG:
         print('START')
-    while (t.day < config.STOP) or (stats.number != 0):
+    while (t.day < config.STOP): 
         #initializing sampling
         
         e = NextEvent(stats.events)     # next event index */

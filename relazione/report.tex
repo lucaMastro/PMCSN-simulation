@@ -397,16 +397,15 @@ Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:
 La loro rappresentazione grafica è riportata \hyperlink{rappresentazione grafica gaussiane}{in fondo al documento}. 
 \bigskip
 
-Ora, supponiamo di essere all'istante di simulazione $t_0$ di un giorno settimanale, nella prima fascia oraria; in questo caso $\lambda = 0.5\ j/min$ .  Per generare il prossimo tempo di interarrivo, si definisce:
-\[
-\lambda' = \lambda \cdot f^n(t_0)
-\]
+Ora, supponiamo di essere all'istante di simulazione $t_0$ di un giorno settimanale, nella prima fascia oraria; in questo caso $\lambda = 0.5\ j/min$ .  Per generare il prossimo tempo di interarrivo, si usa:
+\begin{center}
+\key{Exponential(1/$\lambda$) * $f^n(t0)$}
+\end{center}
 dove $f^n(t_0)$ è il valore della distribuzione normale relativa alla fascia oraria valutata in $t_0$ e normalizzata rispetto alla fascia oraria. Nell'esempio:
 \[
 f^n(t_0) = \frac{f(t_0)}{F(11) - F(7)}
 \]
 con $F(x)$ funzione cumulativa della distribuzione gaussiana relativa alla fascia oraria 07:00 $\rightarrow$ 11:00.\\
-Dopo aver calcolato in questo modo $\lambda'$, si procede a generare il nuovo tempo di interarrivo con \texttt{Exponential(1/}$\lambda'$\texttt{)}.\\
 
 Non si è usata una gaussiana direttamente come distribuizione del tempo di interarrivo perché avrebbe modellato una cosa diversa: avrei rappresentato che i tempi sono molto più vicini al valor medio della distribuzione all'interno dell'intero intervallo, invece si vuole modellare che il tempo di interarrivo diminuisce in un intorno di un tempo specifico
 

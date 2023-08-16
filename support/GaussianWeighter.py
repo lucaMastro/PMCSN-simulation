@@ -18,6 +18,8 @@ class GaussianWeighter:
         # ...
         # If 5 -> slots[5] - slots[6]
         for slotIndex in range(len(self.slots) - 1):
+            # slot index = 2 is between 15-18 where the bar is closed. there arent arrivals in that slot 
+            # but adding a neutral element (for mul) to keep the same indexing
             if (slotIndex == 2):
                 self.normalizerFactorB.append(1)
                 continue
@@ -46,7 +48,7 @@ class GaussianWeighter:
 
 
 
-    def gaussianWeightedLambdaB(self, originalLambda:float, currenTime:float, timeSlot:int):   
+    def gaussianWeighterFactorB(self, currenTime:float, timeSlot:int):   
 
         # retrieving correct distribution params
         mu = config.GAUSSIAN_MEANS_B[timeSlot]
@@ -70,12 +72,12 @@ class GaussianWeighter:
             print(f'f_t0 = {f_t0}')
             print(f'fn_t0 = {fn_t0}')
 
-        return originalLambda * fn_t0
+        return fn_t0
 
 
 
 
-    def gaussianWeightedLambdaP(self, originalLambda:float, currenTime:float):   
+    def gaussianFactorP(self, currenTime:float):   
 
         # retrieving correct distribution params
         mu = config.GAUSSIAN_MEAN_P
@@ -99,4 +101,4 @@ class GaussianWeighter:
             print(f'f_t0 = {f_t0}')
             print(f'fn_t0 = {fn_t0}')
 
-        return originalLambda * fn_t0
+        return fn_t0

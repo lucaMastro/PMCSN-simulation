@@ -8,20 +8,13 @@ class Time:
                             # simulation is computed on this value
 
     dayOfWeek = None        # used to trace week or weekend interarrivals
-    # monday = 0            
-    # tuesday = 1
-    # wednesday = 2
-    # thursday = 3
-    # friday = 4
-    # saturday = 5
-    # sunday = 6
 
     timeSlot = None         # current slot indicator
     
     def __init__(self):
         self.current = c.START_B
         self.day = 0 
-        self.dayOfWeek = 0 # starting from the first working day
+        self.dayOfWeek = c.SIMULATE_WEEK # starting from the first working day
         self.timeSlot = 0
         self.notWorkingDays = 0
 
@@ -47,4 +40,4 @@ class Time:
     def newDay(self):
         self.current = c.START_B
         self.day += 1
-        self.dayOfWeek = (self.dayOfWeek + 1) % 7
+        # self.dayOfWeek = (self.dayOfWeek + 1) % 7

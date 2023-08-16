@@ -20,7 +20,8 @@ START_P = SLOTSTIME[4]
 # 2:00 am == 26:00. STOP_B = 26 * 60 this is for B-requests
 STOP_B = 26 * 60        
 STOP_P = SLOTSTIME[5]                                    
-STOP = 365  # terminal (close the door) time [DAYS]
+#STOP = 365  # terminal (close the door) 
+STOP = 1  # terminal (close the door) 
 SERVERS_B = 2   # number of type B servers
 SERVERS_P = 2   # number of type P servers
 
@@ -29,10 +30,6 @@ SERVERS_P = 2   # number of type P servers
 # for indexing 
 WEEK_LAMBDA_B = [0.5, 0.21, 0, 0.42, 0.21, 0.17]
 WEEKEND_LAMBDA_B = [0.5, 0.34, 0, 0.75, 0.375, 0.34]
-# WEEK_INTERARRIVAL_B = [6, 12, 6, 4, 6]
-# WEEKEND_INTERARRIVAL_B = [4, 6, 3, 4, 2]
-# WEEK_INTERARRIVAL_P = 6
-# WEEKEND_INTERARRIVAL_P = 2
 WEEK_LAMBDA_P = 0.17
 WEEKEND_LAMBDA_P = 1
 
@@ -50,5 +47,7 @@ GAUSSIAN_STD_DEV_B = [1.2, 2, 0, 0.4, 2, 0.9]
 
 GAUSSIAN_MEAN_P = 20.5 
 GAUSSIAN_STD_DEV_P = 1
+
+SIMULATE_WEEK = True
 
 DEBUG = True

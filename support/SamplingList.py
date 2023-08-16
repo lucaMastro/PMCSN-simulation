@@ -1,108 +1,125 @@
 from support.SamplingEvent import SamplingEvent
 import support.Config as config
 
+def makeDict():
+    d = dict()
+    d['mean'] = 0
+    d['std_dev'] = 0
+    return d
+
+
 class SamplingList:
 
     # list of objects SamplingEvent
     sampleList = None
     numSample = 0
-    averageAreas = 0
-    averageServices = None
-    averageServedPerDay = None
-    averageProcessedPerDay = None
-    averageInterarrivals = None
 
-    # this is sample caught when 365th day is over to trace global stats with balance
-    endSimulationSample = None
+    # those statistics will keep mean and std_dev for both cases B and P. they are list of 2 dict:
+    #  ------------------B_DICT-------------,   ------------------P_DICT-------------
+    # [{'mean' = xi, 'std_dev' = (xj - xi)^2}, {'mean' = xi, 'std_dev' = (xj - xi)^2}]
+    #
+    # the above statistics are computed with welford one-pass algho
+    avgInterarrivals = None
+    avgWaits = None
+    avgNumNodes = None
+    avgDelays = None
+    avgNumQueues = None
+    serversStats = None
+
 
     def __init__(self):
         self.sampleList = []
-        # adding the service relative to the first event (B-arrival): 
-        # i want to keep the same event list indexes for this list
-        self.averageServices = [0]
-        self.averageServedPerDay = [0]
 
-        self.averageIndexes = []
+        self.avgInterarrivals = [makeDict(), makeDict()]
+        self.avgWaits = [makeDict(), makeDict()]
+        self.avgNumNodes = [makeDict(), makeDict()]
+        self.avgDelays = [makeDict(), makeDict()]
+        self.avgNumQueues = [makeDict(), makeDict()]
+        self.serversStats = [makeDict(), makeDict()]
+
 
     
     def append(self, newEvent:SamplingEvent):
         self.sampleList.append(newEvent)
         self.numSample += 1
 
-    def setEndSimSample(self, sample:SamplingEvent):
-        self.endSimulationSample = sample
+        # one pass algho for each statistic:
+        mean = self.avgInterarrivals[0]['mean']
+        diff = newEvent.avgInterarrivals[0] - mean
+        wel = self.welfordNextStep(diff)
+        self.avgInterarrivals[0]['mean'] += wel[0]
+        self.avgInterarrivals[0]['std_dev'] += wel[1]
 
-    def computeAverageArea(self):
-        tmpB = 0
-        tmpP = 0
-        for sample in self.sampleList:
-            tmpB += sample.areas[0]
-            tmpP += sample.areas[1]
-        self.averageAreas = [tmpB / self.numSample, tmpP / self.numSample]
-    
+        mean = self.avgInterarrivals[1]['mean']
+        diff = newEvent.avgInterarrivals[1] - mean
+        wel = self.welfordNextStep(diff)
+        self.avgInterarrivals[1]['mean'] += wel[0]
+        self.avgInterarrivals[1]['std_dev'] += wel[1]
 
-    def computeServicesMeans(self):
+        mean = self.self.avgWaits[0]['mean']
+        diff = newEvent.self.avgWaits[0] - mean
+        wel = self.welfordNextStep(diff)
+        self.self.avgWaits[0]['mean'] += wel[0]
+        self.self.avgWaits[0]['std_dev'] += wel[1]
 
-        pArrivalIndex = config.SERVERS_B + 1
-        for s in range(1, len(self.endSimulationSample.sum) - 1): 
-            
-            if s == pArrivalIndex: #the arrivalP event, then skip
-                self.averageServices.append(0)
-                continue
-            
-            servedTot = self.endSimulationSample.sum[s].served
-            serviceTot = self.endSimulationSample.sum[s].service
+        mean = self.self.avgWaits[1]['mean']
+        diff = newEvent.self.avgWaits[1] - mean
+        wel = self.welfordNextStep(diff)
+        self.self.avgWaits[1]['mean'] += wel[0]
+        self.self.avgWaits[1]['std_dev'] += wel[1]
 
-            service = serviceTot / servedTot    
-            
-            self.averageServices.append(service)
-            self.averageServedPerDay.append(servedTot / config.STOP )
-      
+        mean = self.avgNumNodes[0]['mean']
+        diff = newEvent.avgNumNodes[0] - mean
+        wel = self.welfordNextStep(diff)
+        self.avgNumNodes[0]['mean'] += wel[0]
+        self.avgNumNodes[0]['std_dev'] += wel[1]
 
-    def computeMeanIndexes(self):
-        indexes = [0, 0] 
-        for sample in self.sampleList:
-            indexes[0] += sample.indexes[0] 
-            indexes[1] += sample.indexes[1]
-        self.indexes = [int(i / self.numSample) for i in indexes]
-    
+        mean = self.avgNumNodes[1]['mean']
+        diff = newEvent.avgNumNodes[1] - mean
+        wel = self.welfordNextStep(diff)
+        self.avgNumNodes[1]['mean'] += wel[0]
+        self.avgNumNodes[1]['std_dev'] += wel[1]
 
-    def computeMeanInterarrivals(self):
-        self.averageInterarrivals = []
-        # working_h hours/day * 60 min/hours * config.stop day = total time in minutes 
-        totalTimeB = config.B_WORKING_HOURS * 60 * config.STOP
-        totalTimeP = config.P_WORKING_HOURS * 60 * config.STOP
+        mean = self.avgDelays[0]['mean']
+        diff = newEvent.avgDelays[0] - mean
+        wel = self.welfordNextStep(diff)
+        self.avgDelays[0]['mean'] += wel[0]
+        self.avgDelays[0]['std_dev'] += wel[1]
+
+        mean = self.avgDelays[1]['mean']
+        diff = newEvent.avgDelays[1] - mean
+        wel = self.welfordNextStep(diff)
+        self.avgDelays[1]['mean'] += wel[0]
+        self.avgDelays[1]['std_dev'] += wel[1]
+
+        mean = self.avgNumQueues[0]['mean']
+        diff = newEvent.avgNumQueues[0] - mean
+        wel = self.welfordNextStep(diff)
+        self.avgNumQueues[0]['mean'] += wel[0]
+        self.avgNumQueues[0]['std_dev'] += wel[1]
+
+        mean = self.avgNumQueues[1]['mean']
+        diff = newEvent.avgNumQueues[1] - mean
+        wel = self.welfordNextStep(diff)
+        self.avgNumQueues[1]['mean'] += wel[0]
+        self.avgNumQueues[1]['std_dev'] += wel[1]
+
+        mean = self.serversStats[0]['mean']
+        diff = newEvent.serversStats[0] - mean
+        wel = self.welfordNextStep(diff)
+        self.serversStats[0]['mean'] += wel[0]
+        self.serversStats[0]['std_dev'] += wel[1]
+
+        mean = self.serversStats[1]['mean']
+        diff = newEvent.serversStats[1] - mean
+        wel = self.welfordNextStep(diff)
+        self.serversStats[1]['mean'] += wel[0]
+        self.serversStats[1]['std_dev'] += wel[1]
 
 
+   
+    def welfordNextStep(self, diff:float):
+        mean = diff / self.numSample
+        std_dev = diff * diff * (self.numSample - 1) / self.numSample
+        return [mean, std_dev]
 
-    def evaluation(self):
-        titles = ["BAR:\n", "PIZZERIA:\n"]
-        indexes = None
-        stop = config.STOP
-
-        if self.numSample == 1:
-            # STEADY ANALISYS
-            indexes = self.sampleList[0].indexes 
-            index = indexes[0] + indexes[1]
-            print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
-            
-        else:
-            # TRANSIENT ANALISYS
-            print("\n\nTransient analisys:")
-
-            # computing means
-            #
-            # computing average index 
-            
-            self.computeMeanIndexes()
-            index = sum(self.indexes)
-            print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
-
-            # computing average interarrivals
-            #self.()
-
-            # computing average areas
-            self.computeAverageArea()
-
-            # computing mean served and service time for each server:
-            self.computeServicesMeans()
