@@ -66,11 +66,6 @@ class GaussianWeighter:
         # make the normalization:
         fn_t0 = f_t0 / normalizationValue
 
-        if config.DEBUG:
-            print(f'mu = {mu}, sigma = {sigma}')
-            print(f't0 = {t0}')
-            print(f'f_t0 = {f_t0}')
-            print(f'fn_t0 = {fn_t0}')
 
         return fn_t0
 

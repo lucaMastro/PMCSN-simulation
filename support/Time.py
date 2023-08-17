@@ -18,6 +18,12 @@ class Time:
         self.timeSlot = 0
         self.notWorkingDays = 0
 
+    def __str__(self) -> str:
+        my_str = ''
+        for attr, value in vars(self).items():
+            my_str += f'{attr} = {value}\n'
+        return my_str
+
     def changeSlot(self):
     #   note that t.current cannot be lower than the first element of the
     #   c.SLOTSTIME: t.current is initialized at c.START_B every 'new day starts',

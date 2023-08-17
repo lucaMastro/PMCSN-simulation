@@ -27,6 +27,18 @@ class Statistics:
             self.events[s].x = 0
         
 
+    def __str__(self) -> str:
+        my_str = ''
+        for attr, value in vars(self).items():
+            if type(value) == list:
+                for i in range(len(value)):
+                    my_str += f'{attr}[{i}] = {value[i]}\n'
+                my_str += '\n'
+            else:
+                my_str += f'{attr} = {value}\n'
+        return my_str
+    
+
     def setSamplingTime(self, samplingTime):
         self.events[len(self.events) - 1].t = samplingTime
         self.events[len(self.events) - 1].x = 1

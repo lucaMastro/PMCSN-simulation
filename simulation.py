@@ -177,7 +177,7 @@ def processArrivalB(stats:Statistics, time:Time):
 
     m = getCorrectLambdaB(time)
     gaussianFactor = gaussianWeighter.gaussianWeighterFactorB(time.current, time.timeSlot)
-    b_time = GetArrivalB(1/m) * gaussianFactor
+    b_time = GetArrivalB(1/m) / gaussianFactor
 
     stats.updateArrivalB(dayArrivals[0], b_time)
     dayArrivals[0] += b_time
@@ -206,7 +206,7 @@ def processArrivalP(stats:Statistics, time:Time):
 
     m = getCorrectLambdaP(time)
     gaussianFactor = gaussianWeighter.gaussianFactorP(time.current)
-    p_time = GetArrivalP(1/m) * gaussianFactor
+    p_time = GetArrivalP(1/m) / gaussianFactor
 
     dayArrivals[1] += p_time
 
@@ -216,8 +216,8 @@ def processArrivalP(stats:Statistics, time:Time):
     if (stats.numbers[1] <= config.SERVERS_P):
         service  = GetServiceP()
         s = FindOneP(stats.events)
-        global p_servers_usage 
-        p_servers_usage[str(s)] += 1
+    
+        
         if (s >= 0):
             stats.sum[s].service += service
             stats.sum[s].served += 1
@@ -252,50 +252,12 @@ def processDepartureP(stats:Statistics, time:Time, serverIndex:int):
         stats.events[serverIndex].x = 0
 
 
-############################Main Program###################################
-if __name__ == '__main__':
-    global dayArrivals
-    global p_servers_usage
-    global gaussianWeighter
-    
-    p_servers_usage = {'4': 0, '5': 0}
-
-    t = Time()
-    dayArrivals = [config.START_B, config.START_P]
-    gaussianWeighter = GaussianWeighter()
-
-    # events table:
-    #   index | event     |
-    #   ------------------|
-    #   0 | arrival B     |
-    #   ------------------|
-    #   1 | completion B1 |
-    #   ------------------|
-    #   2 | completion B2 |
-    #   ------------------|
-    #   3 | arrival P     |
-    #   ------------------|
-    #   4 | completion P1 |
-    #   ------------------|
-    #   5 | completion P2 |
-    #   ------------------|
-    #   6 | sampling      |
-    #   ------------------|
-    #
-    numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
-    pArrivalIndex = config.SERVERS_B + 1
-
-    # samplingElementList = []
-    samplingElementList = SamplingList()
-    # initializedP = False #this variable is used to "open door" to P-arrivals
-    stats = Statistics(numEvents)
-
-    plantSeeds(0)
-
-    # select time in which sampling events will be scheduled: it will be scheduled
-    # every day at same time
-    samplingTime = getSamplingTime()
-    stats.setSamplingTime(samplingTime)
+def setInitialState(stats:Statistics):
+    # select time in which sampling interarrival events. the interarrival will be an uniform 
+    # between 1.5 and 2 minutes (90 sec and 120 sec). 
+    #samplingInterarrivalTime = getSamplingInterarrivalTime()
+    #stats.setSamplingTime(config.START_B + samplingInterarrivalTime)
+    stats.setSamplingTime(Uniform(20*60, 23*60))
 
     # set the first B arrival
     m = getCorrectLambdaB(t)
@@ -308,12 +270,14 @@ if __name__ == '__main__':
     firstP_Time = GetArrivalP(m)
     dayArrivals[1] += firstP_Time
     stats.updateArrivalP(dayArrivals[1])
+
+
+
+def loop(stats:Statistics, t:Time, samplingElementList:SamplingList ):
+    global dayArrivals
+    global gaussianWeighter
+    pArrivalIndex = config.SERVERS_B + 1
     
-    # t.day < config.STOP and not <= because if you want to perform 365 days starting from
-    # 0 (t.day is initialized to 0), you have to terminate when the 364th day ends
-    
-    if config.DEBUG:
-        print('START')
     while (t.day < config.STOP): 
         #initializing sampling
         
@@ -329,15 +293,10 @@ if __name__ == '__main__':
         t.changeSlot()
 
         if config.DEBUG:
-            print(f'day num: {t.day}')
-            print(f'curr time: {t.current} == {t.current / 60}')
-            stats.printEvents()
-            print(f'number: {stats.number}')
-            print(f'numbers[0]: {stats.numbers[0]}')
-            print(f'numbers[1]: {stats.numbers[1]}')
-            print(f'weekday: {t.dayOfWeek}')
-            print(f'next event index: {e}')
-            print(f'timeSlot: {t.timeSlot}')
+            print('STATS')
+            print(stats)
+            print('TIME')
+            print(t)
             print()
 
         if (e == 0): 
@@ -351,6 +310,7 @@ if __name__ == '__main__':
             # it's a sampling event
             currSample = SamplingEvent(stats, t)
             samplingElementList.append(currSample)
+            #stats.events[e].t += samplingInterarrivalTime
             stats.events[e].x = 0
 
         #it's a departure
@@ -378,19 +338,61 @@ if __name__ == '__main__':
             dayArrivals[1] += newDayFirstArrivalP
 
             stats.newDay(dayArrivals)
+            
+    # divide by n each std_dev before ending
+    samplingElementList.makeCorrectStdDev()
+
+
+
+############################Main Program###################################
+if __name__ == '__main__':
+    global dayArrivals
+    global gaussianWeighter
+    
+
+    t = Time()
+    dayArrivals = [config.START_B, config.START_P]
+    gaussianWeighter = GaussianWeighter()
+
+    # events table:
+    #   index | event     |
+    #   ------------------|
+    #   0 | arrival B     |
+    #   ------------------|
+    #   1 | completion B1 |
+    #   ------------------|
+    #   2 | completion B2 |
+    #   ------------------|
+    #   3 | arrival P     |
+    #   ------------------|
+    #   4 | completion P1 |
+    #   ------------------|
+    #   5 | completion P2 |
+    #   ------------------|
+    #   6 | sampling      |
+    #   ------------------|
+    #
+    numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
+    stats = Statistics(numEvents)
+
+    # samplingElementList = []
+    samplingElementList = SamplingList()
+    
+
+    plantSeeds(0)
+    setInitialState(stats)
+    loop(stats, t, samplingElementList)
     
 
     lastSample = SamplingEvent(stats, t)
     # evaluation([lastSample])
     # evaluation(samplingElementList)
 
-    samplingElementList.makeCorrectStdDev()
-    if config.DEBUG:
-        print('WHILE ENDED')
-        print(stats.number)
-        print(t.day)
-        print(p_servers_usage)
+    
+   
 
+    print(lastSample)
+    print(samplingElementList)
     """
     # create a csv for analisys 
     firstLine = "day,# job completati, # job B completati, # job P completati," + \

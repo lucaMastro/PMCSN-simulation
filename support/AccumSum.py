@@ -11,4 +11,7 @@ class AccumSum:
 
     def copy(self):
         return copy.deepcopy(self)
+
+    def __str__(self) -> str:
+        return f'service: {self.service}; served: {self.served}'
         

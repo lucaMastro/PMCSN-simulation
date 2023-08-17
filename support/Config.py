@@ -17,11 +17,11 @@ START_B = SLOTSTIME[0]
 # time in which P arrival process starts
 START_P = SLOTSTIME[4]
 
-# 2:00 am == 26:00. STOP_B = 26 * 60 this is for B-requests
-STOP_B = 26 * 60        
+# 3:00 am == 27:00. STOP_B = 27 * 60 this is for B-requests
+STOP_B = 27 * 60        
 STOP_P = SLOTSTIME[5]                                    
 #STOP = 365  # terminal (close the door) 
-STOP = 1  # terminal (close the door) 
+STOP = 128  # terminal (close the door) 
 SERVERS_B = 2   # number of type B servers
 SERVERS_P = 2   # number of type P servers
 

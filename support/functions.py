@@ -22,12 +22,11 @@ def Exponential(m):
     return (-m * log(1.0 - random()))
 
 
-def getSamplingTime():
+def getSamplingInterarrivalTime():
     selectStream(4) 
     # choosing a value between 20 and 22: otherwise P-type variables may not 
     # be sampled
-    return (Uniform(config.SLOTSTIME[len(config.SLOTSTIME) - 2], 
-        config.SLOTSTIME[len(config.SLOTSTIME) - 1]))
+    return (Uniform(1.5, 2))
 
 def getCorrectLambdaB(time:Time):
     # time: current instance of class Time
@@ -93,7 +92,6 @@ def GetServiceP():
 # */ 
     selectStream(3)
     #service type P has a rate of 1/3
-    #67% is under the mean: perfect case for a pizza :P
     return Exponential(config.MEAN_SERVICE_TIME_P)
 
 

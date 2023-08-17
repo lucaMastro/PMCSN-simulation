@@ -14,35 +14,35 @@ class SamplingList:
     sampleList = None
     numSample = 0
 
-    # those statistics will keep mean and std_dev for both cases B and P. they are list of 2 dict:
-    #  ------------------B_DICT-------------,   ------------------P_DICT-------------
-    # [{'mean' = xi, 'std_dev' = (xj - xi)^2}, {'mean' = xi, 'std_dev' = (xj - xi)^2}]
-    #
-    # the above statistics are computed with welford one-pass algho
+    """ those statistics will keep mean and std_dev for both cases B and P. they are list of 2 dict:
+     ------------------B_DICT-------------,   ------------------P_DICT-------------
+    [{'mean' = xi, 'std_dev' = (xj - xi)^2}, {'mean' = xi, 'std_dev' = (xj - xi)^2}]
+    
+    the above statistics are computed with welford one-pass algho """
     avgInterarrivals = None
     avgWaits = None
     avgNumNodes = None
     avgDelays = None
     avgNumQueues = None
-    # server stats are utilization, service, share. It needs mean and variance for each of them.
-    # it will be a dict of dict; where s is server index.
-    # {
-    #   s: {
-    #       'utilization': {
-    #           'mean': 0,
-    #           'std_dev': 0    
-    #       }
-    #       'service': {
-    #           'mean': 0,
-    #           'std_dev' = 0
-    #       }
-    #       'share': {
-    #           'mean': 0,
-    #           'std_dev' = 0
-    #       }
-    #   }
-    # }
-    #
+    """ server stats are utilization, service, share. It needs mean and variance for each of them.
+    it will be a dict of dict; where s is server index.
+    {
+      s: {
+          'utilization': {
+              'mean': 0,
+              'std_dev': 0    
+          }
+          'service': {
+              'mean': 0,
+              'std_dev' = 0
+          }
+          'share': {
+              'mean': 0,
+              'std_dev' = 0
+          }
+      }
+    }
+    """
     serversStats = None
 
 
@@ -81,7 +81,33 @@ class SamplingList:
             self.serversStats[s]['service']['std_dev'] = 0
             self.serversStats[s]['share']['std_dev'] = 0
 
+    def __str__(self) -> str:
+        my_str = ''
+        titles = ['BAR', 'PIZZERIA']
+        try:
+            for attr, value in vars(self).items():
+                if attr == 'sampleList':
+                        continue
+                for i in range(2):
+                    m = value[i]['mean']
+                    std_dev = value[i]['std_dev']
+                    my_str += f'{attr}_{titles[i]} -- mean: {m}, std_dev: {std_dev}\n'
+        except:
+            for s in self.serversStats.keys():
+                my_str += f'server {s}\n'
+                m = self.serversStats[s]['utilization']['mean']
+                std_dev = self.serversStats[s]['utilization']['std_dev']
+                my_str += f'\tutilization -- mean {m} -- std_dev {std_dev}\n'
 
+                m = self.serversStats[s]['service']['mean']
+                std_dev = self.serversStats[s]['service']['std_dev']
+                my_str += f'\tservice -- mean {m} -- std_dev {std_dev}\n'
+
+                m = self.serversStats[s]['share']['mean']
+                std_dev = self.serversStats[s]['share']['std_dev']
+                my_str += f'\tshare -- mean {m} -- std_dev {std_dev}\n'
+
+        return my_str
     
     def append(self, newEvent:SamplingEvent):
         self.sampleList.append(newEvent)
@@ -177,9 +203,9 @@ class SamplingList:
         return [mean, std_dev]
 
     def makeCorrectStdDev(self):
-        # in welford algho, the std dev has to be divided by the sample size in the end
-        # in order to obtain the correct std dev. here i'm going to divide by the sample size
-        # all the std devs:
+        """ in welford algho, the std dev has to be divided by the sample size in the end
+        in order to obtain the correct std dev. here i'm going to divide by the sample size
+        all the std devs: """
         for i in range(2): # both the b and p type
             self.avgInterarrivals[i]['std_dev'] /= self.numSample
             self.avgWaits[i]['std_dev'] /= self.numSample
