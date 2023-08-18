@@ -8,7 +8,7 @@ from support.SamplingList import SamplingList
 from support.GaussianWeighter import GaussianWeighter
 from support.ArgParser import ArgParser
 
-from support.Config import config
+from configurations.Config import config
 
 """ def evaluation(stats, listOfSample):
     l = len(listOfSample)
@@ -312,6 +312,9 @@ def loop(stats:Statistics, t:Time, samplingElementList:SamplingList ):
             # it's a sampling event
             currSample = SamplingEvent(stats, t)
             samplingElementList.append(currSample)
+            if t.current > config.START_P and t.current < config.STOP_P:
+                #sample also a P type:
+                samplingElementList.append(SamplingEvent(stats, t, True))
             #stats.events[e].t += samplingInterarrivalTime
             stats.events[e].x = 0
 
@@ -388,14 +391,16 @@ if __name__ == '__main__':
     loop(stats, t, samplingElementList)
     
 
-    lastSample = SamplingEvent(stats, t)
+    lastSampleB = SamplingEvent(stats, t)
+    lastSampleP = SamplingEvent(stats, t, True)
     # evaluation([lastSample])
     # evaluation(samplingElementList)
 
     
    
 
-    print(lastSample)
+    print(lastSampleB)
+    print(lastSampleP)
     print(samplingElementList)
 
     config.WEEK_LAMBDA_P = 2

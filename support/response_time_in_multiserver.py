@@ -1,6 +1,6 @@
 from math import factorial
 
-from support.Config import config
+from configurations.Config import config
 
 def compute_P0(m, rho):
     sum = 0

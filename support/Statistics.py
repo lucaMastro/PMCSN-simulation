@@ -2,7 +2,7 @@ from support.Event import Event
 from support.AccumSum import AccumSum
 #from support.Config import config.START_B, config.SERVERS_B, config.STOP_P, config.STOP_B, config.SLOTSTIME, config.FIRST_HALFDAY_CLOSE_TIME, config.SECOND_HALFDAY_OPEN_TIME
 
-from support.Config import config
+from configurations.Config import config
 
 
 class Statistics:

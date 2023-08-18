@@ -1,7 +1,7 @@
 from support.Time import Time
 from support.Statistics import Statistics
 
-from support.Config import config
+from configurations.Config import config
 
 def computeAvgInterarrivals(stats:Statistics, kindP=False):
     interarrivalWindow = None
@@ -116,6 +116,9 @@ def computeAvgServerStats(stats:Statistics, time:Time, kindP=False):
 
 class SamplingEvent:
 
+    # 0 for B; 1 for P
+    type = None
+
     avgInterarrivals = None
     avgWaits = None
     avgNumNodes = None
@@ -124,57 +127,59 @@ class SamplingEvent:
     avgServersStats = None
     processedJobs = None
 
-    def __init__(self, stats:Statistics, time:Time):
-        if config.DEBUG:
-            print('\n\n\n\n')
-            print(stats)
-            print(time)
-            print('\n\n\n\n')
+    def __init__(self, stats:Statistics, time:Time, kindP=False):
+        # if config.DEBUG:
+        #     print('\n\n\n\n')
+        #     print(stats)
+        #     print(time)
+        #     print('\n\n\n\n')
+        
+        self.type = 1 if kindP else 0
             
-        self.processedJobs = [stats.processedJobs[0], stats.processedJobs[1]]
-        self.avgInterarrivals = [computeAvgInterarrivals(stats), computeAvgInterarrivals(stats,True) ]
-        self.avgWaits = [computeAvgWait(stats), computeAvgWait(stats, True)]
-        self.avgNumNodes = [computeAvgNumNode(stats, time), computeAvgNumNode(stats, time, True)]
-        self.avgDelays = [computeAvgDelay(stats), computeAvgDelay(stats, True)]
-        self.avgNumQueues = [computeAvgNumQueue(stats, time), computeAvgNumQueue(stats, time, True)]
-        self.avgServersStats = [computeAvgServerStats(stats, time), computeAvgServerStats(stats, time, True)] 
+        self.processedJobs = stats.processedJobs[self.type]
+        self.avgInterarrivals = computeAvgInterarrivals(stats, kindP)
+        self.avgWaits = computeAvgWait(stats, kindP)
+        self.avgNumNodes = computeAvgNumNode(stats, time, kindP)
+        self.avgDelays = computeAvgDelay(stats, kindP)
+        self.avgNumQueues = computeAvgNumQueue(stats, time, kindP)
+        self.avgServersStats = computeAvgServerStats(stats, time, kindP)
         
 
     def __str__(self) -> str:
         my_string = ''
         titles = ["BAR:\n", "PIZZERIA:\n"]
-        for i in range(2):
         
-            my_string += titles[i]
-            my_string += "  avg interarrivals .. = {0:6.2f}\n".format(self.avgInterarrivals[i])
-            
-            my_string += "  avg wait ........... = {0:6.2f}\n".format(self.avgWaits[i])
-            
-            my_string += "  avg # in node ...... = {0:6.2f}\n".format(self.avgNumNodes[i])
+        
+        my_string += titles[self.type]
+        my_string += "  avg interarrivals .. = {0:6.2f}\n".format(self.avgInterarrivals)
+        
+        my_string += "  avg wait ........... = {0:6.2f}\n".format(self.avgWaits)
+        
+        my_string += "  avg # in node ...... = {0:6.2f}\n".format(self.avgNumNodes)
 
-            startingPoint = None
-            endingPoint = None
-            if (i == 0):
-                startingPoint = 1
-                endingPoint = config.SERVERS_B + 1
-            else:
-                startingPoint = config.SERVERS_B + 2 
-                endingPoint = config.SERVERS_B + 2 + config.SERVERS_P
+        startingPoint = None
+        endingPoint = None
+        if (self.type == 0):
+            startingPoint = 1
+            endingPoint = config.SERVERS_B + 1
+        else:
+            startingPoint = config.SERVERS_B + 2 
+            endingPoint = config.SERVERS_B + 2 + config.SERVERS_P
+        
+        my_string += "  avg delay .......... = {0:6.2f}\n".format(self.avgDelays)
+        my_string += "  avg # in queue ..... = {0:6.2f}\n".format(self.avgNumQueues)
+        my_string += "\nthe server statistics are:\n"
+        my_string += "    server     utilization     avg service        share\n"
+
+        # if config.DEBUG:
+        #     print(f"SERVER: {self.avgServersStats}")
+
+        for s in range(startingPoint, endingPoint):  
             
-            my_string += "  avg delay .......... = {0:6.2f}\n".format(self.avgDelays[i])
-            my_string += "  avg # in queue ..... = {0:6.2f}\n".format(self.avgNumQueues[i])
-            my_string += "\nthe server statistics are:\n"
-            my_string += "    server     utilization     avg service        share\n"
-
-            # if config.DEBUG:
-            #     print(f"SERVER: {self.avgServersStats}")
-
-            for s in range(startingPoint, endingPoint):  
-                
-                my_string += "{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}\n".format(s, self.avgServersStats[i][s]['utilization'], 
-                    self.avgServersStats[i][s]['service'], 
-                    self.avgServersStats[i][s]['share'])
-            my_string += '\n'
+            my_string += "{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}\n".format(s, self.avgServersStats[s]['utilization'], 
+                self.avgServersStats[s]['service'], 
+                self.avgServersStats[s]['share'])
+        my_string += '\n'
         return my_string
 
     

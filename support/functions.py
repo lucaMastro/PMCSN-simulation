@@ -2,7 +2,7 @@ from support.rngs import random, selectStream
 from math import log
 from support.Time import Time
 
-from support.Config import config
+from configurations.Config import config
 
 # initialize configurations
 

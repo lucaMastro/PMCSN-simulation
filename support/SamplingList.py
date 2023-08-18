@@ -1,6 +1,6 @@
 from support.SamplingEvent import SamplingEvent
 
-from support.Config import config
+from configurations.Config import config
 
 def makeDict():
     d = dict()
@@ -12,8 +12,10 @@ def makeDict():
 class SamplingList:
 
     # list of objects SamplingEvent
-    sampleList = None
-    numSample = 0
+    sampleListB = None
+    sampleListP = None
+    numSampleB = 0
+    numSampleP = 0
 
     """ those statistics will keep mean and std_dev for both cases B and P. they are list of 2 dict:
      ------------------B_DICT-------------,   ------------------P_DICT-------------
@@ -48,7 +50,8 @@ class SamplingList:
 
 
     def __init__(self):
-        self.sampleList = []
+        self.sampleListB = []
+        self.sampleListP = []
 
         self.avgInterarrivals = [makeDict(), makeDict()]
         self.avgWaits = [makeDict(), makeDict()]
@@ -83,138 +86,128 @@ class SamplingList:
             self.serversStats[s]['share']['std_dev'] = 0
 
     def __str__(self) -> str:
-        my_str = ''
+        my_str = f'numSampleB: {self.numSampleB}\nnumSampleP: {self.numSampleP}\n'
         titles = ['BAR', 'PIZZERIA']
-        try:
-            for attr, value in vars(self).items():
-                if attr == 'sampleList':
-                        continue
-                for i in range(2):
-                    m = value[i]['mean']
-                    std_dev = value[i]['std_dev']
-                    my_str += f'{attr}_{titles[i]} -- mean: {m}, std_dev: {std_dev}\n'
-        except:
-            for s in self.serversStats.keys():
-                my_str += f'server {s}\n'
-                m = self.serversStats[s]['utilization']['mean']
-                std_dev = self.serversStats[s]['utilization']['std_dev']
-                my_str += f'\tutilization -- mean {m} -- std_dev {std_dev}\n'
+        
+        for attr, value in vars(self).items():
+            print(attr)
+            if attr in ('sampleListB', 'serversStats', 'sampleListP', 'numSampleB', 'numSampleP'):
+                    continue
+            for i in range(2):
+                m = value[i]['mean']
+                std_dev = value[i]['std_dev']
+                my_str += f'{attr}_{titles[i]} -- mean: {m}, std_dev: {std_dev}\n'
+    
+        for s in self.serversStats.keys():
+            my_str += f'server {s}\n'
+            m = self.serversStats[s]['utilization']['mean']
+            std_dev = self.serversStats[s]['utilization']['std_dev']
+            my_str += f'\tutilization -- mean {m} -- std_dev {std_dev}\n'
 
-                m = self.serversStats[s]['service']['mean']
-                std_dev = self.serversStats[s]['service']['std_dev']
-                my_str += f'\tservice -- mean {m} -- std_dev {std_dev}\n'
+            m = self.serversStats[s]['service']['mean']
+            std_dev = self.serversStats[s]['service']['std_dev']
+            my_str += f'\tservice -- mean {m} -- std_dev {std_dev}\n'
 
-                m = self.serversStats[s]['share']['mean']
-                std_dev = self.serversStats[s]['share']['std_dev']
-                my_str += f'\tshare -- mean {m} -- std_dev {std_dev}\n'
+            m = self.serversStats[s]['share']['mean']
+            std_dev = self.serversStats[s]['share']['std_dev']
+            my_str += f'\tshare -- mean {m} -- std_dev {std_dev}\n'
 
         return my_str
     
     def append(self, newEvent:SamplingEvent):
-        self.sampleList.append(newEvent)
-        self.numSample += 1
-
+        type = newEvent.type
+        num = None
+        if type == 0:
+            self.sampleListB.append(newEvent)
+            self.numSampleB += 1
+            # used in welford algho
+            num = self.numSampleB
+        else:
+            self.sampleListP.append(newEvent)
+            self.numSampleP += 1
+            # used in welford algho
+            num = self.numSampleP
+            
         # one pass algho for each statistic:
-        mean = self.avgInterarrivals[0]['mean']
-        diff = newEvent.avgInterarrivals[0] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgInterarrivals[0]['mean'] += wel[0]
-        self.avgInterarrivals[0]['std_dev'] += wel[1]
+        mean = self.avgInterarrivals[type]['mean']
+        diff = newEvent.avgInterarrivals - mean
+        wel = self.welfordNextStep(diff, num)
+        self.avgInterarrivals[type]['mean'] += wel[0]
+        self.avgInterarrivals[type]['std_dev'] += wel[1]
 
-        mean = self.avgInterarrivals[1]['mean']
-        diff = newEvent.avgInterarrivals[1] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgInterarrivals[1]['mean'] += wel[0]
-        self.avgInterarrivals[1]['std_dev'] += wel[1]
-
-        mean = self.avgWaits[0]['mean']
+        mean = self.avgWaits[type]['mean']
         """  print(f'mean:{mean}')
         print(f'eventWait = {newEvent.avgWaits[0]}') """
-        diff = newEvent.avgWaits[0] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgWaits[0]['mean'] += wel[0]
-        self.avgWaits[0]['std_dev'] += wel[1]
+        diff = newEvent.avgWaits - mean
+        wel = self.welfordNextStep(diff, num)
+        self.avgWaits[type]['mean'] += wel[0]
+        self.avgWaits[type]['std_dev'] += wel[1]
 
-        mean = self.avgWaits[1]['mean']
-        diff = newEvent.avgWaits[1] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgWaits[1]['mean'] += wel[0]
-        self.avgWaits[1]['std_dev'] += wel[1]
+        mean = self.avgNumNodes[type]['mean']
+        diff = newEvent.avgNumNodes - mean
+        wel = self.welfordNextStep(diff, num)
+        self.avgNumNodes[type]['mean'] += wel[0]
+        self.avgNumNodes[type]['std_dev'] += wel[1]
 
-        mean = self.avgNumNodes[0]['mean']
-        diff = newEvent.avgNumNodes[0] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgNumNodes[0]['mean'] += wel[0]
-        self.avgNumNodes[0]['std_dev'] += wel[1]
+        mean = self.avgDelays[type]['mean']
+        diff = newEvent.avgDelays - mean
+        wel = self.welfordNextStep(diff, num)
+        self.avgDelays[type]['mean'] += wel[0]
+        self.avgDelays[type]['std_dev'] += wel[1]
 
-        mean = self.avgNumNodes[1]['mean']
-        diff = newEvent.avgNumNodes[1] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgNumNodes[1]['mean'] += wel[0]
-        self.avgNumNodes[1]['std_dev'] += wel[1]
 
-        mean = self.avgDelays[0]['mean']
-        diff = newEvent.avgDelays[0] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgDelays[0]['mean'] += wel[0]
-        self.avgDelays[0]['std_dev'] += wel[1]
+        mean = self.avgNumQueues[type]['mean']
+        diff = newEvent.avgNumQueues - mean
+        wel = self.welfordNextStep(diff, num)
+        self.avgNumQueues[type]['mean'] += wel[0]
+        self.avgNumQueues[type]['std_dev'] += wel[1]
 
-        mean = self.avgDelays[1]['mean']
-        diff = newEvent.avgDelays[1] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgDelays[1]['mean'] += wel[0]
-        self.avgDelays[1]['std_dev'] += wel[1]
-
-        mean = self.avgNumQueues[0]['mean']
-        diff = newEvent.avgNumQueues[0] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgNumQueues[0]['mean'] += wel[0]
-        self.avgNumQueues[0]['std_dev'] += wel[1]
-
-        mean = self.avgNumQueues[1]['mean']
-        diff = newEvent.avgNumQueues[1] - mean
-        wel = self.welfordNextStep(diff)
-        self.avgNumQueues[1]['mean'] += wel[0]
-        self.avgNumQueues[1]['std_dev'] += wel[1]
 
 
         # newEvent.avgServersStas is a list of dic: [0: b_servers, 1: p_servers]
-        for pb_index in range(2):
-            newSampleServersKind = newEvent.avgServersStats[pb_index]
-            
-            # for each server of that kind
-            for s in newSampleServersKind.keys():
-                # in self.serversStats, all servers are kept together. take the correct one by its index    
-                averaged = self.serversStats[s]
-                # take the new stats relative to the same server
-                currNewServer = newSampleServersKind[s]
+        
+        newSampleServersKind = newEvent.avgServersStats
+        
+        # for each server of that kind
+        for s in newSampleServersKind.keys():
+            # in self.serversStats, all servers are kept together. take the correct one by its index    
+            averaged = self.serversStats[s]
+            # take the new stats relative to the same server
+            currNewServer = newSampleServersKind[s]
 
-                # for each statistic (utilization, service and share)
-                for statistic in currNewServer.keys():
-                    mean = averaged[statistic]['mean']
-                    diff = currNewServer[statistic] - mean
-                    wel = self.welfordNextStep(diff)
-                    self.serversStats[s][statistic]['mean'] += wel[0]
-                    self.serversStats[s][statistic]['std_dev'] += wel[1]
+            # for each statistic (utilization, service and share)
+            for statistic in currNewServer.keys():
+                mean = averaged[statistic]['mean']
+                diff = currNewServer[statistic] - mean
+                wel = self.welfordNextStep(diff, num)
+                self.serversStats[s][statistic]['mean'] += wel[0]
+                self.serversStats[s][statistic]['std_dev'] += wel[1]
 
    
-    def welfordNextStep(self, diff:float):
-        mean = diff / self.numSample
-        std_dev = diff * diff * (self.numSample - 1) / self.numSample
+    def welfordNextStep(self, diff:float, num:int):
+        # num is passed as param because its not know at the beginnig if is P or B event
+        mean = diff / num
+        std_dev = diff * diff * (num - 1) / num
         return [mean, std_dev]
 
     def makeCorrectStdDev(self):
         """ in welford algho, the std dev has to be divided by the sample size in the end
         in order to obtain the correct std dev. here i'm going to divide by the sample size
         all the std devs: """
+        num = self.numSampleB
         for i in range(2): # both the b and p type
-            self.avgInterarrivals[i]['std_dev'] /= self.numSample
-            self.avgWaits[i]['std_dev'] /= self.numSample
-            self.avgNumNodes[i]['std_dev'] /= self.numSample
-            self.avgDelays[i]['std_dev'] /= self.numSample
-            self.avgNumQueues[i]['std_dev'] /= self.numSample
+            self.avgInterarrivals[i]['std_dev'] /= num
+            self.avgWaits[i]['std_dev'] /= num
+            self.avgNumNodes[i]['std_dev'] /= num
+            self.avgDelays[i]['std_dev'] /= num
+            self.avgNumQueues[i]['std_dev'] /= num
+            num = self.numSampleP
 
         for s in self.serversStats.keys():
             curr_server = self.serversStats[s]
             for statistic in curr_server.keys():
-                curr_server[statistic]['std_dev'] /= self.numSample
+                if s in range(1, config.SERVERS_B + 1):
+                    num = self.numSampleB
+                else:
+                    num = self.numSampleP
+                curr_server[statistic]['std_dev'] /= num

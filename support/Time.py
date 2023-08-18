@@ -1,6 +1,6 @@
 import copy
 
-from support.Config import config
+from configurations.Config import config
 
 class Time:
     current = None          # current time in minutes            */

@@ -1,6 +1,6 @@
 from scipy.stats import norm
 
-from support.Config import config
+from configurations.Config import config
 
 class GaussianWeighter:
     # bitmask: in position 0 there will be the normalizer factor of the 0-th slot, that is

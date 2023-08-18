@@ -3,7 +3,7 @@ import importlib
 import ast
 
 #from support.Config import config
-from support.Config import config
+from configurations.Config import config
 
 class ArgParser:
     parser = None
