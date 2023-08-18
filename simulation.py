@@ -5,8 +5,10 @@ from support.SamplingEvent import SamplingEvent
 from support.Time import Time
 from support.Statistics import Statistics
 from support.SamplingList import SamplingList
-import support.Config as config
 from support.GaussianWeighter import GaussianWeighter
+from support.ArgParser import ArgParser
+
+from support.Config import config
 
 """ def evaluation(stats, listOfSample):
     l = len(listOfSample)
@@ -349,7 +351,9 @@ if __name__ == '__main__':
     global dayArrivals
     global gaussianWeighter
     
-
+    parser = ArgParser()
+    parser.parse()
+    
     t = Time()
     dayArrivals = [config.START_B, config.START_P]
     gaussianWeighter = GaussianWeighter()
@@ -393,6 +397,9 @@ if __name__ == '__main__':
 
     print(lastSample)
     print(samplingElementList)
+
+    config.WEEK_LAMBDA_P = 2
+    config.storeConfig('MyConfig.py')
     """
     # create a csv for analisys 
     firstLine = "day,# job completati, # job B completati, # job P completati," + \

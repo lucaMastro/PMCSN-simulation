@@ -1,8 +1,8 @@
 from support.rngs import random, selectStream
 from math import log
-import support.Config as config
 from support.Time import Time
-from support.Statistics import Statistics
+
+from support.Config import config
 
 # initialize configurations
 

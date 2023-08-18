@@ -1,5 +1,6 @@
 import copy
-import support.Config as c
+
+from support.Config import config
 
 class Time:
     current = None          # current time in minutes            */
@@ -12,9 +13,9 @@ class Time:
     timeSlot = None         # current slot indicator
     
     def __init__(self):
-        self.current = c.START_B
+        self.current = config.START_B
         self.day = 0 
-        self.dayOfWeek = c.SIMULATE_WEEK # starting from the first working day
+        self.dayOfWeek = config.SIMULATE_WEEK # starting from the first working day
         self.timeSlot = 0
         self.notWorkingDays = 0
 
@@ -29,10 +30,10 @@ class Time:
     #   c.SLOTSTIME: t.current is initialized at c.START_B every 'new day starts',
     #   and c.START_B is the first element of c.SLOTSTIME.
         newSlot = 0
-        for i in range(1, len(c.SLOTSTIME)):
+        for i in range(1, len(config.SLOTSTIME)):
             # finding the biggest possible slotsTime that is lower than current.
             # if time is equal to slotTime[i], the arrival rate is changed yet.
-            if (c.SLOTSTIME[i] <= self.current):
+            if (config.SLOTSTIME[i] <= self.current):
                 newSlot = i
             else: #others are bigger 
                 break
@@ -44,6 +45,6 @@ class Time:
         return copy.deepcopy(self)
 
     def newDay(self):
-        self.current = c.START_B
+        self.current = config.START_B
         self.day += 1
         # self.dayOfWeek = (self.dayOfWeek + 1) % 7

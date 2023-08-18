@@ -1,8 +1,9 @@
 from support.Event import Event
 from support.AccumSum import AccumSum
 #from support.Config import config.START_B, config.SERVERS_B, config.STOP_P, config.STOP_B, config.SLOTSTIME, config.FIRST_HALFDAY_CLOSE_TIME, config.SECOND_HALFDAY_OPEN_TIME
-import support.Config as config
-from support.Time import Time
+
+from support.Config import config
+
 
 class Statistics:
     # The following variables are meant to store the last arrival of each time

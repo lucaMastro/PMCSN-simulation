@@ -1,6 +1,7 @@
 from support.Time import Time
 from support.Statistics import Statistics
-import support.Config as config
+
+from support.Config import config
 
 def computeAvgInterarrivals(stats:Statistics, kindP=False):
     interarrivalWindow = None

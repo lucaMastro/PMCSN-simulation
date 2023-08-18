@@ -1,5 +1,6 @@
-from math import factorial, inf
-import support.Config as c
+from math import factorial
+
+from support.Config import config
 
 def compute_P0(m, rho):
     sum = 0
@@ -44,20 +45,20 @@ if __name__ == '__main__':
 
     if (not typeP):
         # typeB
-        fasce = c.SLOTS_DURATION_B  
+        fasce = config.SLOTS_DURATION_B  
         #fasce = [(i * 60) for i in [3, 3, 5, 2, 2, 4]]
         dayDuration = 19 #h
-        interarrivalsWeek = 1 / c.WEEK_LAMBDA_B 
-        interarrivalsWeekEnd = 1 / c.WEEKEND_LAMBDA_B
+        interarrivalsWeek = 1 / config.WEEK_LAMBDA_B 
+        interarrivalsWeekEnd = 1 / config.WEEKEND_LAMBDA_B
         mi = 0.5
         m = 2
 
     else:
         # typeP
-        fasce = c.SLOTS_DURATION_P
+        fasce = config.SLOTS_DURATION_P
         dayDuration = 2 #h
-        interarrivalsWeek = [1 / c.WEEK_LAMBDA_P] 
-        interarrivalsWeekEnd = [1 / c.WEEKEND_LAMBDA_P]
+        interarrivalsWeek = [1 / config.WEEK_LAMBDA_P] 
+        interarrivalsWeekEnd = [1 / config.WEEKEND_LAMBDA_P]
         mi = 1/3 
         m = 2
 

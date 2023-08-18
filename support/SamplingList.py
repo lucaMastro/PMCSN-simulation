@@ -1,5 +1,6 @@
 from support.SamplingEvent import SamplingEvent
-import support.Config as config
+
+from support.Config import config
 
 def makeDict():
     d = dict()
