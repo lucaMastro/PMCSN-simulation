@@ -58,6 +58,13 @@ class Config:
 
         self.DEBUG = True
 
+        self.FINITE_H = False
+        self.INFINITE_H = False
+        self.FIND_B_VALUE = False
+        self.SEED = 0
+        self.LAG_J = 1
+        self.USE_GAUSSIAN_FACTOR = True
+
     
     def storeConfig(self,outputFileName):
         # Make the file text

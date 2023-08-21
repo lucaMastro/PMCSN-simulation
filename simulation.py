@@ -10,165 +10,6 @@ from support.ArgParser import ArgParser
 
 from configurations.Config import config
 
-""" def evaluation(stats, listOfSample):
-    l = len(listOfSample)
-    titles = ["BAR:\n", "PIZZERIA:\n"]
-    indexes = None
-
-    if l == 1:
-        # STEADY ANALISYS
-        indexes = listOfSample[0].indexes 
-        index = indexes[0] + indexes[1]
-        print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
-        stop = config.STOP
-    else:
-        # TRANSIENT ANALISYS
-        print("\n\nTransient analisys:")
-
-        # computing means
-        #
-        # computing average index 
-        numSample = len(samplingElementList)
-        
-        indexes = [0, 0] 
-        for i in range(numSample):
-            indexes[0] += samplingElementList[i].indexes[0] 
-            indexes[1] += samplingElementList[i].indexes[1]
-        indexes = [int(i / numSample) for i in indexes]
-        index = indexes[0] + indexes[1]
-
-        print("\nfor {0:1d} jobs the service node statistics are:\n".format(index))
-
-        # ?????????????
-        # computing average number of elapsed days 
-        tmp = 0
-        for i in range(numSample):
-            tmp += samplingElementList[i].time.day
-        stop = int(tmp / numSample)
-
-        # ?????????????? quando faccio il sampling l'ultimo arrivo potrebbe non essere 
-        # avvenuto: infatti il sampling avviene in un momento random dell'ultima fascia 
-        # oraria, e non è detto che poi non ce ne siano altri
-        # computing average lastArrival
-        tmpB = 0
-        tmpP = 0
-        for i in range(numSample):
-            tmpB += samplingElementList[i].lastArrivals[0] 
-            tmpP += samplingElementList[i].lastArrivals[1]
-        lastArrivalsTime = [tmpB/numSample, tmpP/numSample]
-
-        # computing average areas
-        tmpB = 0
-        tmpP = 0
-        for i in range(numSample):
-            tmpB += samplingElementList[i].areas[0]
-            tmpP += samplingElementList[i].areas[1]
-        areas = [tmpB / numSample, tmpP / numSample]
-
-        # computing mean served and service time for each server:
-        # there is a AccumSum obj for each event in eventList. the last one is the
-        # sampling element: that's why it's excluded. Also exclude the B Arrival index, that
-        # is 0
-        for s in range(1, len(sum) - 1): 
-            if s == pArrivalIndex: #the arrivalP event, then skip
-                continue
-            service = 0
-            served = 0
-            for i in range(numSample):
-                service += samplingElementList[i].sum[s].service
-                served += samplingElementList[i].sum[s].served
-            sum[s].served = served / numSample 
-            sum[s].service = service / numSample
-
-    serviceTimes = [19 * 60 * stop, 2 * 60 * stop]
-    tmp = lastArrivalsTime[0] - config.START_B
-    tmp += 19 * 60 * (stop - 1) 
-    lastArrivalsTime[0] = tmp
-
-    tmp = lastArrivalsTime[1] - config.START_P
-    tmp += 2 * 60 * (stop - 1)
-    lastArrivalsTime[1] = tmp
-    for i in range(2):
-        print(titles[i])
-        print("  avg interarrivals .. = {0:6.2f}".format(lastArrivalsTime[i] /
-            indexes[i])) 
-        
-        print("  avg wait ........... = {0:6.2f}".format(areas[i] / indexes[i]))
-        # avg # in node is the mean population in the node on the "up-time"
-        print("  avg # in node ...... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
-
-        if (i == 0):
-            startingPoint = 1
-            endPoint = config.SERVERS_B + 1
-        else:
-            startingPoint = config.SERVERS_B + 1 
-            endPoint = len(events) - 1          #excluding sampling 
-        for s in range(startingPoint, endPoint):  # adjust area to calculate */ 
-            if (s != pArrivalIndex):
-                areas[i] -= sum[s].service              # averages for the queue   */    
-
-        print("  avg delay .......... = {0:6.2f}".format(areas[i] / indexes[i]))
-        print("  avg # in queue ..... = {0:6.2f}".format(areas[i] / serviceTimes[i]))
-        print("\nthe server statistics are:\n")
-        print("    server     utilization     avg service        share\n")
-
-        for s in range(startingPoint, endPoint):  
-            if (s != pArrivalIndex):
-              print("{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}".format(s, sum[s].service
-                  / serviceTimes[i], sum[s].service / sum[s].served,float(sum[s].served)
-                  / indexes[i]))
-        if (i == 0):
-            print("\n\n")
-
-    # revenue analisys
-    monthsNum = int(stop / 30) # number of months
-    # if ( stop % 30 != 0):
-    #    monthsNum += 1
-    rentCost = monthsNum * config.RENT 
-
-    peopleCost= stop * config.COSTS[0] * config.SERVERS_B + stop * config.COSTS[1] * config.SERVERS_P / 2 
-
-    # computing total served requests for each type
-    total_B_services = 0
-    for s in range(1, config.SERVERS_B + 1):
-        total_B_services += sum[s].served
-
-    total_P_services = 0
-    for s in range(config.SERVERS_B + 2, len(events) - 1):     #excludin sampling event
-        total_P_services += sum[s].served
-
-    # grass revenue 
-    revenue = total_B_services * config.REVENUES[0] + total_P_services * config.REVENUES[1]
-
-    # each request costs to restaurant half of its selling cost
-    # meaning that if request B costs 3€, it has been bought at 1.50€
-    # by restaurant
-    materialCost = revenue / 2
-
-    # computing iva at 22%
-    ivaCost = revenue * config.IVA
-
-    #computing bill costs
-    billCosts = monthsNum * config.BILL_COSTS 
-
-    print("\n\nREVENUE ({0} days):\n".format(stop))
-    print("  Gross revenue...... = {0:.2f} €".format(revenue))
-    print("  Personal cost...... = {0:.2f} €".format(peopleCost))
-    revenue -= peopleCost
-    print("  Material cost...... = {0:.2f} €".format(materialCost))
-    revenue -= materialCost 
-    print("  Rent costs......... = {0:.2f} €".format(rentCost))
-    revenue -= rentCost
-    print("  Iva costs.......... = {0:.2f} €".format(ivaCost))
-    revenue -= ivaCost
-    print("  Bill costs......... = {0:.2f} €".format(billCosts))
-    revenue -= billCosts 
-    print("  Revenue for year... = {0:.2f} €".format(revenue))
-    print("  Revenue for month.. = {0:.2f} €".format(revenue / monthsNum))
-    """
-
-
-
 def processArrivalB(stats:Statistics, time:Time):
     global dayArrivals
     global gaussianWeighter
@@ -179,6 +20,8 @@ def processArrivalB(stats:Statistics, time:Time):
 
     m = getCorrectLambdaB(time)
     gaussianFactor = gaussianWeighter.gaussianWeighterFactorB(time.current, time.timeSlot)
+    if not config.USE_GAUSSIAN_FACTOR:
+        gaussianFactor = 1
     b_time = GetArrivalB(1/m) / gaussianFactor
 
     stats.updateArrivalB(dayArrivals[0], b_time)
@@ -208,6 +51,8 @@ def processArrivalP(stats:Statistics, time:Time):
 
     m = getCorrectLambdaP(time)
     gaussianFactor = gaussianWeighter.gaussianFactorP(time.current)
+    if not config.USE_GAUSSIAN_FACTOR:
+        gaussianFactor = 1
     p_time = GetArrivalP(1/m) / gaussianFactor
 
     dayArrivals[1] += p_time
@@ -257,9 +102,10 @@ def processDepartureP(stats:Statistics, time:Time, serverIndex:int):
 def setInitialState(stats:Statistics):
     # select time in which sampling interarrival events. the interarrival will be an uniform 
     # between 1.5 and 2 minutes (90 sec and 120 sec). 
-    #samplingInterarrivalTime = getSamplingInterarrivalTime()
-    #stats.setSamplingTime(config.START_B + samplingInterarrivalTime)
-    stats.setSamplingTime(Uniform(20*60, 23*60))
+    global samplingInterarrivalTime
+    samplingInterarrivalTime = getSamplingInterarrivalTime()
+    stats.setSamplingTime(config.START_B + samplingInterarrivalTime)
+    #stats.setSamplingTime(Uniform(20*60, 23*60))
 
     # set the first B arrival
     m = getCorrectLambdaB(t)
@@ -275,10 +121,14 @@ def setInitialState(stats:Statistics):
 
 
 
-def loop(stats:Statistics, t:Time, samplingElementList:SamplingList ):
+def loop(stats:Statistics, t:Time, samplingElementList:SamplingList):
     global dayArrivals
-    global gaussianWeighter
+    global samplingInterarrivalTime
+
     pArrivalIndex = config.SERVERS_B + 1
+
+    # infinite horizont param:
+    b = None
     
     while (t.day < config.STOP): 
         #initializing sampling
@@ -310,13 +160,14 @@ def loop(stats:Statistics, t:Time, samplingElementList:SamplingList ):
 
         elif (e == len(stats.events) - 1):
             # it's a sampling event
-            currSample = SamplingEvent(stats, t)
-            samplingElementList.append(currSample)
-            if t.current > config.START_P and t.current < config.STOP_P:
+            if stats.processedJobs[0] != 0:
+                currSample = SamplingEvent(stats, t)
+                samplingElementList.append(currSample)
+            if t.current > config.START_P and stats.numbers[1] != 0 and stats.processedJobs[1] != 0:
                 #sample also a P type:
                 samplingElementList.append(SamplingEvent(stats, t, True))
-            #stats.events[e].t += samplingInterarrivalTime
-            stats.events[e].x = 0
+            stats.events[e].t += samplingInterarrivalTime
+            #stats.events[e].x = 0
 
         #it's a departure
         else:
@@ -328,7 +179,8 @@ def loop(stats:Statistics, t:Time, samplingElementList:SamplingList ):
             
 
         stats.number = stats.numbers[0] + stats.numbers[1]
-        if (stats.events[0].x == 0) and (stats.number == 0):
+        # do not restart system state for infinite horizont simulation
+        if (stats.events[0].x == 0) and (stats.number == 0) and not config.INFINITE_H:
             
             #it means that a day is over: re-initialize all variables and let days advance:
             dayArrivals = [config.START_B, config.START_P]
@@ -344,8 +196,9 @@ def loop(stats:Statistics, t:Time, samplingElementList:SamplingList ):
 
             stats.newDay(dayArrivals)
             
-    # divide by n each std_dev before ending
-    samplingElementList.makeCorrectStdDev()
+    # divide by n each variance before ending
+    samplingElementList.makeCorrectVarianceAndAutocorr()
+    config.FIND_B_VALUE = False
 
 
 
@@ -356,39 +209,46 @@ if __name__ == '__main__':
     
     parser = ArgParser()
     parser.parse()
+    stats = None
+    t = None
     
-    t = Time()
-    dayArrivals = [config.START_B, config.START_P]
-    gaussianWeighter = GaussianWeighter()
+    # this loop is to find the value of b
+    while config.FIND_B_VALUE:
+        t = Time()
+        dayArrivals = [config.START_B, config.START_P]
+        gaussianWeighter = GaussianWeighter()
 
-    # events table:
-    #   index | event     |
-    #   ------------------|
-    #   0 | arrival B     |
-    #   ------------------|
-    #   1 | completion B1 |
-    #   ------------------|
-    #   2 | completion B2 |
-    #   ------------------|
-    #   3 | arrival P     |
-    #   ------------------|
-    #   4 | completion P1 |
-    #   ------------------|
-    #   5 | completion P2 |
-    #   ------------------|
-    #   6 | sampling      |
-    #   ------------------|
-    #
-    numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
-    stats = Statistics(numEvents)
+        # events table:
+        #   index | event     |
+        #   ------------------|
+        #   0 | arrival B     |
+        #   ------------------|
+        #   1 | completion B1 |
+        #   ------------------|
+        #   2 | completion B2 |
+        #   ------------------|
+        #   3 | arrival P     |
+        #   ------------------|
+        #   4 | completion P1 |
+        #   ------------------|
+        #   5 | completion P2 |
+        #   ------------------|
+        #   6 | sampling      |
+        #   ------------------|
+        #
+        numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
+        stats = Statistics(numEvents)
 
-    # samplingElementList = []
-    samplingElementList = SamplingList()
-    
+        # samplingElementList = []
+        samplingElementList = SamplingList()
+        
+        seed = config.SEED
+        plantSeeds(seed)
+        setInitialState(stats)
+        loop(stats, t, samplingElementList)
 
-    plantSeeds(0)
-    setInitialState(stats)
-    loop(stats, t, samplingElementList)
+    print(stats)
+    print(t)
     
 
     lastSampleB = SamplingEvent(stats, t)
@@ -403,8 +263,6 @@ if __name__ == '__main__':
     print(lastSampleP)
     print(samplingElementList)
 
-    config.WEEK_LAMBDA_P = 2
-    config.storeConfig('MyConfig.py')
     """
     # create a csv for analisys 
     firstLine = "day,# job completati, # job B completati, # job P completati," + \
