@@ -106,8 +106,14 @@ def computeAvgServerStats(stats:Statistics, time:Time, kindP=False):
         d = dict()
         #d['server'] = s
         d['utilization'] = stats.sum[s].service / time.current
-        d['service'] = stats.sum[s].service / stats.sum[s].served
-        d['share'] = stats.sum[s].served / processedJobs
+        
+        den = stats.sum[s].served
+        if den != 0:
+            d['service'] = stats.sum[s].service / den
+        
+        den = processedJobs
+        if den != 0:
+            d['share'] = stats.sum[s].served / den
 
         ext_dict[s] = d
 
@@ -135,7 +141,6 @@ class SamplingEvent:
         #     print('\n\n\n\n')
         
         self.type = 1 if kindP else 0
-            
         self.processedJobs = stats.processedJobs[self.type]
         self.avgInterarrivals = computeAvgInterarrivals(stats, kindP)
         self.avgWaits = computeAvgWait(stats, kindP)

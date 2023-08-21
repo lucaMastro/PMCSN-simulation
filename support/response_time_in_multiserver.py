@@ -1,5 +1,8 @@
 from math import factorial
 
+import sys
+sys.path.append('../')
+
 from configurations.Config import config
 
 def compute_P0(m, rho):
@@ -55,7 +58,7 @@ if __name__ == '__main__':
 
     else:
         # typeP
-        fasce = config.SLOTS_DURATION_P
+        fasce = [2]
         dayDuration = 2 #h
         interarrivalsWeek = [1 / config.WEEK_LAMBDA_P] 
         interarrivalsWeekEnd = [1 / config.WEEKEND_LAMBDA_P]

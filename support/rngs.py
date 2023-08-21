@@ -37,6 +37,8 @@
 
 from time import time
 
+from configurations.Config import config
+
 #global consts
 MODULUS = 2147483647 #/* DON'T CHANGE THIS VALUE                  */
 MULTIPLIER = 48271      #/* DON'T CHANGE THIS VALUE                  */
@@ -133,6 +135,7 @@ def putSeed(x):
     
     
   seed[stream] = int(x)
+  config.SEED = int(x)
 
 
 def getSeed():

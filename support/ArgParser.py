@@ -16,6 +16,10 @@ class ArgParser:
         self.parser.add_argument("-fh", "--finite_horizont", action="store_true", help="simulate a finite horizont case")
         self.parser.add_argument("-ih", "--infinite_horizont", action="store_true", help="simulate a finite horizont case. Use with -st/--slot-time")
         self.parser.add_argument("-cc", "--change_config", nargs=2, metavar=("OPTION", "VALUE"), action='append', help="specify configuration to change")
+        self.parser.add_argument("-fb", "--find_b_value", metavar=("THRESHOLD"), help="find the value of b such tath autocorellation lag j=1 is <= THRESHOLD")
+        self.parser.add_argument("-s", "--seed", metavar=("SEED"), help="use the given SEED as random seed. if SEED = 0 then the initial seed is to be supplied interactively; if SEED < 0 then the initial seed is obtained from the system clock; if SEED > 0 > 0 then it is the initial seed (unless too large). default value is 0")
+        self.parser.add_argument("-ngf", "--no_gaussian_factor", action="store_true", help="don't use the gaussian probability value to weight interarrival times")
+        
 
     def parse(self):
         args = self.parser.parse_args()
@@ -29,16 +33,24 @@ class ArgParser:
         
         if args.finite_horizont:
             if not args.infinite_horizont:
-                setattr(config, 'FINITE-H', True)
+                config.FINITE_H = True
             else:
                 raise argparse.ArgumentTypeError("Cannot perform finite and infinite horizont together.")
         
         if args.infinite_horizont:
             if not args.finite_horizont:
-                setattr(config, 'INFINITE-H', True)
+                config.INFINITE_H = True
             else:
                 raise argparse.ArgumentTypeError("Cannot perform finite and infinite horizont together.")
         
+        if args.find_b_value:
+            config.FIND_B_VALUE = True
+
+        if args.seed:
+            config.SEED = int(args.seed)
+
+        if args.no_gaussian_factor:
+            config.USE_GAUSSIAN_FACTOR = False
 
 
     def storePersonalConfig(self, filePath):

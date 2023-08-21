@@ -17,7 +17,6 @@ class Time:
         self.day = 0 
         self.dayOfWeek = config.SIMULATE_WEEK # starting from the first working day
         self.timeSlot = 0
-        self.notWorkingDays = 0
 
     def __str__(self) -> str:
         my_str = ''
