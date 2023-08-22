@@ -121,17 +121,19 @@ def setInitialState(stats:Statistics):
 
 
 
-def loop(stats:Statistics, t:Time, samplingElementList:SamplingList):
+def loop(stats:Statistics, t:Time, listOfSamplingElementList:SamplingList):
     global dayArrivals
     global samplingInterarrivalTime
 
     pArrivalIndex = config.SERVERS_B + 1
 
-    # infinite horizont param:
-    b = None
-    
+    sampleListIndex = 0
+    samplingElementList = listOfSamplingElementList[sampleListIndex]
+
     while (t.day < config.STOP): 
         #initializing sampling
+        enoughSample = True
+
         
         e = NextEvent(stats.events)     # next event index */
         t.next = stats.events[e].t      # next event time  */
@@ -160,10 +162,15 @@ def loop(stats:Statistics, t:Time, samplingElementList:SamplingList):
 
         elif (e == len(stats.events) - 1):
             # it's a sampling event
-            if stats.processedJobs[0] != 0:
+            # sample only if statistics are ready and in infinite horizont case we need more sample. 
+            # BATCH_B is the number of sample required
+            if stats.processedJobs[0] != 0 and \
+                (config.INFINITE_H and config.BATCH_B < samplingElementList.numSampleB):
                 currSample = SamplingEvent(stats, t)
                 samplingElementList.append(currSample)
-            if t.current > config.START_P and stats.numbers[1] != 0 and stats.processedJobs[1] != 0:
+            
+            if t.current > config.START_P and stats.numbers[1] != 0 and stats.processedJobs[1] != 0 and \
+                    (config.INFINITE_H and config.BATCH_B < samplingElementList.numSampleP):
                 #sample also a P type:
                 samplingElementList.append(SamplingEvent(stats, t, True))
             stats.events[e].t += samplingInterarrivalTime
@@ -179,6 +186,35 @@ def loop(stats:Statistics, t:Time, samplingElementList:SamplingList):
             
 
         stats.number = stats.numbers[0] + stats.numbers[1]
+
+        # in infinite case, it similates a slot per time. checking if b samples in the current batch
+        # has ben sampled for both types:
+        if config.INFINITE_H:
+        
+            if not config.BATCH_B < samplingElementList.numSampleB:
+                enoughSample = False
+            
+            if t.current >= config.START_P and t.current <= config.STOP_P and \
+                    not config.BATCH_B < samplingElementList.numSampleP:
+                enoughSample = False
+            
+            # enough batches
+            if enoughSample:
+                changeSlot = True
+                if config.FIND_B_VALUE:
+                    # evaluating autocorrelation values:
+                    changeSlot = samplingElementList.evaluateAutocorrelation()
+                
+                if changeSlot:
+                    sampleListIndex += 1
+                    # checking if it was the last index or the slot in wich the bar is closed:
+                    if sampleListIndex == 2:
+                        sampleListIndex += 1
+                    elif sampleListIndex >= len(config.BATCH_B):
+                        break
+
+                    samplingElementList = listOfSamplingElementList[sampleListIndex]
+
         # do not restart system state for infinite horizont simulation
         if (stats.events[0].x == 0) and (stats.number == 0) and not config.INFINITE_H:
             
@@ -240,7 +276,12 @@ if __name__ == '__main__':
         stats = Statistics(numEvents)
 
         # samplingElementList = []
-        samplingElementList = SamplingList()
+        if config.INFINITE_H:
+            samplingElementList = [SamplingList() for i in config.BATCH_K]
+        elif config.FINITE_H:
+            samplingElementList = [SamplingList() for i in config.RUNS]
+        else:
+            samplingElementList = [SamplingList()]
         
         seed = config.SEED
         plantSeeds(seed)

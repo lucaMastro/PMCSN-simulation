@@ -242,3 +242,21 @@ class SamplingList:
 
                 curr_server[statistic]['autocorrelation'] /= (num - config.LAG_J)
                 curr_server[statistic]['autocorrelation'] -= pow(curr_server[statistic]['mean'], 2)
+
+
+    def evaluateAutocorrelation(self) -> bool:
+        l = []
+        for i in range(2): # both the b and p type
+            l.append(self.avgInterarrivals[i]['autocorrelation'])
+            l.append(self.avgWaits[i]['autocorrelation'])
+            l.append(self.avgNumNodes[i]['autocorrelation'])
+            l.append(self.avgDelays[i]['autocorrelation'])
+            l.append(self.avgNumQueues[i]['autocorrelation'])
+
+        for s in self.serversStats.keys():
+            curr_server = self.serversStats[s]
+            for statistic in curr_server.keys():
+                l.append(curr_server[statistic]['autocorrelation']) 
+        
+        return all(val < config.AUTOCORR_THRESHOLD for val in l)
+            
