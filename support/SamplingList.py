@@ -9,6 +9,14 @@ def makeDict():
     d['autocorrelation'] = 0
     return d
 
+def computeAutocorrelation(l: list, mean:float, variance: float):
+    n = len(l)
+    cj = 0
+    for i in range(n - 1):
+        cj += (l[i] - mean) * (l[i+1] - mean)
+    cj /= (n - 1)
+    return cj/variance
+
 
 class SamplingList:
 
@@ -49,8 +57,16 @@ class SamplingList:
     """
     serversStats = None
 
+    """ the autocorrelation of each statistic is not important inside the single batch. Since it is
+        used this struct for keep batches but also for computed lag j beetwen batches, it's 'append'
+        algho is differentiate by the following boolean:    
+    """
+    # computeAutocorrelation = None
+
 
     def __init__(self):
+        #self. computeAutocorrelation = computeAutocorr
+
         self.sampleListB = []
         self.sampleListP = []
 
@@ -85,8 +101,7 @@ class SamplingList:
         titles = ['BAR', 'PIZZERIA']
         
         for attr, value in vars(self).items():
-            print(attr)
-            if attr in ('sampleListB', 'serversStats', 'sampleListP', 'numSampleB', 'numSampleP'):
+            if attr in ('sampleListB', 'serversStats', 'sampleListP', 'numSampleB', 'numSampleP', 'computeAutocorrelation'):
                     continue
             for i in range(2):
                 m = value[i]['mean']
@@ -136,34 +151,32 @@ class SamplingList:
         wel = self.welfordNextStep(diff, num)
         self.avgInterarrivals[type]['mean'] += wel[0]
         self.avgInterarrivals[type]['variance'] += wel[1]
-        if num > config.LAG_J:
-            self.avgInterarrivals[type]['autocorrelation'] += newEvent.avgInterarrivals * list[num - config.LAG_J].avgInterarrivals
-
+        """ if self.computeAutocorrelation and num > config.LAG_J:
+            self.avgInterarrivals[type]['autocorrelation'] += newEvent.avgInterarrivals * list[num - 1 - config.LAG_J].avgInterarrivals """
+           
         mean = self.avgWaits[type]['mean']
-        """  print(f'mean:{mean}')
-        print(f'eventWait = {newEvent.avgWaits[0]}') """
         diff = newEvent.avgWaits - mean
         wel = self.welfordNextStep(diff, num)
         self.avgWaits[type]['mean'] += wel[0]
         self.avgWaits[type]['variance'] += wel[1]
-        if num > config.LAG_J:
-            self.avgInterarrivals[type]['autocorrelation'] += newEvent.avgWaits * list[num - config.LAG_J].avgWaits
+        """ if self.computeAutocorrelation and num > config.LAG_J:
+            self.avgWaits[type]['autocorrelation'] += newEvent.avgWaits * list[num - 1 - config.LAG_J].avgWaits """
 
         mean = self.avgNumNodes[type]['mean']
         diff = newEvent.avgNumNodes - mean
         wel = self.welfordNextStep(diff, num)
         self.avgNumNodes[type]['mean'] += wel[0]
         self.avgNumNodes[type]['variance'] += wel[1]
-        if num > config.LAG_J:
-            self.avgInterarrivals[type]['autocorrelation'] += newEvent.avgNumNodes * list[num - config.LAG_J].avgNumNodes
+        """ if self.computeAutocorrelation and num > config.LAG_J:
+            self.avgNumNodes[type]['autocorrelation'] += newEvent.avgNumNodes * list[num - 1 - config.LAG_J].avgNumNodes """
 
         mean = self.avgDelays[type]['mean']
         diff = newEvent.avgDelays - mean
         wel = self.welfordNextStep(diff, num)
         self.avgDelays[type]['mean'] += wel[0]
         self.avgDelays[type]['variance'] += wel[1]
-        if num > config.LAG_J:
-            self.avgDelays[type]['autocorrelation'] += newEvent.avgDelays * list[num - config.LAG_J].avgDelays
+        """ if self.computeAutocorrelation and num > config.LAG_J:
+            self.avgDelays[type]['autocorrelation'] += newEvent.avgDelays * list[num - 1 - config.LAG_J].avgDelays """
 
 
         mean = self.avgNumQueues[type]['mean']
@@ -171,8 +184,8 @@ class SamplingList:
         wel = self.welfordNextStep(diff, num)
         self.avgNumQueues[type]['mean'] += wel[0]
         self.avgNumQueues[type]['variance'] += wel[1]
-        if num > config.LAG_J:
-            self.avgNumQueues[type]['autocorrelation'] += newEvent.avgNumQueues * list[num - config.LAG_J].avgNumQueues
+        """ if self.computeAutocorrelation and num > config.LAG_J:
+            self.avgNumQueues[type]['autocorrelation'] += newEvent.avgNumQueues * list[num - 1 - config.LAG_J].avgNumQueues """
 
 
 
@@ -186,7 +199,7 @@ class SamplingList:
             averaged = self.serversStats[s]
             # take the new stats relative to the same server
             currNewServer = newSampleServersKind[s]
-            currMinusJ = list[num - config.LAG_J].avgServersStats
+            #currMinusJ = list[num - 1 - config.LAG_J].avgServersStats
             # for each statistic (utilization, service and share)
             for statistic in currNewServer.keys():
                 mean = averaged[statistic]['mean']
@@ -194,8 +207,8 @@ class SamplingList:
                 wel = self.welfordNextStep(diff, num)
                 self.serversStats[s][statistic]['mean'] += wel[0]
                 self.serversStats[s][statistic]['variance'] += wel[1]
-                if num > config.LAG_J:
-                    self.serversStats[s][statistic]['autocorrelation'] += currNewServer[statistic] * currMinusJ[s][statistic]
+                """ if self.computeAutocorrelation and num > config.LAG_J:
+                    self.serversStats[s][statistic]['autocorrelation'] += currNewServer[statistic] * currMinusJ[s][statistic] """
 
    
     def welfordNextStep(self, diff:float, num:int):
@@ -204,31 +217,45 @@ class SamplingList:
         variance = diff * diff * (num - 1) / num
         return [mean, variance]
 
-    def makeCorrectVarianceAndAutocorr(self):
-        """ in welford algho, the std dev has to be divided by the sample size in the end
+    def makeCorrectVariance(self, alsoP=False):
+        """ in welford algho, the variance has to be divided by the sample size in the end
         in order to obtain the correct std dev. here i'm going to divide by the sample size
         all the std devs: """
+        iterations = 1
+        if (alsoP):
+            iterations = 2
+
+
         num = self.numSampleB
-        for i in range(2): # both the b and p type
+        for i in range(iterations): # both the b and p type
             self.avgInterarrivals[i]['variance'] /= num
             self.avgWaits[i]['variance'] /= num
             self.avgNumNodes[i]['variance'] /= num
             self.avgDelays[i]['variance'] /= num
             self.avgNumQueues[i]['variance'] /= num
             
-            divisor = num - config.LAG_J
-            self.avgInterarrivals[i]['autocorrelation'] /= divisor
-            self.avgWaits[i]['autocorrelation'] /= divisor
-            self.avgNumNodes[i]['autocorrelation'] /= divisor
-            self.avgDelays[i]['autocorrelation'] /= divisor
-            self.avgNumQueues[i]['autocorrelation'] /= divisor
+            """ if self.computeAutocorrelation:
+                divisor = num - config.LAG_J
+                cj = self.avgInterarrivals[i]['autocorrelation'] / divisor 
+                cj -= pow(self.avgInterarrivals[i]['mean'], 2)
+                self.avgInterarrivals[i]['autocorrelation'] = cj / self.avgInterarrivals[i]['variance']
 
-            self.avgInterarrivals[i]['autocorrelation'] -= pow(self.avgInterarrivals[i]['mean'], 2)
-            self.avgWaits[i]['autocorrelation'] -= pow(self.avgWaits[i]['mean'], 2)
-            self.avgNumNodes[i]['autocorrelation'] -= pow(self.avgNumNodes[i]['mean'], 2)
-            self.avgDelays[i]['autocorrelation'] -= pow(self.avgDelays[i]['mean'], 2)
-            self.avgNumQueues[i]['autocorrelation'] -= pow(self.avgNumQueues[i]['mean'], 2)
+                cj = self.avgWaits[i]['autocorrelation'] / divisor 
+                cj -= pow(self.avgWaits[i]['mean'], 2)
+                self.avgWaits[i]['autocorrelation'] = cj / self.avgWaits[i]['variance']
 
+                cj = self.avgNumNodes[i]['autocorrelation'] / divisor 
+                cj -= pow(self.avgNumNodes[i]['mean'], 2)
+                self.avgNumNodes[i]['autocorrelation'] = cj / self.avgNumNodes[i]['variance']
+
+                cj = self.avgDelays[i]['autocorrelation'] / divisor 
+                cj -= pow(self.avgDelays[i]['mean'], 2)
+                self.avgDelays[i]['autocorrelation'] = cj / self.avgDelays[i]['variance']
+
+                cj = self.avgNumQueues[i]['autocorrelation'] / divisor 
+                cj -= pow(self.avgNumQueues[i]['mean'], 2)
+                self.avgNumQueues[i]['autocorrelation'] = cj / self.avgNumQueues[i]['variance'] """
+            
             num = self.numSampleP
 
         for s in self.serversStats.keys():
@@ -237,11 +264,99 @@ class SamplingList:
                 if s in range(1, config.SERVERS_B + 1):
                     num = self.numSampleB
                 else:
+                    if not alsoP:
+                        continue
                     num = self.numSampleP
                 curr_server[statistic]['variance'] /= num
 
-                curr_server[statistic]['autocorrelation'] /= (num - config.LAG_J)
-                curr_server[statistic]['autocorrelation'] -= pow(curr_server[statistic]['mean'], 2)
+                """ if self.computeAutocorrelation:
+                    cj = curr_server[statistic]['autocorrelation'] / (num - config.LAG_J)
+                    cj -= pow(curr_server[statistic]['mean'], 2)
+                    curr_server[statistic]['autocorrelation'] = cj / curr_server[statistic]['variance'] """
+
+
+    
+    def computeAutocorrelation(self, alsoP = False):
+        # self.avgInterarrivals B
+        l = [i.avgInterarrivals for i in self.sampleListB]
+        mean = self.avgInterarrivals[0]['mean']
+        variance = self.avgInterarrivals[0]['variance']
+        self.avgInterarrivals[0]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+        # self.avgWaits 
+        l = [i.avgWaits for i in self.sampleListB]
+        mean = self.avgWaits[0]['mean']
+        variance = self.avgWaits[0]['variance']
+        self.avgWaits[0]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+
+        # self.avgNumNodes
+        l = [i.avgNumNodes for i in self.sampleListB]
+        mean = self.avgNumNodes[0]['mean']
+        variance = self.avgNumNodes[0]['variance']
+        self.avgNumNodes[0]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+        # self.avgDelays 
+        l = [i.avgDelays for i in self.sampleListB]
+        mean = self.avgDelays[0]['mean']
+        variance = self.avgDelays[0]['variance']
+        self.avgDelays[0]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+        
+        # self.avgNumQueues
+        l = [i.avgNumQueues for i in self.sampleListB]
+        mean = self.avgNumQueues[0]['mean']
+        variance = self.avgNumQueues[0]['variance']
+        self.avgNumQueues[0]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+        # self.avgServer:
+        for s in range(1, config.SERVERS_B + 1):
+            for statistic in self.serversStats[s].keys():
+                mean = self.serversStats[s][statistic]['mean']
+                variance = self.serversStats[s][statistic]['variance']
+                l = [i.avgServersStats[s][statistic] for i in self.sampleListB]
+                self.serversStats[s][statistic]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+
+        if alsoP:
+            # self.avgInterarrivals P
+            l = [i.avgInterarrivals for i in self.sampleListP]
+            mean = self.avgInterarrivals[1]['mean']
+            variance = self.avgInterarrivals[1]['variance']
+            self.avgInterarrivals[1]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+            # self.avgWaits 
+            l = [i.avgWaits for i in self.sampleListP]
+            mean = self.avgWaits[1]['mean']
+            variance = self.avgWaits[1]['variance']
+            self.avgWaits[1]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+
+            # self.avgNumNodes
+            l = [i.avgNumNodes for i in self.sampleListP]
+            mean = self.avgNumNodes[1]['mean']
+            variance = self.avgNumNodes[1]['variance']
+            self.avgNumNodes[1]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+            # self.avgDelays 
+            l = [i.avgDelays for i in self.sampleListP]
+            mean = self.avgDelays[1]['mean']
+            variance = self.avgDelays[1]['variance']
+            self.avgDelays[1]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+            
+            # self.avgNumQueues
+            l = [i.avgNumQueues for i in self.sampleListP]
+            mean = self.avgNumQueues[1]['mean']
+            variance = self.avgNumQueues[1]['variance']
+            self.avgNumQueues[1]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+
+            # self.avgServer:
+            for s in range(config.SERVERS_B + 2, config.SERVERS_B + 2 + config.SERVERS_P):
+                for statistic in self.serversStats[s].keys():
+                    mean = self.serversStats[s][statistic]['mean']
+                    variance = self.serversStats[s][statistic]['variance']
+                    l = [i.avgServersStats[s][statistic] for i in self.sampleListP]
+                    self.serversStats[s][statistic]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
+  
 
 
     def evaluateAutocorrelation(self) -> bool:
@@ -257,6 +372,6 @@ class SamplingList:
             curr_server = self.serversStats[s]
             for statistic in curr_server.keys():
                 l.append(curr_server[statistic]['autocorrelation']) 
-        
-        return all(val < config.AUTOCORR_THRESHOLD for val in l)
-            
+        print(f'l = {l}')
+        print(self)
+        return all(abs(val) < config.AUTOCORR_THRESHOLD for val in l)

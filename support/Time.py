@@ -28,17 +28,19 @@ class Time:
     #   note that t.current cannot be lower than the first element of the
     #   c.SLOTSTIME: t.current is initialized at c.START_B every 'new day starts',
     #   and c.START_B is the first element of c.SLOTSTIME.
-        newSlot = 0
-        for i in range(1, len(config.SLOTSTIME)):
-            # finding the biggest possible slotsTime that is lower than current.
-            # if time is equal to slotTime[i], the arrival rate is changed yet.
-            if (config.SLOTSTIME[i] <= self.current):
-                newSlot = i
-            else: #others are bigger 
-                break
-        # it's possible that newSlot reference the slot in 15 -> 18, but there won't be arrivals:
-        # the bar is working on pending requests
-        self.timeSlot = newSlot
+
+        if not (config.FIND_B_VALUE or config.INFINITE_H):
+            newSlot = 0
+            for i in range(1, len(config.SLOTSTIME)):
+                # finding the biggest possible slotsTime that is lower than current.
+                # if time is equal to slotTime[i], the arrival rate is changed yet.
+                if (config.SLOTSTIME[i] <= self.current):
+                    newSlot = i
+                else: #others are bigger 
+                    break
+            # it's possible that newSlot reference the slot in 15 -> 18, but there won't be arrivals:
+            # the bar is working on pending requests
+            self.timeSlot = newSlot
 
     def copy(self):
         return copy.deepcopy(self)

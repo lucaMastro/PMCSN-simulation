@@ -64,10 +64,13 @@ class Config:
         self.SEED = 0
         self.LAG_J = 1
         self.USE_GAUSSIAN_FACTOR = True
-        self.BATCH_B = [10, 10, 0, 10, 10, 10]
-        self.BATCH_K = [64, 64, 0, 64, 64, 64]
+        # batch b keeps the initial values of B for sampling events. If the value for a specific slot
+        # does not guarantee the autocorr < THRESHOLD for each stats, it's doubled and it restarts with
+        # the new value.
+        self.BATCH_B = [1024, 1024, 0, 1024, 1024, 1024]
+        self.BATCH_K = 128
         self.RUNS = 32
-        self.AUTOCORR_THRESHOLD = 0.2
+        self.AUTOCORR_THRESHOLD = 1
 
     
     def storeConfig(self,outputFileName):

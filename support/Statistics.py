@@ -55,7 +55,7 @@ class Statistics:
         self.events[0].t = newTime
         self.events[0].x = 1
         # close the B-door at the end of day
-        if (self.events[0].t > config.STOP_B):
+        if self.events[0].t > config.STOP_B and not (config.FIND_B_VALUE or config.INFINITE_H):
             self.events[0].x = 0
 
 
@@ -65,7 +65,8 @@ class Statistics:
         self.events[pArrivalIndex].x = 1
 
         # close the door if time is over
-        if (self.events[pArrivalIndex].t > config.STOP_P): 
+        if self.events[pArrivalIndex].t > config.STOP_P and \
+            not (config.FIND_B_VALUE or config.INFINITE_H): 
             self.events[pArrivalIndex].x = 0
 
     def newDay(self, newDayFirstArrivals:list):
@@ -82,3 +83,20 @@ class Statistics:
     def printEvents(self):
         for ev in self.events:
             print(ev)
+
+    
+    # RIVEDI
+    def resetStats(self):
+        """ self.lastArrivalsTime = [0, 0]
+        self.numbers = [0, 0]        # [ numberB, numberP ]: jobs in the node
+        self.number = 0              # total number of B and P requests
+        self.processedJobs = [0, 0]        # [ indexB, indexP ]: processed jobs
+        self.areas = [0, 0]         # time integrated number in the node */
+        self.sum = [AccumSum() for i in range(0, numEvents)] # one for each event
+
+        # init events and sums
+        for s in range(0, numEvents - 1):   # excluding sampling events
+            self.events[s].t = config.START_B      # this value is arbitrary because all servers are initially idle
+            self.events[s].x = 0
+         """
+        pass

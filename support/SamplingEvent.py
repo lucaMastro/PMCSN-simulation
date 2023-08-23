@@ -1,5 +1,6 @@
 from support.Time import Time
 from support.Statistics import Statistics
+from copy import deepcopy
 
 from configurations.Config import config
 
@@ -50,7 +51,7 @@ def computeAvgDelay(stats:Statistics, kindP=False):
     #adjust area
     for s in range(firstServerIndex, lastServerIndexPlus):
             area -= stats.sum[s].service
-    
+
     return area / procesedJobs
 
 
@@ -133,7 +134,7 @@ class SamplingEvent:
     avgServersStats = None
     processedJobs = None
 
-    def __init__(self, stats:Statistics, time:Time, kindP=False):
+    def __init__(self, dic:dict, kindP=False):
         # if config.DEBUG:
         #     print('\n\n\n\n')
         #     print(stats)
@@ -141,14 +142,32 @@ class SamplingEvent:
         #     print('\n\n\n\n')
         
         self.type = 1 if kindP else 0
-        self.processedJobs = stats.processedJobs[self.type]
-        self.avgInterarrivals = computeAvgInterarrivals(stats, kindP)
-        self.avgWaits = computeAvgWait(stats, kindP)
-        self.avgNumNodes = computeAvgNumNode(stats, time, kindP)
-        self.avgDelays = computeAvgDelay(stats, kindP)
-        self.avgNumQueues = computeAvgNumQueue(stats, time, kindP)
-        self.avgServersStats = computeAvgServerStats(stats, time, kindP)
+        keys = dic.keys()
+        if 'stats' in keys and 'time' in keys:
+            self.initFromStatsAndTime(dic)
+        else:
+            self.initFromValues(dic)
         
+    
+    def initFromStatsAndTime(self, dic:dict):
+        stats = dic['stats']
+        time = dic['time']
+        self.processedJobs = stats.processedJobs[self.type]
+        self.avgInterarrivals = computeAvgInterarrivals(stats, bool(self.type))
+        self.avgWaits = computeAvgWait(stats, bool(self.type))
+        self.avgNumNodes = computeAvgNumNode(stats, time, bool(self.type))
+        self.avgDelays = computeAvgDelay(stats, bool(self.type))
+        self.avgNumQueues = computeAvgNumQueue(stats, time, bool(self.type))
+        self.avgServersStats = computeAvgServerStats(stats, time, bool(self.type))
+
+    def initFromValues(self, dic:dict):
+        self.processedJobs = dic['processedJobs']
+        self.avgInterarrivals = dic['avgInterarrivals']
+        self.avgWaits = dic['avgWaits']
+        self.avgNumNodes = dic['avgNumNodes']
+        self.avgDelays = dic['avgDelays']
+        self.avgNumQueues = dic['avgNumQueues']
+        self.avgServersStats = deepcopy(dic['avgServersStats'])
 
     def __str__(self) -> str:
         my_string = ''
