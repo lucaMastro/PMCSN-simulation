@@ -86,17 +86,28 @@ class Statistics:
 
     
     # RIVEDI
-    def resetStats(self):
-        """ self.lastArrivalsTime = [0, 0]
+    def resetStats(self, scaleDownValue:float = 0):
+        
+        """@ param scaleDownValue: 
+        to reduce all the events.t of the same factor. It's necessary because of stats computation:
+        for example, interarrivals are (lastArrivalTime - config.Start_B) / processedJobs. But if time 
+        is not reduced, lastArrivalTime is 
+        
+        """
+        
+        numEvents = len(self.events)
+        
+        """ dont reset the number of job in the node to continue from the current state
         self.numbers = [0, 0]        # [ numberB, numberP ]: jobs in the node
-        self.number = 0              # total number of B and P requests
+        self.number = 0              # total number of B and P requests 
+        """
         self.processedJobs = [0, 0]        # [ indexB, indexP ]: processed jobs
         self.areas = [0, 0]         # time integrated number in the node */
         self.sum = [AccumSum() for i in range(0, numEvents)] # one for each event
-
+        #self.lastArrivalsTime = [0, 0]
+        
         # init events and sums
         for s in range(0, numEvents - 1):   # excluding sampling events
-            self.events[s].t = config.START_B      # this value is arbitrary because all servers are initially idle
-            self.events[s].x = 0
-         """
-        pass
+            self.events[s].t -= scaleDownValue      # this value is arbitrary because all servers are initially idle      
+        
+        #pass

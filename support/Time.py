@@ -11,12 +11,16 @@ class Time:
     dayOfWeek = None        # used to trace week or weekend interarrivals
 
     timeSlot = None         # current slot indicator
+    changeBatchTimeB = None
+    changeBatchTimeP = None
     
     def __init__(self):
         self.current = config.START_B
         self.day = 0 
         self.dayOfWeek = config.SIMULATE_WEEK # starting from the first working day
         self.timeSlot = 0
+        self.changeBatchTimeB = config.START_B
+        self.changeBatchTimeP = config.START_P
 
     def __str__(self) -> str:
         my_str = ''
@@ -49,3 +53,10 @@ class Time:
         self.current = config.START_B
         self.day += 1
         # self.dayOfWeek = (self.dayOfWeek + 1) % 7
+
+    def setBatchTime(self):
+        # self.current -= scaleFactor
+        # self.next -= scaleFactor
+        self.changeBatchTimeB = self.current
+        if self.timeSlot == 4:
+            self.changeBatchTimeP = self.current

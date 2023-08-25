@@ -1,6 +1,3 @@
-import pprint
-import textwrap
-
 class Config:
 
     def __init__(self):
@@ -10,22 +7,28 @@ class Config:
         self.B_WORKING_HOURS = 16
         self.P_WORKING_HOURS = 4
 
+        # 3:00 am == 27:00. STOP_B = 27 * 60 this is for B-requests
+        self.STOP_B = 27 * 60        
+        self.STOP_P = self.SLOTSTIME[5]   
+
         # the bar will close at 15 and will reopen at 18. This means that the first B-Arrival after 
         # that hour will be scheduled at 18 * 60 (min) + Exponential(..). Following variables are for
         # code readability
         self.FIRST_HALFDAY_CLOSE_TIME = self.SLOTSTIME[2]
         self.SECOND_HALFDAY_OPEN_TIME = self.SLOTSTIME[3]
 
+        self.DURATIONS = [(self.SLOTSTIME + [self.STOP_B])[i+1] - (self.SLOTSTIME + [self.STOP_B])[i] \
+            for i in range(len(self.SLOTSTIME + [self.STOP_B]) - 1)]
+
+        self.B_DAY_DURATION = 17 * 60
+        self.P_DAY_DURATION = 4 * 60
 
         # initial (open the door) for B requests: 420 [MIN] = 7:00 am 
         self.START_B = self.SLOTSTIME[0]  
 
         # time in which P arrival process starts
         self.START_P = self.SLOTSTIME[4]
-
-        # 3:00 am == 27:00. STOP_B = 27 * 60 this is for B-requests
-        self.STOP_B = 27 * 60        
-        self.STOP_P = self.SLOTSTIME[5]                                    
+                                 
         #STOP = 365  # terminal (close the door) 
         self.STOP = 1  # terminal (close the door) 
         self.SERVERS_B = 2   # number of type B servers
@@ -56,7 +59,7 @@ class Config:
 
         self.SIMULATE_WEEK = True
 
-        self.DEBUG = True
+        self.DEBUG = False
 
         self.FINITE_H = False
         self.INFINITE_H = False

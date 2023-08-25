@@ -226,6 +226,8 @@ class SamplingList:
             iterations = 2
 
 
+        # print('\n\n\n', self)
+        # input()
         num = self.numSampleB
         for i in range(iterations): # both the b and p type
             self.avgInterarrivals[i]['variance'] /= num

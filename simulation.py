@@ -69,7 +69,7 @@ def processArrivalP(stats:Statistics, time:Time):
         if (s >= 0):
             stats.sum[s].service += service
             stats.sum[s].served += 1
-            stats.events[s].t = t.current + service
+            stats.events[s].t = time.current + service
             stats.events[s].x = 1
 
 def processDepartureB(stats:Statistics, time:Time, serverIndex:int):
@@ -100,7 +100,7 @@ def processDepartureP(stats:Statistics, time:Time, serverIndex:int):
         stats.events[serverIndex].x = 0
 
 
-def setInitialState(stats:Statistics):
+def setInitialState(stats:Statistics, t:Time):
     # select time in which sampling interarrival events. the interarrival will be an uniform 
     # between 1.5 and 2 minutes (90 sec and 120 sec). 
     global samplingInterarrivalTime
@@ -146,17 +146,19 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
         stats.areas[0] += (t.next - t.current) * stats.numbers[0]     # update Bintegral  */
         stats.areas[1] += (t.next - t.current) * stats.numbers[1]     # update Pintegral  */
         
-        # advance the clock
-        t.current = t.next
-        #checking if time slot changed:
-        t.changeSlot()
-
         if config.DEBUG:
             print('STATS')
             print(stats)
             print('TIME')
             print(t)
             print()
+
+        # advance the clock
+        t.current = t.next
+        #checking if time slot changed:
+        t.changeSlot()
+
+        
 
         if (e == 0): 
              # process a B-arrival 
@@ -171,9 +173,7 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
             # BATCH_B is the number of sample required
             paramDic = {'stats': stats, 'time': t}
 
-            if stats.processedJobs[0] != 0 and \
-                (config.INFINITE_H or config.FIND_B_VALUE) and \
-                    not enoughSample:
+            if stats.processedJobs[0] != 0 and not enoughSample:
                 currSample = SamplingEvent(paramDic)
                 
                 samplingElementList.append(currSample)
@@ -181,36 +181,42 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
             
             #if stats.numbers[1] != 0 and stats.processedJobs[1] != 0 and \
             if t.timeSlot == 4 and stats.processedJobs[1] != 0 and \
-                    (config.INFINITE_H or config.FIND_B_VALUE) and \
                         not enoughSample:
                 #sample also a P type:
                 samplingElementList.append(SamplingEvent(paramDic, True))
-                
-            # check if enough samples:
-            enoughSampleB = batch_b <= samplingElementList.numSampleB 
-            enoughSampleP = batch_b <= samplingElementList.numSampleP 
-            enoughSample = enoughSampleB
-            if t.timeSlot == 4:
-                enoughSample = enoughSampleB and enoughSampleP 
-    
-            if enoughSample:
-                # update the variances and correlations:
-                samplingElementList.makeCorrectVariance(alsoP=(t.timeSlot == 4))
             
-                # update slotTime in deterministic way:
-                currBatch_k += 1   
+            if (config.FIND_B_VALUE or config.INFINITE_H):
+                # check if enough samples:
+                enoughSampleB = batch_b <= samplingElementList.numSampleB 
+                enoughSampleP = batch_b <= samplingElementList.numSampleP 
+                enoughSample = enoughSampleB
+                if t.timeSlot == 4:
+                    enoughSample = enoughSampleB and enoughSampleP 
+        
+                if enoughSample:
+                    # update the variances and correlations:
+                    samplingElementList.makeCorrectVariance(alsoP=(t.timeSlot == 4))
                 
-                # all batches done
-                if currBatch_k == config.BATCH_K:
-                    return
-                else:
-                    # restart statistics:
-                    stats.resetStats()
-                    # change the samplingList:
-                    samplingElementList = listOfSamplingElementList[currBatch_k]
+                    # update slotTime in deterministic way:
+                    currBatch_k += 1   
+                    
+                    # all batches done
+                    if currBatch_k == config.BATCH_K:
+                        return
+                    else:
+                        # change the times:
+                        #scaleDownValue = t.current - config.START_B
 
-            else: 
-                stats.events[e].t += samplingInterarrivalTime
+                        # restart statistics:
+                        stats.resetStats()
+                        
+                        t.setBatchTime()
+                        
+                        
+                        # change the samplingList:
+                        samplingElementList = listOfSamplingElementList[currBatch_k]
+
+            stats.events[e].t += samplingInterarrivalTime
             
 
         #it's a departure
@@ -226,6 +232,11 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
         # in infinite horizont never stop the arrival process.
         if stats.events[0].x == 0 and stats.number == 0:
             
+            config.DEBUG = True
+            print(t)
+            se = SamplingEvent({'time': t, 'stats': stats})
+            print(f'mean wait: {se.f(stats)}\n\n')
+
             #it means that a day is over: re-initialize all variables and let days advance:
             dayArrivals = [config.START_B, config.START_P]
             
@@ -241,23 +252,21 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
             stats.newDay(dayArrivals)
             
     # divide by n each variance before ending
-    samplingElementList.makeCorrectVarianceAndAutocorr()
+    samplingElementList.makeCorrectVariance()
 
 
-def storeBatch_B(slotTime:int, batchB:int):
-    with open('./output/BatchB.csv', 'a') as f:
-        f.write(f'{slotTime}, {batchB}')
-
-
-def batchMeansAnalysis(batches:list) -> SamplingList:
+def batchMeansAnalysis(batches:list, time:Time) -> SamplingList:
     # batches is a list of SamplingList
     global stats
 
     batchMeans = SamplingList()
     for sl in batches:
         serverStats = deepcopy(sl.serversStats)
+        iterations = 1
+        if time.timeSlot == 4:
+            iterations = 2
         # get statistics for each type B or P:
-        for i in range(2):
+        for i in range(iterations):
             dic = {}
             # processedJobs are required for computing means from statistics. they are useless here
             dic['processedJobs'] = 0
@@ -298,65 +307,55 @@ def batchMeansAnalysis(batches:list) -> SamplingList:
     batchMeans.makeCorrectVariance()
     batchMeans.computeAutocorrelation()
     
+    print(batchMeans)
+    #input()
+
     #input()
     return batchMeans
 
-
-############################Main Program###################################
-if __name__ == '__main__':
-    global dayArrivals
-    global gaussianWeighter
-
+def infinite():
     
-    parser = ArgParser()
-    parser.parse()
-    stats = None
-    t = None
     restart = True
     slotsNum = len(config.SLOTSTIME)
+    samplingElementMatrix = None
     # almost one run
     while restart:        
-        dayArrivals = [config.START_B, config.START_P]
-        gaussianWeighter = GaussianWeighter()
+        
         t = Time()
 
-        # events table:
-        #   index | event     |
-        #   ------------------|
-        #   0 | arrival B     |
-        #   ------------------|
-        #   1 | completion B1 |
-        #   ------------------|
-        #   2 | completion B2 |
-        #   ------------------|
-        #   3 | arrival P     |
-        #   ------------------|
-        #   4 | completion P1 |
-        #   ------------------|
-        #   5 | completion P2 |
-        #   ------------------|
-        #   6 | sampling      |
-        #   ------------------|
-        #
+        """ events table:
+          index | event     |
+          ------------------|
+          0 | arrival B     |
+          ------------------|
+          1 | completion B1 |
+          ------------------|
+          2 | completion B2 |
+          ------------------|
+          3 | arrival P     |
+          ------------------|
+          4 | completion P1 |
+          ------------------|
+          5 | completion P2 |
+          ------------------|
+          6 | sampling      |
+          ------------------|
+        """
         numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
         stats = Statistics(numEvents)
-
+        setInitialState(stats, t)
+        
         # matrix of n row, where n is the num of timeslots. Each row is an ensample of BATCH_K batches.
         # each List of the ensample has the relative BATCH_B sample.
         samplingElementMatrix = [[SamplingList() for _ in range(config.BATCH_K)] \
             for _ in range(slotsNum) ] 
-        #samplingElementList = SamplingList()
-        
-        seed = config.SEED
-        plantSeeds(seed)
-        setInitialState(stats)
-
+    
         # making an ensample of k batches for each slots
         for i in range(slotsNum):
             listOf_K_SamplingElementList = samplingElementMatrix[i]
             loop(stats, t, listOf_K_SamplingElementList)
             # make analisys on lagj:
-            batchMeans = batchMeansAnalysis(listOf_K_SamplingElementList)
+            batchMeans = batchMeansAnalysis(listOf_K_SamplingElementList, t)
             
             # evaluateAutocorr returns True if every value of autocorr is < config.THRESHOLD
             restart = not batchMeans.evaluateAutocorrelation()
@@ -372,6 +371,59 @@ if __name__ == '__main__':
                     t.timeSlot += 1
                 elif t.timeSlot == 6:
                     break
+
+
+############################Main Program###################################
+if __name__ == '__main__':
+    global dayArrivals
+    global gaussianWeighter
+
+    parser = ArgParser()
+    parser.parse()
+
+    dayArrivals = [config.START_B, config.START_P]
+    gaussianWeighter = GaussianWeighter()
+
+    seed = config.SEED
+    plantSeeds(seed)
+
+     
+    """ events table:
+      index | event     |
+      ------------------|
+      0 | arrival B     |
+      ------------------|
+      1 | completion B1 |
+      ------------------|
+      2 | completion B2 |
+      ------------------|
+      3 | arrival P     |
+      ------------------|
+      4 | completion P1 |
+      ------------------|
+      5 | completion P2 |
+      ------------------|
+      6 | sampling      |
+      ------------------|
+    """
+
+
+    if (config.FIND_B_VALUE or config.INFINITE_H):
+        infinite()   
+    
+    else: 
+        t = Time()
+        numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
+        stats = Statistics(numEvents)
+        setInitialState(stats, t)
+        samplingList = SamplingList()
+        # sampling list has to be put in a list
+        loop(stats, t, [samplingList])
+        paramDic = {'stats': stats, 'time': t}
+        lastSampleB = SamplingEvent(paramDic)
+        lastSampleP = SamplingEvent(paramDic, True)
+        print(lastSampleB)
+        print(lastSampleP)
 
 
     """
