@@ -85,8 +85,7 @@ class Statistics:
             print(ev)
 
     
-    # RIVEDI
-    def resetStats(self, scaleDownValue:float = 0):
+    def resetStats(self):
         
         """@ param scaleDownValue: 
         to reduce all the events.t of the same factor. It's necessary because of stats computation:
@@ -106,8 +105,3 @@ class Statistics:
         self.sum = [AccumSum() for i in range(0, numEvents)] # one for each event
         #self.lastArrivalsTime = [0, 0]
         
-        # init events and sums
-        for s in range(0, numEvents - 1):   # excluding sampling events
-            self.events[s].t -= scaleDownValue      # this value is arbitrary because all servers are initially idle      
-        
-        #pass

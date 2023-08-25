@@ -225,7 +225,6 @@ class SamplingList:
         if (alsoP):
             iterations = 2
 
-
         # print('\n\n\n', self)
         # input()
         num = self.numSampleB
@@ -235,28 +234,6 @@ class SamplingList:
             self.avgNumNodes[i]['variance'] /= num
             self.avgDelays[i]['variance'] /= num
             self.avgNumQueues[i]['variance'] /= num
-            
-            """ if self.computeAutocorrelation:
-                divisor = num - config.LAG_J
-                cj = self.avgInterarrivals[i]['autocorrelation'] / divisor 
-                cj -= pow(self.avgInterarrivals[i]['mean'], 2)
-                self.avgInterarrivals[i]['autocorrelation'] = cj / self.avgInterarrivals[i]['variance']
-
-                cj = self.avgWaits[i]['autocorrelation'] / divisor 
-                cj -= pow(self.avgWaits[i]['mean'], 2)
-                self.avgWaits[i]['autocorrelation'] = cj / self.avgWaits[i]['variance']
-
-                cj = self.avgNumNodes[i]['autocorrelation'] / divisor 
-                cj -= pow(self.avgNumNodes[i]['mean'], 2)
-                self.avgNumNodes[i]['autocorrelation'] = cj / self.avgNumNodes[i]['variance']
-
-                cj = self.avgDelays[i]['autocorrelation'] / divisor 
-                cj -= pow(self.avgDelays[i]['mean'], 2)
-                self.avgDelays[i]['autocorrelation'] = cj / self.avgDelays[i]['variance']
-
-                cj = self.avgNumQueues[i]['autocorrelation'] / divisor 
-                cj -= pow(self.avgNumQueues[i]['mean'], 2)
-                self.avgNumQueues[i]['autocorrelation'] = cj / self.avgNumQueues[i]['variance'] """
             
             num = self.numSampleP
 
@@ -270,11 +247,6 @@ class SamplingList:
                         continue
                     num = self.numSampleP
                 curr_server[statistic]['variance'] /= num
-
-                """ if self.computeAutocorrelation:
-                    cj = curr_server[statistic]['autocorrelation'] / (num - config.LAG_J)
-                    cj -= pow(curr_server[statistic]['mean'], 2)
-                    curr_server[statistic]['autocorrelation'] = cj / curr_server[statistic]['variance'] """
 
 
     
@@ -372,8 +344,9 @@ class SamplingList:
 
         for s in self.serversStats.keys():
             curr_server = self.serversStats[s]
-            for statistic in curr_server.keys():
-                l.append(curr_server[statistic]['autocorrelation']) 
-        print(f'l = {l}')
-        print(self)
+            l.append(curr_server['service']['autocorrelation']) 
+        
+        if config.DEBUG:
+            print(f'l = {l}')
+
         return all(abs(val) < config.AUTOCORR_THRESHOLD for val in l)

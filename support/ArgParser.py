@@ -52,16 +52,18 @@ class ArgParser:
         if args.no_gaussian_factor:
             config.USE_GAUSSIAN_FACTOR = False
 
+        
+
+
+    def storePersonalConfig(self):
+        args = self.parser.parse_args()
         if args.storeConfigFile:
-            self.storePersonalConfig(args.storeConfigFile)
-
-
-    def storePersonalConfig(self, filePath):
-        try:
-            config.storeConfig(filePath)
-        except Exception as e:
-            print(e)
-            raise argparse.ArgumentTypeError("Invalid output path.")
+            filePath = args.storeConfigFile    
+            try:
+                config.storeConfig(filePath)
+            except Exception as e:
+                print(e)
+                raise argparse.ArgumentTypeError("Invalid output path.")
 
 
     def loadPersonalConfig(self, filePath):

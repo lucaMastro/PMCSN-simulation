@@ -4,4 +4,13 @@ SCRIPT = simulation.py
 SEED = 123
 
 infinite:
-	$(PYTHON) $(SCRIPT) -ih -s $(SEED) -cc BATCH_K 256
+	$(PYTHON) $(SCRIPT) -ih -s $(SEED)
+
+finite:
+	$(PYTHON) $(SCRIPT) -fh -s $(SEED)
+
+infinite-no-gauss:
+	$(PYTHON) $(SCRIPT) -ih -s $(SEED) -ngf
+
+finite-no-gauss:
+	$(PYTHON) $(SCRIPT) -fh -s $(SEED) -ngf

@@ -192,7 +192,7 @@ if __name__ == '__main__':
         nq = l * tq
         ns = l * ts
 
-        print(f'slot: {i + 1}\n\tTQ = {tq:.2f}\n\tNQ = {nq:.2f}\n\tTS = {ts:.2f}\n\tNS = {ns:.2f}\n')
+        print(f'slot: {i + 1}\n\tinterarr = {1/l}\n\tTQ = {tq:.2f}\n\tNQ = {nq:.2f}\n\tTS = {ts:.2f}\n\tNS = {ns:.2f}\n')
         etq.append(tq)
         ets.append(ts)
         enq.append(nq)

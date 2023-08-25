@@ -30,7 +30,7 @@ class Config:
         self.START_P = self.SLOTSTIME[4]
                                  
         #STOP = 365  # terminal (close the door) 
-        self.STOP = 1  # terminal (close the door) 
+        
         self.SERVERS_B = 2   # number of type B servers
         self.SERVERS_P = 2   # number of type P servers
 
@@ -72,7 +72,8 @@ class Config:
         # the new value.
         self.BATCH_B = [1024, 1024, 0, 1024, 1024, 1024]
         self.BATCH_K = 128
-        self.RUNS = 32
+        self.RUNS = 1024
+        
         self.AUTOCORR_THRESHOLD = 1
 
     

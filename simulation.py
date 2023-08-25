@@ -104,6 +104,9 @@ def setInitialState(stats:Statistics, t:Time):
     # select time in which sampling interarrival events. the interarrival will be an uniform 
     # between 1.5 and 2 minutes (90 sec and 120 sec). 
     global samplingInterarrivalTime
+    global dayArrivals
+    dayArrivals = [config.START_B, config.START_P]
+    
     samplingInterarrivalTime = getSamplingInterarrivalTime()
     stats.setSamplingTime(config.START_B + samplingInterarrivalTime)
     #stats.setSamplingTime(Uniform(20*60, 23*60))
@@ -137,7 +140,7 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
     # when a batch is full
     samplingElementList = listOfSamplingElementList[0]
 
-    while (t.day < config.STOP): 
+    while (True): 
         #initializing sampling
         
         e = NextEvent(stats.events)     # next event index */
@@ -158,7 +161,6 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
         #checking if time slot changed:
         t.changeSlot()
 
-        
 
         if (e == 0): 
              # process a B-arrival 
@@ -205,17 +207,15 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
                         return
                     else:
                         # change the times:
-                        #scaleDownValue = t.current - config.START_B
 
                         # restart statistics:
                         stats.resetStats()
-                        
-                        t.setBatchTime()
-                        
+                        t.setBatchTime()  
                         
                         # change the samplingList:
                         samplingElementList = listOfSamplingElementList[currBatch_k]
 
+            
             stats.events[e].t += samplingInterarrivalTime
             
 
@@ -229,30 +229,14 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
             
 
         stats.number = stats.numbers[0] + stats.numbers[1]
+       
         # in infinite horizont never stop the arrival process.
         if stats.events[0].x == 0 and stats.number == 0:
-            
-            config.DEBUG = True
-            print(t)
-            se = SamplingEvent({'time': t, 'stats': stats})
-            print(f'mean wait: {se.f(stats)}\n\n')
+            break
 
-            #it means that a day is over: re-initialize all variables and let days advance:
-            dayArrivals = [config.START_B, config.START_P]
-            
-            t.newDay()
-            m = getCorrectLambdaB(t)
-            newDayFirstArrivalB = GetArrivalB(m)
-            dayArrivals[0] += newDayFirstArrivalB
-
-            m = getCorrectLambdaP(t)
-            newDayFirstArrivalP = GetArrivalP(m)
-            dayArrivals[1] += newDayFirstArrivalP
-
-            stats.newDay(dayArrivals)
             
     # divide by n each variance before ending
-    samplingElementList.makeCorrectVariance()
+    samplingElementList.makeCorrectVariance(t.timeSlot == 4)
 
 
 def batchMeansAnalysis(batches:list, time:Time) -> SamplingList:
@@ -372,6 +356,29 @@ def infinite():
                 elif t.timeSlot == 6:
                     break
 
+def finite():
+    
+    runs = []
+    numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
+    for i in range(config.RUNS):
+        t = Time()
+        stats = Statistics(numEvents)
+        setInitialState(stats, t)
+        samplingList = SamplingList()
+        # sampling list has to be put in a list
+        loop(stats, t, [samplingList])
+        
+        # save run statistics
+        runs.append(samplingList)
+
+        if config.DEBUG:
+            paramDic = {'stats': stats, 'time': t}
+            lastSampleB = SamplingEvent(paramDic)
+            lastSampleP = SamplingEvent(paramDic, True)
+            print(lastSampleB)
+            print(lastSampleP)
+
+    return runs
 
 ############################Main Program###################################
 if __name__ == '__main__':
@@ -380,7 +387,7 @@ if __name__ == '__main__':
 
     parser = ArgParser()
     parser.parse()
-
+    
     dayArrivals = [config.START_B, config.START_P]
     gaussianWeighter = GaussianWeighter()
 
@@ -410,8 +417,11 @@ if __name__ == '__main__':
 
     if (config.FIND_B_VALUE or config.INFINITE_H):
         infinite()   
-    
+
+    elif config.FINITE_H:
+        runs = finite()
     else: 
+        # single run. not so interesting
         t = Time()
         numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
         stats = Statistics(numEvents)
@@ -425,6 +435,10 @@ if __name__ == '__main__':
         print(lastSampleB)
         print(lastSampleP)
 
+        print('\n\n\n')
+        print(samplingList)
+
+    parser.storePersonalConfig()
 
     """
     # create a csv for analisys 
