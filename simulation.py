@@ -287,6 +287,7 @@ def batchMeansAnalysis(batches:list, time:Time, fileName:str = None) -> Sampling
             if fileName and numSample + 1 == pow(2, exponent):
                 copyBatch = deepcopy(batchMeans)
                 copyBatch.makeCorrectVariance(bool(i))
+                copyBatch.computeConfidenceInterval(config.CONFIDENCE_LEVEL, bool(i))
                 writeOnFile(fileName, copyBatch, i, time.timeSlot, addLegend=(exponent==1))
                 if i == iterations - 1:
                     exponent += 1
