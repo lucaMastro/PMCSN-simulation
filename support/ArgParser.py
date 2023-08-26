@@ -19,6 +19,7 @@ class ArgParser:
         self.parser.add_argument("-fb", "--find_b_value", metavar=("THRESHOLD"), help="find the value of b such tath autocorellation lag j=1 is <= THRESHOLD")
         self.parser.add_argument("-s", "--seed", metavar=("SEED"), help="use the given SEED as random seed. if SEED = 0 then the initial seed is to be supplied interactively; if SEED < 0 then the initial seed is obtained from the system clock; if SEED > 0 > 0 then it is the initial seed (unless too large). default value is 0")
         self.parser.add_argument("-ngf", "--no_gaussian_factor", action="store_true", help="don't use the gaussian probability value to weight interarrival times")
+        self.parser.add_argument("-of", "--output_file", metavar=("FILE"), help="save output in ./output/OUTPUTFILE.csv. The file format .csv is added if not already present.")
         
 
     def parse(self):
@@ -52,7 +53,12 @@ class ArgParser:
         if args.no_gaussian_factor:
             config.USE_GAUSSIAN_FACTOR = False
 
-        
+    def getOutputFileName(self):
+        args = self.parser.parse_args()
+        fileName = None
+        if args.output_file:
+            fileName = args.output_file
+        return fileName
 
 
     def storePersonalConfig(self):

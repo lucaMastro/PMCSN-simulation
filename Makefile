@@ -14,3 +14,6 @@ infinite-no-gauss:
 
 finite-no-gauss:
 	$(PYTHON) $(SCRIPT) -fh -s $(SEED) -ngf
+
+clean:
+	rm ./output/*.csv

@@ -58,5 +58,4 @@ class Time:
         # self.current -= scaleFactor
         # self.next -= scaleFactor
         self.changeBatchTimeB = self.current
-        if self.timeSlot == 4:
-            self.changeBatchTimeP = self.current
+        self.changeBatchTimeP = self.current

@@ -13,6 +13,7 @@ def computeAvgInterarrivals(stats:Statistics, time:Time, kindP=False):
     else:
         interarrivalWindow = (stats.lastArrivalsTime[1] - time.changeBatchTimeP) + time.day * config.P_DAY_DURATION
         processedJobs = stats.processedJobs[1]
+        
     return interarrivalWindow / processedJobs
 
 def computeAvgWait(stats:Statistics, kindP=False):
@@ -214,10 +215,4 @@ class SamplingEvent:
                 self.avgServersStats[s]['share'])
         my_string += '\n'
         return my_string
-
-    def f(self, stats):
-        print(stats)
-        computeAvgWait(stats)
-    
-
     

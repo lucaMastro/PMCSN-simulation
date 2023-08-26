@@ -1,7 +1,6 @@
 from support.rngs import random, selectStream
 from math import log
 from support.Time import Time
-from support.SamplingList import SamplingList
 
 from configurations.Config import config
 

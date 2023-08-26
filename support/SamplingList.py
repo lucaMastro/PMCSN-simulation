@@ -1,12 +1,15 @@
 from support.SamplingEvent import SamplingEvent
-
+from math import sqrt
 from configurations.Config import config
+from support.rvms import idfStudent
 
 def makeDict():
     d = dict()
     d['mean'] = 0
     d['variance'] = 0
     d['autocorrelation'] = 0
+    d['confidence_interval_length'] = 0
+    d['stdev'] = 0
     return d
 
 def computeAutocorrelation(l: list, mean:float, variance: float):
@@ -86,14 +89,20 @@ class SamplingList:
             self.serversStats[s]['utilization']['mean'] = 0
             self.serversStats[s]['utilization']['variance'] = 0
             self.serversStats[s]['utilization']['autocorrelation'] = 0
+            self.serversStats[s]['share']['confidence_interval_length'] = 0
+            self.serversStats[s]['utilization']['stdev'] = 0
 
             self.serversStats[s]['service']['mean'] = 0
             self.serversStats[s]['service']['variance'] = 0
             self.serversStats[s]['service']['autocorrelation'] = 0
+            self.serversStats[s]['share']['confidence_interval_length'] = 0
+            self.serversStats[s]['service']['stdev'] = 0
 
             self.serversStats[s]['share']['mean'] = 0
             self.serversStats[s]['share']['variance'] = 0
             self.serversStats[s]['share']['autocorrelation'] = 0
+            self.serversStats[s]['share']['confidence_interval_length'] = 0
+            self.serversStats[s]['share']['stdev'] = 0
 
 
     def __str__(self) -> str:
@@ -128,6 +137,39 @@ class SamplingList:
 
         return my_str
     
+
+    def newLine(self, kind:int, addLegend:bool = None) -> str:
+        # kind == 0: B-type; kind == 1: P-type
+        string = ''
+        num = self.numSampleB if kind == 0 else self.numSampleP
+        if addLegend:
+            string = 'num. sample,statistic,mean,variance,std dev,interval length\n'
+        
+        for attr, value in vars(self).items():
+            if attr in ('sampleListB', 'serversStats', 'sampleListP', \
+                'numSampleB', 'numSampleP', 'computeAutocorrelation'):
+                    continue
+            
+            m = value[kind]['mean']
+            variance = value[kind]['variance']
+            std_dev = value[kind]['stdev']
+        
+            if std_dev == 0:
+                variance /= num
+                std_dev = sqrt(variance)
+                self.setIntervalLegth(value[kind], num, 1 - config.CONFIDENCE_LEVEL)
+            
+            interval = value[kind]['confidence_interval_length']
+            
+            string += f'{num},{attr},{m:.3f},{variance:.3f},{std_dev:.3f},{interval:.3f}\n'
+
+        return string
+        
+    
+
+
+
+
     def append(self, newEvent:SamplingEvent):
         type = newEvent.type
         num = None
@@ -230,10 +272,19 @@ class SamplingList:
         num = self.numSampleB
         for i in range(iterations): # both the b and p type
             self.avgInterarrivals[i]['variance'] /= num
+            self.avgInterarrivals[i]['stdev'] = sqrt(self.avgInterarrivals[i]['variance'])
+
             self.avgWaits[i]['variance'] /= num
+            self.avgWaits[i]['stdev'] = sqrt(self.avgWaits[i]['variance'])
+
             self.avgNumNodes[i]['variance'] /= num
+            self.avgNumNodes[i]['stdev'] = sqrt(self.avgNumNodes[i]['variance'])
+
             self.avgDelays[i]['variance'] /= num
+            self.avgDelays[i]['stdev'] = sqrt(self.avgDelays[i]['variance'])
+
             self.avgNumQueues[i]['variance'] /= num
+            self.avgNumQueues[i]['stdev'] = sqrt(self.avgNumQueues[i]['variance'])
             
             num = self.numSampleP
 
@@ -247,6 +298,7 @@ class SamplingList:
                         continue
                     num = self.numSampleP
                 curr_server[statistic]['variance'] /= num
+                curr_server[statistic]['stdev'] = sqrt(curr_server[statistic]['variance'])
 
 
     
@@ -330,8 +382,6 @@ class SamplingList:
                     variance = self.serversStats[s][statistic]['variance']
                     l = [i.avgServersStats[s][statistic] for i in self.sampleListP]
                     self.serversStats[s][statistic]['autocorrelation'] = computeAutocorrelation(l, mean, variance)
-  
-
 
     def evaluateAutocorrelation(self) -> bool:
         l = []
@@ -350,3 +400,43 @@ class SamplingList:
             print(f'l = {l}')
 
         return all(abs(val) < config.AUTOCORR_THRESHOLD for val in l)
+
+    def computeConfidenceInterval(self, confidenceLevel, alsoP=False):
+        # confidence level is 1 - a
+        alpha = 1 - confidenceLevel
+        iterations = 1
+        if (alsoP):
+            iterations = 2
+
+        num = self.numSampleB
+        for i in range(iterations): # both the b and p type
+            
+            self.setIntervalLegth(self.avgInterarrivals[i], num, alpha)
+            self.setIntervalLegth(self.avgWaits[i], num, alpha)
+            self.setIntervalLegth(self.avgNumNodes[i], num, alpha)
+            self.setIntervalLegth(self.avgDelays[i], num, alpha)
+            self.setIntervalLegth(self.avgNumQueues[i], num, alpha)
+            
+            num = self.numSampleP
+
+        for s in self.serversStats.keys():
+            curr_server = self.serversStats[s]
+            for statistic in curr_server.keys():
+                if s in range(1, config.SERVERS_B + 1):
+                    num = self.numSampleB
+                else:
+                    if not alsoP:
+                        continue
+                    num = self.numSampleP
+                
+                self.setIntervalLegth(curr_server[statistic], num, alpha)
+
+
+    def setIntervalLegth(self, statisticDict:dict, num:int, alpha:float):
+        u = 1 - alpha * 0.5
+        t = idfStudent(num - 1, u)
+        stdev = statisticDict['stdev'] 
+        if stdev == 0: # not yet computed:
+            stdev = sqrt(statisticDict['variance'] / num)
+        w = t * stdev / sqrt(num - 1)
+        statisticDict['confidence_interval_length'] = w

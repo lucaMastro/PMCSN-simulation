@@ -8,6 +8,7 @@ from support.SamplingList import SamplingList
 from support.GaussianWeighter import GaussianWeighter
 from support.ArgParser import ArgParser
 from copy import deepcopy
+from typing import TextIO
 
 from configurations.Config import config
 
@@ -38,7 +39,6 @@ def processArrivalB(stats:Statistics, time:Time):
             # the s server will be idle at t.current + service
             stats.events[s].t = time.current + service
             stats.events[s].x = 1
-
 
 def processArrivalP(stats:Statistics, time:Time):
     global dayArrivals
@@ -99,7 +99,6 @@ def processDepartureP(stats:Statistics, time:Time, serverIndex:int):
     else:
         stats.events[serverIndex].x = 0
 
-
 def setInitialState(stats:Statistics, t:Time):
     # select time in which sampling interarrival events. the interarrival will be an uniform 
     # between 1.5 and 2 minutes (90 sec and 120 sec). 
@@ -122,8 +121,6 @@ def setInitialState(stats:Statistics, t:Time):
     firstP_Time = GetArrivalP(m)
     dayArrivals[1] += firstP_Time
     stats.updateArrivalP(dayArrivals[1])
-
-
 
 def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
     global dayArrivals
@@ -238,13 +235,13 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
     # divide by n each variance before ending
     samplingElementList.makeCorrectVariance(t.timeSlot == 4)
 
-
-def batchMeansAnalysis(batches:list, time:Time) -> SamplingList:
+def batchMeansAnalysis(batches:list, time:Time, fileName:str = None) -> SamplingList:
     # batches is a list of SamplingList
-    global stats
-
+    global stats    
     batchMeans = SamplingList()
-    for sl in batches:
+    # exponent is to trace 2**exponent. i want to store data for 2 pows
+    exponent = 1
+    for numSample, sl in enumerate(batches):
         serverStats = deepcopy(sl.serversStats)
         iterations = 1
         if time.timeSlot == 4:
@@ -287,17 +284,31 @@ def batchMeansAnalysis(batches:list, time:Time) -> SamplingList:
 
             # append the sample to automatically compute avg variance and lag j
             batchMeans.append(sample)  
+            if fileName and numSample + 1 == pow(2, exponent):
+                copyBatch = deepcopy(batchMeans)
+                copyBatch.makeCorrectVariance(bool(i))
+                writeOnFile(fileName, copyBatch, i, time.timeSlot, addLegend=(exponent==1))
+                if i == iterations - 1:
+                    exponent += 1
 
     batchMeans.makeCorrectVariance()
     batchMeans.computeAutocorrelation()
     
     print(batchMeans)
-    #input()
-
-    #input()
+    
     return batchMeans
 
-def infinite():
+def writeOnFile(fileName:str, batchMeans:SamplingList, kind:int, slotTime:int, addLegend:bool):
+    # kind == 0: B-type; kind == 1: P-type
+    line = batchMeans.newLine(kind, addLegend)
+    #input()
+    type = 'B' if kind == 0 else 'P'
+    outputFileName = f'./output/{fileName}_slot_{slotTime}_kind_{type}.csv'
+    with open(outputFileName, 'a') as file:
+        file.write(line)
+
+
+def infinite(fileName:str = None):
     
     restart = True
     slotsNum = len(config.SLOTSTIME)
@@ -339,7 +350,7 @@ def infinite():
             listOf_K_SamplingElementList = samplingElementMatrix[i]
             loop(stats, t, listOf_K_SamplingElementList)
             # make analisys on lagj:
-            batchMeans = batchMeansAnalysis(listOf_K_SamplingElementList, t)
+            batchMeans = batchMeansAnalysis(listOf_K_SamplingElementList, t, fileName)
             
             # evaluateAutocorr returns True if every value of autocorr is < config.THRESHOLD
             restart = not batchMeans.evaluateAutocorrelation()
@@ -380,67 +391,8 @@ def finite():
 
     return runs
 
-############################Main Program###################################
-if __name__ == '__main__':
-    global dayArrivals
-    global gaussianWeighter
-
-    parser = ArgParser()
-    parser.parse()
+""" def storeToFile():
     
-    dayArrivals = [config.START_B, config.START_P]
-    gaussianWeighter = GaussianWeighter()
-
-    seed = config.SEED
-    plantSeeds(seed)
-
-     
-    """ events table:
-      index | event     |
-      ------------------|
-      0 | arrival B     |
-      ------------------|
-      1 | completion B1 |
-      ------------------|
-      2 | completion B2 |
-      ------------------|
-      3 | arrival P     |
-      ------------------|
-      4 | completion P1 |
-      ------------------|
-      5 | completion P2 |
-      ------------------|
-      6 | sampling      |
-      ------------------|
-    """
-
-
-    if (config.FIND_B_VALUE or config.INFINITE_H):
-        infinite()   
-
-    elif config.FINITE_H:
-        runs = finite()
-    else: 
-        # single run. not so interesting
-        t = Time()
-        numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
-        stats = Statistics(numEvents)
-        setInitialState(stats, t)
-        samplingList = SamplingList()
-        # sampling list has to be put in a list
-        loop(stats, t, [samplingList])
-        paramDic = {'stats': stats, 'time': t}
-        lastSampleB = SamplingEvent(paramDic)
-        lastSampleP = SamplingEvent(paramDic, True)
-        print(lastSampleB)
-        print(lastSampleP)
-
-        print('\n\n\n')
-        print(samplingList)
-
-    parser.storePersonalConfig()
-
-    """
     # create a csv for analisys 
     firstLine = "day,# job completati, # job B completati, # job P completati," + \
             "#job B nel nodo, # job P nel nodo, # coda B, #coda P," + \
@@ -520,6 +472,71 @@ if __name__ == '__main__':
                     revenueP, revenue, totCost, revenue - totCost, incRevenue,
     incRevenue - incCosts,incCosts)
             
-            transientOut.write(line)
+            transientOut.write(line) """
 
- """
+
+
+############################Main Program###################################
+if __name__ == '__main__':
+    global dayArrivals
+    global gaussianWeighter
+
+    parser = ArgParser()
+    parser.parse()
+    outputFile = parser.getOutputFileName()
+    if outputFile:
+        outputFile = outputFile.strip('.csv')
+
+    dayArrivals = [config.START_B, config.START_P]
+    gaussianWeighter = GaussianWeighter()
+
+    seed = config.SEED
+    plantSeeds(seed)
+
+     
+    """ events table:
+      index | event     |
+      ------------------|
+      0 | arrival B     |
+      ------------------|
+      1 | completion B1 |
+      ------------------|
+      2 | completion B2 |
+      ------------------|
+      3 | arrival P     |
+      ------------------|
+      4 | completion P1 |
+      ------------------|
+      5 | completion P2 |
+      ------------------|
+      6 | sampling      |
+      ------------------|
+    """
+
+
+    if (config.FIND_B_VALUE or config.INFINITE_H):
+        infinite(outputFile)   
+
+    elif config.FINITE_H:
+        runs = finite()
+    else: 
+        # single run. not so interesting
+        t = Time()
+        numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
+        stats = Statistics(numEvents)
+        setInitialState(stats, t)
+        samplingList = SamplingList()
+        # sampling list has to be put in a list
+        loop(stats, t, [samplingList])
+        paramDic = {'stats': stats, 'time': t}
+        lastSampleB = SamplingEvent(paramDic)
+        lastSampleP = SamplingEvent(paramDic, True)
+        print(lastSampleB)
+        print(lastSampleP)
+
+        print('\n\n\n')
+        print(samplingList)
+
+    parser.storePersonalConfig()
+
+    

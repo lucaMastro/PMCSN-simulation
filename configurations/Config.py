@@ -75,6 +75,7 @@ class Config:
         self.RUNS = 1024
         
         self.AUTOCORR_THRESHOLD = 1
+        self.CONFIDENCE_LEVEL = 0.95
 
     
     def storeConfig(self,outputFileName):
