@@ -369,7 +369,6 @@ def infinite(fileName:str = None):
 def finite(fileName:str):
     
     runs = []
-    exponent = 1
     numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
     for i in range(config.RUNS):
         t = Time()
