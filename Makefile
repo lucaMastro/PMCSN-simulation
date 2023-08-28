@@ -16,4 +16,6 @@ finite-no-gauss:
 	$(PYTHON) $(SCRIPT) -fh -s $(SEED) -ngf
 
 clean:
-	rm ./output/*.csv
+	rm -f ./output/*.csv
+	rm -f ./output/finite/*.csv
+	rm -f ./output/infinite/*.csv

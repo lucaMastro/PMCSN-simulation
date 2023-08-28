@@ -122,7 +122,7 @@ def setInitialState(stats:Statistics, t:Time):
     dayArrivals[1] += firstP_Time
     stats.updateArrivalP(dayArrivals[1])
 
-def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
+def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList]):
     global dayArrivals
     global samplingInterarrivalTime
 
@@ -179,8 +179,8 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
                 enoughSample = False
             
             #if stats.numbers[1] != 0 and stats.processedJobs[1] != 0 and \
-            if t.timeSlot == 4 and stats.processedJobs[1] != 0 and \
-                        not enoughSample:
+            if (t.timeSlot == 4 and stats.processedJobs[1] != 0) and (config.FINITE_H or \
+                        not enoughSample):
                 #sample also a P type:
                 samplingElementList.append(SamplingEvent(paramDic, True))
             
@@ -230,10 +230,9 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list):
         # in infinite horizont never stop the arrival process.
         if stats.events[0].x == 0 and stats.number == 0:
             break
-
-            
     # divide by n each variance before ending
     samplingElementList.makeCorrectVariance(t.timeSlot == 4)
+    samplingElementList.computeConfidenceInterval(config.CONFIDENCE_LEVEL, t.timeSlot == 4)
 
 def batchMeansAnalysis(batches:list, time:Time, fileName:str = None) -> SamplingList:
     # batches is a list of SamplingList
@@ -285,27 +284,26 @@ def batchMeansAnalysis(batches:list, time:Time, fileName:str = None) -> Sampling
             # append the sample to automatically compute avg variance and lag j
             batchMeans.append(sample)  
             if fileName and numSample + 1 == pow(2, exponent):
+                type = 'B' if i == 0 else 'P'
+                outputFileName = f'./output/infinite/{fileName}_slot_{time.timeSlot}_kind_{type}_infinite.csv'
                 copyBatch = deepcopy(batchMeans)
                 copyBatch.makeCorrectVariance(bool(i))
                 copyBatch.computeConfidenceInterval(config.CONFIDENCE_LEVEL, bool(i))
-                writeOnFile(fileName, copyBatch, i, time.timeSlot, addLegend=(exponent==1))
+                writeOnFile(f'{outputFileName}', copyBatch, i, addLegend=(exponent==1))
                 if i == iterations - 1:
                     exponent += 1
 
     batchMeans.makeCorrectVariance()
     batchMeans.computeAutocorrelation()
     
-    print(batchMeans)
-    
     return batchMeans
 
-def writeOnFile(fileName:str, batchMeans:SamplingList, kind:int, slotTime:int, addLegend:bool):
+def writeOnFile(fileName:str, batchMeans:SamplingList, kind:int, addLegend:bool):
     # kind == 0: B-type; kind == 1: P-type
     line = batchMeans.newLine(kind, addLegend)
-    #input()
-    type = 'B' if kind == 0 else 'P'
-    outputFileName = f'./output/{fileName}_slot_{slotTime}_kind_{type}.csv'
-    with open(outputFileName, 'a') as file:
+    #input(
+    
+    with open(fileName, 'a') as file:
         file.write(line)
 
 
@@ -368,9 +366,10 @@ def infinite(fileName:str = None):
                 elif t.timeSlot == 6:
                     break
 
-def finite():
+def finite(fileName:str):
     
     runs = []
+    exponent = 1
     numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
     for i in range(config.RUNS):
         t = Time()
@@ -380,8 +379,7 @@ def finite():
         # sampling list has to be put in a list
         loop(stats, t, [samplingList])
         
-        # save run statistics
-        runs.append(samplingList)
+        runs.append(samplingList)   
 
         if config.DEBUG:
             paramDic = {'stats': stats, 'time': t}
@@ -390,7 +388,74 @@ def finite():
             print(lastSampleB)
             print(lastSampleP)
 
+    # make a new samplingList to catch runs' mean statistics
+    runsAnalysis(runs, fileName)
+    
     return runs
+
+
+def runsAnalysis(runs:list, fileName:str = None) -> SamplingList:
+    # batches is a list of SamplingList
+    runsMeans = SamplingList()
+    # exponent is to trace 2**exponent. i want to store data for 2 pows
+    exponent = 1
+    for numSample, run in enumerate(runs):
+        serverStats = deepcopy(run.serversStats)
+        # get statistics for each type B or P:
+        for i in range(2):
+            dic = {}
+            # processedJobs are required for computing means from statistics. they are useless here
+            dic['processedJobs'] = 0
+            dic['avgInterarrivals'] = run.avgInterarrivals[i]['mean']
+            dic['avgWaits'] = run.avgWaits[i]['mean']
+            dic['avgNumNodes'] = run.avgNumNodes[i]['mean']
+            dic['avgDelays'] = run.avgDelays[i]['mean']
+            dic['avgNumQueues'] = run.avgNumQueues[i]['mean']
+            
+            ext_dict = dict()
+            firstServerIndex = None
+            # the following keep lastServerIndex + 1. It's the right extreme of for cycle
+            lastServerIndexPlus = None
+            if not bool(i):
+                firstServerIndex = 1
+                lastServerIndexPlus = config.SERVERS_B + 1
+            else:
+                firstServerIndex = config.SERVERS_B + 2
+                lastServerIndexPlus = config.SERVERS_B + 2 + config.SERVERS_P
+            for s in range(firstServerIndex, lastServerIndexPlus):
+                d = dict()
+                d['utilization'] = serverStats[s]['utilization']['mean']
+                d['service'] = serverStats[s]['service']['mean']
+                d['share'] = serverStats[s]['share']['mean']
+
+                ext_dict[s] = d
+
+            dic['avgServersStats'] = ext_dict
+        
+            
+            # make a sampling event with the batch statistics
+            sample = SamplingEvent(dic, bool(i))
+
+            # append the sample to automatically compute avg variance and lag j
+            runsMeans.append(sample)  
+        
+        # write on file when both B and P type are sampled, each 2^i iteration, for each kind:
+        
+        if fileName and numSample + 1 == pow(2, exponent):
+            for i in range(2):
+                kind = 'B' if i == 0 else 'P'
+                outputFileName = f'./output/finite/{fileName}_finite_{kind}.csv'
+                copyRun = deepcopy(runsMeans)
+                copyRun.makeCorrectVariance(bool(i))
+                copyRun.computeConfidenceInterval(config.CONFIDENCE_LEVEL, bool(i))
+                writeOnFile(f'{outputFileName}', copyRun, i, addLegend=(exponent==1))
+            exponent += 1
+
+    runsMeans.makeCorrectVariance()
+    runsMeans.computeAutocorrelation()
+    
+    return runsMeans
+
 
 """ def storeToFile():
     
@@ -519,7 +584,8 @@ if __name__ == '__main__':
         infinite(outputFile)   
 
     elif config.FINITE_H:
-        runs = finite()
+        runs = finite(outputFile)
+
     else: 
         # single run. not so interesting
         t = Time()
