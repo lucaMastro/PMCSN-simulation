@@ -42,8 +42,8 @@ class Config:
         self.WEEK_LAMBDA_P = 0.17
         self.WEEKEND_LAMBDA_P = 1
 
-        self.MEAN_SERVICE_TIME_B = 2
-        self.MEAN_SERVICE_TIME_P = 3
+        self.MEAN_SERVICE_TIME_B = 2.0
+        self.MEAN_SERVICE_TIME_P = 3.0
 
         self.COSTS = [40, 50]
         self.REVENUES = [4, 7]
@@ -77,6 +77,8 @@ class Config:
         self.AUTOCORR_THRESHOLD = 1
         self.CONFIDENCE_LEVEL = 0.95
 
+        self.SAMPLING_UNIFORM_A = 0.5
+        self.SAMPLING_UNIFORM_B = 1
     
     def storeConfig(self,outputFileName):
         # Make the file text

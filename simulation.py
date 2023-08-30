@@ -44,17 +44,19 @@ def processArrivalP(stats:Statistics, time:Time):
     global dayArrivals
     global gaussianWeighter
     #print("P-ARRIVAL")
+    
     pArrivalIndex = config.SERVERS_B + 1
     stats.numbers[1] += 1
     stats.number += 1
 
     stats.lastArrivalsTime[1] = stats.events[pArrivalIndex].t 
 
-    m = getCorrectLambdaP(time)
-    gaussianFactor = gaussianWeighter.gaussianFactorP(time.current)
-    if not config.USE_GAUSSIAN_FACTOR:
-        gaussianFactor = 1
-    p_time = GetArrivalP(1/m) / gaussianFactor
+    l = getCorrectLambdaP(time)
+    gaussianFactor = 1
+    if config.USE_GAUSSIAN_FACTOR:
+        gaussianFactor = gaussianWeighter.gaussianFactorP(time.current)    
+
+    p_time = GetArrivalP(1/l) / gaussianFactor
 
     dayArrivals[1] += p_time
 
@@ -116,11 +118,14 @@ def setInitialState(stats:Statistics, t:Time):
     stats.updateArrivalB(dayArrivals[0], firstB_ArrivalTime)
     dayArrivals[0] += firstB_ArrivalTime
 
-    # schedule the first P arrival
-    m = getCorrectLambdaP(t)
-    firstP_Time = GetArrivalP(m)
-    dayArrivals[1] += firstP_Time
-    stats.updateArrivalP(dayArrivals[1])
+    # schedule the first P arrival only if not in infinite case:
+    if not config.INFINITE_H:
+        m = getCorrectLambdaP(t)
+        firstP_Time = GetArrivalP(m)
+        dayArrivals[1] += firstP_Time
+        if config.DEBUG:
+            print(f'firstP_Time {dayArrivals[1]/60}')
+        stats.updateArrivalP(dayArrivals[1])
 
 def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList]):
     global dayArrivals
@@ -152,6 +157,11 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
             print('TIME')
             print(t)
             print()
+
+        diff = t.next - t.current
+        t.simulationTimeB += diff
+        if t.timeSlot == 4:
+            t.simulationTimeP += diff
 
         # advance the clock
         t.current = t.next
@@ -199,6 +209,7 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
                     # update slotTime in deterministic way:
                     currBatch_k += 1   
                     
+                    stats.resetStats()
                     # all batches done
                     if currBatch_k == config.BATCH_K:
                         return
@@ -206,7 +217,6 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
                         # change the times:
 
                         # restart statistics:
-                        stats.resetStats()
                         t.setBatchTime()  
                         
                         # change the samplingList:
@@ -316,7 +326,6 @@ def infinite(fileName:str = None):
     while restart:        
         
         t = Time()
-
         """ events table:
           index | event     |
           ------------------|
@@ -361,8 +370,17 @@ def infinite(fileName:str = None):
             else:
                 # update slotTime in deterministic way:
                 t.timeSlot += 1
+                t.simulationTimeB = 0
+                t.simulationTimeP = 0
                 if (t.timeSlot == 2):
                     t.timeSlot += 1
+                elif t.timeSlot == 4:
+                    # initialize p arrival:
+                    l = getCorrectLambdaP(t)
+                    firstP_Time = GetArrivalP(l)
+                    dayArrivals[1] = t.current + firstP_Time
+                    stats.updateArrivalP(dayArrivals[1])
+                    print(stats.events[3])
                 elif t.timeSlot == 6:
                     break
 

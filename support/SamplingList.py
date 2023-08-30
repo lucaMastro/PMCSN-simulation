@@ -89,13 +89,13 @@ class SamplingList:
             self.serversStats[s]['utilization']['mean'] = 0
             self.serversStats[s]['utilization']['variance'] = 0
             self.serversStats[s]['utilization']['autocorrelation'] = 0
-            self.serversStats[s]['share']['confidence_interval_length'] = 0
+            self.serversStats[s]['utilization']['confidence_interval_length'] = 0
             self.serversStats[s]['utilization']['stdev'] = 0
 
             self.serversStats[s]['service']['mean'] = 0
             self.serversStats[s]['service']['variance'] = 0
             self.serversStats[s]['service']['autocorrelation'] = 0
-            self.serversStats[s]['share']['confidence_interval_length'] = 0
+            self.serversStats[s]['service']['confidence_interval_length'] = 0
             self.serversStats[s]['service']['stdev'] = 0
 
             self.serversStats[s]['share']['mean'] = 0
@@ -142,6 +142,7 @@ class SamplingList:
         # kind == 0: B-type; kind == 1: P-type
         string = ''
         num = self.numSampleB if kind == 0 else self.numSampleP
+
         if addLegend:
             string = 'num. sample,statistic,mean,variance,std dev,interval length\n'
         
@@ -154,15 +155,29 @@ class SamplingList:
             variance = value[kind]['variance']
             std_dev = value[kind]['stdev']
         
-            if std_dev == 0:
-                variance /= num
-                std_dev = sqrt(variance)
-                self.setIntervalLegth(value[kind], num, 1 - config.CONFIDENCE_LEVEL)
-            
             interval = value[kind]['confidence_interval_length']
             
             string += f'{num},{attr},{m:.3f},{variance:.3f},{std_dev:.3f},{interval:.3f}\n'
+        
+        firstServerIndex = None
+        # the following keep lastServerIndex + 1. It's the right extreme of for cycle
+        lastServerIndexPlus = None
+        if kind == 0:
+            firstServerIndex = 1
+            lastServerIndexPlus = config.SERVERS_B + 1
+        else:
+            firstServerIndex = config.SERVERS_B + 2
+            lastServerIndexPlus = config.SERVERS_B + 2 + config.SERVERS_P
 
+        for s in range(firstServerIndex, lastServerIndexPlus):
+            currServer = self.serversStats[s]
+            for stat in currServer.keys():
+                value = currServer[stat]
+                m = value['mean']
+                variance = value['variance']
+                std_dev = value['stdev']
+                interval = value['confidence_interval_length'] 
+                string += f'{num},{stat}_server{s},{m:.3f},{variance:.3f},{std_dev:.3f},{interval:.3f}\n'
         return string
         
     
@@ -173,19 +188,16 @@ class SamplingList:
     def append(self, newEvent:SamplingEvent):
         type = newEvent.type
         num = None
-        list = None
         if type == 0:
             self.sampleListB.append(newEvent)
             self.numSampleB += 1
             # used in welford algho
             num = self.numSampleB
-            list = self.sampleListB
         else:
             self.sampleListP.append(newEvent)
             self.numSampleP += 1
             # used in welford algho
             num = self.numSampleP
-            list = self.sampleListP
             
         # one pass algho for each statistic:
         mean = self.avgInterarrivals[type]['mean']

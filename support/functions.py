@@ -26,7 +26,7 @@ def getSamplingInterarrivalTime():
     selectStream(4) 
     # choosing a value between 20 and 22: otherwise P-type variables may not 
     # be sampled
-    return (Uniform(1.5, 2))
+    return (Uniform(config.SAMPLING_UNIFORM_A, config.SAMPLING_UNIFORM_B))
 
 def getCorrectLambdaB(time:Time):
     # time: current instance of class Time
@@ -46,7 +46,7 @@ def getCorrectLambdaP(time:Time):
     m = 0
     if (time.dayOfWeek):
         m = config.WEEK_LAMBDA_P
-    else: # week day
+    else: 
         m = config.WEEKEND_LAMBDA_P
     return m
     

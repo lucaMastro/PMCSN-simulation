@@ -13,7 +13,9 @@ class Time:
     timeSlot = None         # current slot indicator
     changeBatchTimeB = None
     changeBatchTimeP = None
-    
+    simulationTimeB = None # effectively simulated time
+    simulationTimeP = None # effectively simulated time
+
     def __init__(self):
         self.current = config.START_B
         self.day = 0 
@@ -21,6 +23,8 @@ class Time:
         self.timeSlot = 0
         self.changeBatchTimeB = config.START_B
         self.changeBatchTimeP = config.START_P
+        self.simulationTimeB = 0
+        self.simulationTimeP = 0
 
     def __str__(self) -> str:
         my_str = ''
@@ -59,3 +63,5 @@ class Time:
         # self.next -= scaleFactor
         self.changeBatchTimeB = self.current
         self.changeBatchTimeP = self.current
+        self.simulationTimeB = 0
+        self.simulationTimeP = 0

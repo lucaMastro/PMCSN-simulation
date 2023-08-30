@@ -31,11 +31,18 @@ def computeAvgNumNode(stats:Statistics, time:Time, kindP=False):
     area = stats.areas[0] if not kindP else stats.areas[1]
     start = config.START_B
     duration = config.B_DAY_DURATION
+    simulationTime = time.simulationTimeB
     if kindP:
         start = config.START_P
         duration = config.P_DAY_DURATION
+        simulationTime = time.simulationTimeP
 
-    return area / (time.current - start + time.day * duration)
+    #return area / (time.current - start + time.day * duration)
+    if config.DEBUG:
+        print(f'1: {time.simulationTimeB if not kindP else time.simulationTimeP}')
+        print(f'2: {area}')
+        print(f'3: {area/simulationTime}')
+    return area / simulationTime
 
 def computeAvgDelay(stats:Statistics, kindP=False):
     # get area to adjust:
@@ -57,7 +64,7 @@ def computeAvgDelay(stats:Statistics, kindP=False):
     
     #adjust area
     for s in range(firstServerIndex, lastServerIndexPlus):
-            area -= stats.sum[s].service
+            area -= stats.sum[s].service 
 
     return area / procesedJobs
 
@@ -75,17 +82,32 @@ def computeAvgNumQueue(stats:Statistics, time:Time, kindP=False):
         firstServerIndex = 1
         lastServerIndexPlus = config.SERVERS_B + 1
         duration = (config.STOP_B - config.START_B) 
+        simulationTime = time.simulationTimeB
         
     else:
         area = stats.areas[1]
         firstServerIndex = config.SERVERS_B + 2
         lastServerIndexPlus = config.SERVERS_B + 2 + config.SERVERS_P
         duration = config.STOP_P - config.START_P
+        simulationTime = time.simulationTimeP
     
     #adjust area
     for s in range(firstServerIndex, lastServerIndexPlus):
-            area -= stats.sum[s].service
-    return area / (time.current + time.day * duration)
+        remainingTime = 0
+        # the departure is not over. there are some time that the job need to spend in the
+        # server
+        if stats.events[s].x == 1:
+            # how many time the job has to spend in the server? note that this time is already
+            # summed in the sum[s].service, but not yet in sum[s]!!
+            remainingTime = stats.events[s].t - time.current
+
+        area -= stats.sum[s].service - remainingTime
+    # return area / (time.current + time.day * duration)
+    if config.DEBUG:
+        print(area, '\n'+'*'*15+'\n', simulationTime)
+        #if kindP:
+        #    input()
+    return area / simulationTime
 
 
 def computeAvgServerStats(stats:Statistics, time:Time, kindP=False):
