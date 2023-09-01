@@ -106,36 +106,54 @@ class SamplingList:
 
 
     def __str__(self) -> str:
-        my_str = f'numSampleB: {self.numSampleB}\nnumSampleP: {self.numSampleP}\n'
-        titles = ['BAR', 'PIZZERIA']
-        
-        for attr, value in vars(self).items():
-            if attr in ('sampleListB', 'serversStats', 'sampleListP', 'numSampleB', 'numSampleP', 'computeAutocorrelation'):
-                    continue
-            for i in range(2):
-                m = value[i]['mean']
-                variance = value[i]['variance']
-                autocorr = value[i]['autocorrelation']
-                my_str += f'{attr}_{titles[i]} -- mean: {m}, variance: {variance} -- autocorr: {autocorr}\n'
-    
-        for s in self.serversStats.keys():
-            my_str += f'server {s}\n'
-            m = self.serversStats[s]['utilization']['mean']
-            variance = self.serversStats[s]['utilization']['variance']
-            autocorr = self.serversStats[s]['utilization']['autocorrelation']
-            my_str += f'\tutilization -- mean {m} -- variance {variance} -- autocorr: {autocorr}\n'
+        titles = ["Bar", "Pizzeria"]
+        sizes = [self.numSampleB, self.numSampleP]
+        my_string = "Sample List statistics are:\n"
+        for i in range(2):
+            my_string += f'for {sizes[i]} jobs in the {titles[i]}:\n'
+            my_string += "        statistic          mean    variance      conf int\n"
+            my_string += "  avg interarrivals .. : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+                format(self.avgInterarrivals[i]['mean'],
+                    self.avgInterarrivals[i]['variance'],
+                    self.avgInterarrivals[i]['confidence_interval_length'])
 
-            m = self.serversStats[s]['service']['mean']
-            variance = self.serversStats[s]['service']['variance']
-            autocorr = self.serversStats[s]['service']['autocorrelation']
-            my_str += f'\tservice -- mean {m} -- variance {variance} -- autocorr: {autocorr}\n'
-
-            m = self.serversStats[s]['share']['mean']
-            variance = self.serversStats[s]['share']['variance']
-            autocorr = self.serversStats[s]['share']['autocorrelation']
-            my_str += f'\tshare -- mean {m} -- variance {variance} -- autocorr: {autocorr}\n'
-
-        return my_str
+            my_string += "  avg wait ........... : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+                format(self.avgWaits[i]['mean'],
+                    self.avgWaits[i]['variance'],
+                    self.avgWaits[i]['confidence_interval_length'])
+            
+            my_string += "  avg # in node ...... : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+                format(self.avgNumNodes[i]['mean'],
+                    self.avgNumNodes[i]['variance'],
+                    self.avgNumNodes[i]['confidence_interval_length'])
+            
+            my_string += "  avg delay .......... : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+                format(self.avgDelays[i]['mean'], 
+                    self.avgDelays[i]['variance'], 
+                    self.avgDelays[i]['confidence_interval_length'])
+            
+            my_string += "  avg # in queue ..... : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+                format(self.avgNumQueues[i]['mean'],
+                    self.avgNumQueues[i]['variance'],
+                    self.avgNumQueues[i]['confidence_interval_length'])
+            
+            my_string += "\nthe server statistics are:\n"
+            my_string += "    server     utilization     avg service        share\n"
+            startingPoint = None
+            endingPoint = None
+            if (i == 0):
+                startingPoint = 1
+                endingPoint = config.SERVERS_B + 1
+            else:
+                startingPoint = config.SERVERS_B + 2 
+                endingPoint = config.SERVERS_B + 2 + config.SERVERS_P
+            for s in range(startingPoint, endingPoint):  
+                my_string += "{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}\n".\
+                    format(s, self.serversStats[s]['utilization']['mean'], 
+                        self.serversStats[s]['service']['mean'], 
+                        self.serversStats[s]['share']['mean'])
+            my_string += '\n\n'
+        return my_string
     
 
     def newLine(self, kind:int, addLegend:bool = None) -> str:
@@ -180,10 +198,6 @@ class SamplingList:
                 string += f'{num},{stat}_server{s},{m:.3f},{variance:.3f},{std_dev:.3f},{interval:.3f}\n'
         return string
         
-    
-
-
-
 
     def append(self, newEvent:SamplingEvent):
         type = newEvent.type

@@ -8,10 +8,14 @@ def computeAvgInterarrivals(stats:Statistics, time:Time, kindP=False):
     interarrivalWindow = None
     processedJobs = None
     if not kindP:
-        interarrivalWindow = (stats.lastArrivalsTime[0] - time.changeBatchTimeB) + time.day * config.B_DAY_DURATION
+        interarrivalWindow = stats.lastArrivalsTime[0] - time.changeBatchTimeB
+        if time.current > config.SECOND_HALFDAY_OPEN_TIME and\
+            not (config.INFINITE_H or config.FIND_B_VALUE):
+                interarrivalWindow -= (config.SECOND_HALFDAY_OPEN_TIME - config.FIRST_HALFDAY_CLOSE_TIME)
         processedJobs = stats.processedJobs[0] 
+        
     else:
-        interarrivalWindow = (stats.lastArrivalsTime[1] - time.changeBatchTimeP) + time.day * config.P_DAY_DURATION
+        interarrivalWindow = stats.lastArrivalsTime[1] - time.changeBatchTimeP
         processedJobs = stats.processedJobs[1]
         
     return interarrivalWindow / processedJobs
@@ -28,23 +32,18 @@ def computeAvgWait(stats:Statistics, kindP=False):
     return area / processedJobs
     
 def computeAvgNumNode(stats:Statistics, time:Time, kindP=False):
-    area = stats.areas[0] if not kindP else stats.areas[1]
-    start = config.START_B
-    duration = config.B_DAY_DURATION
-    simulationTime = time.simulationTimeB
-    if kindP:
-        start = config.START_P
-        duration = config.P_DAY_DURATION
+    area = None
+    simulationTime = None
+    if not kindP:
+        area = stats.areas[0] 
+        simulationTime = time.simulationTimeB
+    else:
+        area = stats.areas[1]
         simulationTime = time.simulationTimeP
 
-    #return area / (time.current - start + time.day * duration)
-    if config.DEBUG:
-        print(f'1: {time.simulationTimeB if not kindP else time.simulationTimeP}')
-        print(f'2: {area}')
-        print(f'3: {area/simulationTime}')
     return area / simulationTime
 
-def computeAvgDelay(stats:Statistics, kindP=False):
+def computeAvgDelay(stats:Statistics, time:Time, kindP=False):
     # get area to adjust:
     area = None
     procesedJobs = None
@@ -64,7 +63,15 @@ def computeAvgDelay(stats:Statistics, kindP=False):
     
     #adjust area
     for s in range(firstServerIndex, lastServerIndexPlus):
-            area -= stats.sum[s].service 
+        remainingTime = 0
+        # the departure is not over. there are some time that the job need to spend in the
+        # server
+        if stats.events[s].x == 1:
+            # how many time the job has to spend in the server? note that this time is already
+            # summed in the sum[s].service, but not yet in sum[s]!!
+            remainingTime = stats.events[s].t - time.current
+
+        area -= stats.sum[s].service - remainingTime
 
     return area / procesedJobs
 
@@ -76,19 +83,17 @@ def computeAvgNumQueue(stats:Statistics, time:Time, kindP=False):
     firstServerIndex = None
     # the following keep lastServerIndex + 1. It's the right extreme of for cycle
     lastServerIndexPlus = None
-    duration = 0
+    simulationTime = None
     if not kindP:
         area = stats.areas[0]
         firstServerIndex = 1
         lastServerIndexPlus = config.SERVERS_B + 1
-        duration = (config.STOP_B - config.START_B) 
         simulationTime = time.simulationTimeB
         
     else:
         area = stats.areas[1]
         firstServerIndex = config.SERVERS_B + 2
         lastServerIndexPlus = config.SERVERS_B + 2 + config.SERVERS_P
-        duration = config.STOP_P - config.START_P
         simulationTime = time.simulationTimeP
     
     #adjust area
@@ -103,10 +108,6 @@ def computeAvgNumQueue(stats:Statistics, time:Time, kindP=False):
 
         area -= stats.sum[s].service - remainingTime
     # return area / (time.current + time.day * duration)
-    if config.DEBUG:
-        print(area, '\n'+'*'*15+'\n', simulationTime)
-        #if kindP:
-        #    input()
     return area / simulationTime
 
 
@@ -125,21 +126,22 @@ def computeAvgServerStats(stats:Statistics, time:Time, kindP=False):
     # the following keep lastServerIndex + 1. It's the right extreme of for cycle
     lastServerIndexPlus = None
     processedJobs = None
+    simulationTime = None
     if not kindP:
         firstServerIndex = 1
         lastServerIndexPlus = config.SERVERS_B + 1
         processedJobs = stats.processedJobs[0]
-        duration = config.STOP_B - config.START_B
+        simulationTime = time.simulationTimeB
     else:
         firstServerIndex = config.SERVERS_B + 2
         lastServerIndexPlus = config.SERVERS_B + 2 + config.SERVERS_P
         processedJobs = stats.processedJobs[1]
-        duration = config.STOP_P - config.START_P
+        simulationTime = time.simulationTimeP
     
     for s in range(firstServerIndex, lastServerIndexPlus):
         d = dict()
         #d['server'] = s
-        d['utilization'] = stats.sum[s].service / (time.current + time.day * duration)
+        d['utilization'] = stats.sum[s].service / simulationTime
         
         den = stats.sum[s].served
         if den != 0:
@@ -189,7 +191,7 @@ class SamplingEvent:
         self.avgInterarrivals = computeAvgInterarrivals(stats, time, bool(self.type))
         self.avgWaits = computeAvgWait(stats, bool(self.type))
         self.avgNumNodes = computeAvgNumNode(stats, time, bool(self.type))
-        self.avgDelays = computeAvgDelay(stats, bool(self.type))
+        self.avgDelays = computeAvgDelay(stats, time, bool(self.type))
         self.avgNumQueues = computeAvgNumQueue(stats, time, bool(self.type))
         self.avgServersStats = computeAvgServerStats(stats, time, bool(self.type))
 

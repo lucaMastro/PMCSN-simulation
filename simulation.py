@@ -8,7 +8,6 @@ from support.SamplingList import SamplingList
 from support.GaussianWeighter import GaussianWeighter
 from support.ArgParser import ArgParser
 from copy import deepcopy
-from typing import TextIO
 
 from configurations.Config import config
 
@@ -21,13 +20,14 @@ def processArrivalB(stats:Statistics, time:Time):
     stats.lastArrivalsTime[0] = stats.events[0].t 
 
     m = getCorrectLambdaB(time)
-    gaussianFactor = gaussianWeighter.gaussianWeighterFactorB(time.current, time.timeSlot)
-    if not config.USE_GAUSSIAN_FACTOR:
-        gaussianFactor = 1
+    gaussianFactor = 1
+    if config.USE_GAUSSIAN_FACTOR:
+        gaussianFactor = gaussianWeighter.gaussianWeighterFactorB(time.current, time.timeSlot)
     b_time = GetArrivalB(1/m) / gaussianFactor
 
     stats.updateArrivalB(dayArrivals[0], b_time)
-    dayArrivals[0] += b_time
+    # stats.events[0].t is updated to the new arrival time
+    dayArrivals[0] = stats.events[0].t
     
     if (stats.numbers[0] <= config.SERVERS_B):
         # there is an idle B-server
@@ -65,9 +65,7 @@ def processArrivalP(stats:Statistics, time:Time):
 
     if (stats.numbers[1] <= config.SERVERS_P):
         service  = GetServiceP()
-        s = FindOneP(stats.events)
-    
-        
+        s = FindOneP(stats.events)     
         if (s >= 0):
             stats.sum[s].service += service
             stats.sum[s].served += 1
@@ -168,7 +166,6 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
         #checking if time slot changed:
         t.changeSlot()
 
-
         if (e == 0): 
              # process a B-arrival 
             processArrivalB(stats, t)
@@ -184,9 +181,7 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
 
             if stats.processedJobs[0] != 0 and not enoughSample:
                 currSample = SamplingEvent(paramDic)
-                
                 samplingElementList.append(currSample)
-                enoughSample = False
             
             #if stats.numbers[1] != 0 and stats.processedJobs[1] != 0 and \
             if (t.timeSlot == 4 and stats.processedJobs[1] != 0) and (config.FINITE_H or \
@@ -241,8 +236,9 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
         if stats.events[0].x == 0 and stats.number == 0:
             break
     # divide by n each variance before ending
-    samplingElementList.makeCorrectVariance(t.timeSlot == 4)
-    samplingElementList.computeConfidenceInterval(config.CONFIDENCE_LEVEL, t.timeSlot == 4)
+    samplingElementList.makeCorrectVariance(True)
+    samplingElementList.computeConfidenceInterval(config.CONFIDENCE_LEVEL, True)
+    
 
 def batchMeansAnalysis(batches:list, time:Time, fileName:str = None) -> SamplingList:
     # batches is a list of SamplingList
@@ -380,7 +376,6 @@ def infinite(fileName:str = None):
                     firstP_Time = GetArrivalP(l)
                     dayArrivals[1] = t.current + firstP_Time
                     stats.updateArrivalP(dayArrivals[1])
-                    print(stats.events[3])
                 elif t.timeSlot == 6:
                     break
 
@@ -388,6 +383,7 @@ def finite(fileName:str):
     
     runs = []
     numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
+
     for i in range(config.RUNS):
         t = Time()
         stats = Statistics(numEvents)
@@ -395,8 +391,10 @@ def finite(fileName:str):
         samplingList = SamplingList()
         # sampling list has to be put in a list
         loop(stats, t, [samplingList])
-        
+
         runs.append(samplingList)   
+        # for j in range(i+1):
+        #     print(f'{j}-th list: \n{runs[j]}\n\n')
 
         if config.DEBUG:
             paramDic = {'stats': stats, 'time': t}
@@ -404,11 +402,18 @@ def finite(fileName:str):
             lastSampleP = SamplingEvent(paramDic, True)
             print(lastSampleB)
             print(lastSampleP)
+        
+        # if i == 1:
 
+        #     exit(1)
     # make a new samplingList to catch runs' mean statistics
-    runsAnalysis(runs, fileName)
+    # for i,item in enumerate(runs):
+    #     print(f'wait-{i}th:\n{item.avgWaits[0]}\n{item}\n\n')
+
+    # exit(1)
+    means = runsAnalysis(runs, fileName)
     
-    return runs
+    return runs, means
 
 
 def runsAnalysis(runs:list, fileName:str = None) -> SamplingList:
@@ -420,7 +425,7 @@ def runsAnalysis(runs:list, fileName:str = None) -> SamplingList:
         serverStats = deepcopy(run.serversStats)
         # get statistics for each type B or P:
         for i in range(2):
-            dic = {}
+            dic = dict()
             # processedJobs are required for computing means from statistics. they are useless here
             dic['processedJobs'] = 0
             dic['avgInterarrivals'] = run.avgInterarrivals[i]['mean']
@@ -447,8 +452,8 @@ def runsAnalysis(runs:list, fileName:str = None) -> SamplingList:
 
                 ext_dict[s] = d
 
+            #print(dic['avgWaits'])
             dic['avgServersStats'] = ext_dict
-        
             
             # make a sampling event with the batch statistics
             sample = SamplingEvent(dic, bool(i))
@@ -575,7 +580,6 @@ if __name__ == '__main__':
 
     seed = config.SEED
     plantSeeds(seed)
-
      
     """ events table:
       index | event     |
@@ -601,7 +605,7 @@ if __name__ == '__main__':
         infinite(outputFile)   
 
     elif config.FINITE_H:
-        runs = finite(outputFile)
+        runs, means = finite(outputFile)
 
     else: 
         # single run. not so interesting

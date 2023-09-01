@@ -5,9 +5,6 @@ from configurations.Config import config
 class Time:
     current = None          # current time in minutes            */
     next = None             # next (most imminent) event time in minutes  */
-    day = None              # used to trace all days simulated. The end of
-                            # simulation is computed on this value
-
     dayOfWeek = None        # used to trace week or weekend interarrivals
 
     timeSlot = None         # current slot indicator
@@ -18,7 +15,6 @@ class Time:
 
     def __init__(self):
         self.current = config.START_B
-        self.day = 0 
         self.dayOfWeek = config.SIMULATE_WEEK # starting from the first working day
         self.timeSlot = 0
         self.changeBatchTimeB = config.START_B
@@ -52,11 +48,6 @@ class Time:
 
     def copy(self):
         return copy.deepcopy(self)
-
-    def newDay(self):
-        self.current = config.START_B
-        self.day += 1
-        # self.dayOfWeek = (self.dayOfWeek + 1) % 7
 
     def setBatchTime(self):
         # self.current -= scaleFactor

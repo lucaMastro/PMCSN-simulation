@@ -1,7 +1,6 @@
 from math import factorial
 from configurations.Config import config
 import argparse
-from copy import deepcopy
 
 def compute_P0(m, rho):
     sum = 0
@@ -104,7 +103,6 @@ if __name__ == '__main__':
     parser.add_argument("-b", "--b_type", action="store_true", help="specify B type values")
     parser.add_argument("-p", "--p_type", action="store_true", help="specify P type values")
 
-    lambda_list = None
     args = parser.parse_args()
     if args.week:
         if args.b_type:
@@ -124,18 +122,19 @@ if __name__ == '__main__':
         m = config.SERVERS_B
         s_i = config.MEAN_SERVICE_TIME_B
         durations = [i for i in config.DURATIONS]
-        day_durations = config.B_DAY_DURATION
+        print(f'durations: {durations}')
     elif args.p_type:
         m = config.SERVERS_P
         s_i = config.MEAN_SERVICE_TIME_P
         durations = [config.DURATIONS[i] for i in range(4,5)]
-        day_durations = config.P_DAY_DURATION
 
-    
+    if (args.b_type):
+        lambdas.pop(2)
+        durations.pop(2)
+    day_durations = sum(durations)
 
     for i in range(len(durations)):
-        if i == 2 and args.b_type:
-            continue
+    
         l = lambdas[i]
         s = s_i/m
         rho = l * s
@@ -152,12 +151,7 @@ if __name__ == '__main__':
         ets.append(ts)
         enq.append(nq)
         ens.append(ns)
-
-    #durations = [i for i in config.DURATIONS]
-    #lambdas = [i for i in config.WEEK_LAMBDA_B]
-    if (args.b_type):
-        lambdas.pop(2)
-        durations.pop(2)
+    
     
     
     print("global averaged stats:\n")

@@ -2,7 +2,6 @@ import argparse
 import importlib
 import ast
 
-#from support.Config import config
 from configurations.Config import config
 
 class ArgParser:

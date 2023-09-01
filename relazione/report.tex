@@ -197,9 +197,9 @@ Dopo un'osservazione settimanale di altri locali che offrono servizi simili, si 
     \hline
     18:00 $\rightarrow$ 19:00 & 45 j/h & \xmark \\
     \hline
-    19:00 $\rightarrow$ 23:00 & 22.5 j/h & 40 j/h \\
+    19:00 $\rightarrow$ 23:00 & 22.5 j/h & 30 j/h \\
     \hline
-    23:00 $\rightarrow$ 03:00 & 20 j/h & \xmark \\
+    23:00 $\rightarrow$ 02:00 & 20 j/h & \xmark \\
     \hline
     \end{tabular}
 	\bigskip 
@@ -276,6 +276,7 @@ dell'evento.
 \subsection{Periodo di osservazione}
 Il periodo di osservazione è quello di un intero anno e ogni giorno si osserva l'intera giornata lavorativa costituita dalle due fasce orarie riportate precedentemente nelle \attach{tabelle riassuntiva dei tassi di arrivo}.
 
+\target{interarrivi gaussiani}
 \subsection{Distribuzione degli arrivi}
 I valori dei vari tassi di arrivo sono stati raccolti analizzando un caso reale, anche se si tratta comunque di una stima. Per rappresentare il processo degli arrivi è stata utilizzata la distribuzione esponenziale, utilizzando $\lambda$ diversi per ogni fascia oraria. Inoltre, all'interno della singola fascia oraria, gli arrivi potrebbero essere modellati come una distribuzione gaussiana, centrata attorno all'ora in cui le richieste sono più probabili. A partire da questa osservazione, si è scelto di utilizzare la distribuzione esponenziale per modellare gli arrivi, ma la media utilizzata è pesata opportunamente per una probabilità che è tanto più alta quanto più il tempo di simulazione è vicino all'ora di massima affluenza per quella fascia oraria. Per modellare questo, si definiscono delle frequenze di interarrivo medie per ogni fascia oraria, riportate qui in minuti:
 \bigskip
@@ -342,7 +343,7 @@ I valori dei vari tassi di arrivo sono stati raccolti analizzando un caso reale,
     \hline
     
 
-	19:00 $\rightarrow$ 23:00 & 0.375 j/min & 1 j/min \\
+	19:00 $\rightarrow$ 23:00 & 0.375 j/min & 0.5 j/min \\
 
     \hline
     
@@ -359,6 +360,7 @@ I valori dei vari tassi di arrivo sono stati raccolti analizzando un caso reale,
 
 Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:\\
 
+\begin{minipage}{0.5\textwidth}
 \begin{table}[H]
 \centering
 \begin{tabular}{ |c|c|c| }
@@ -380,19 +382,35 @@ Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:
     \hline
     
     23:00 $\rightarrow$ 02:00 & 24 & 0.9 \\
-    \hline    
-    \hline
-    
-    \multicolumn{3}{|c|}{\cellcolor{cellcolor} Pizzeria}\\
-    \hline
+    \hline        
+\end{tabular}
+\end{table}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{table}[H]
+\centering
+\begin{tabular}{ |c|c|c| }
+	\hline
     \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\mu$ & \cellcolor{cellcolor}$\sigma$\\
 	\hline
     \hline
     19:00 $\rightarrow$ 23:00 & 20.5 & 1\\
     \hline
-    
 \end{tabular}
 \end{table}
+\end{minipage}
+\bigskip
+
+\begin{minipage}{0.4\textwidth}
+\centering
+\textit{Parametri delle gaussiane per richieste di tipo B}
+\end{minipage}
+\hspace{0.2\textwidth}
+\begin{minipage}{0.4\textwidth}
+\centering
+\textit{Parametri delle gaussiane per richieste di tipo P}
+\end{minipage}
+\bigskip
 
 La loro rappresentazione grafica è riportata \hyperlink{rappresentazione grafica gaussiane}{in fondo al documento}. 
 \bigskip
@@ -407,9 +425,9 @@ f^n(t_0) = \frac{f(t_0)}{F(11) - F(7)}
 \]
 con $F(x)$ funzione cumulativa della distribuzione gaussiana relativa alla fascia oraria 07:00 $\rightarrow$ 11:00.\\
 
-Non si è usata una gaussiana direttamente come distribuizione del tempo di interarrivo perché avrebbe modellato una cosa diversa: avrei rappresentato che i tempi sono molto più vicini al valor medio della distribuzione all'interno dell'intero intervallo, invece si vuole modellare che il tempo di interarrivo diminuisce in un intorno di un tempo specifico
+Non si è usata una gaussiana direttamente come distribuizione del tempo di interarrivo perché avrebbe modellato una cosa diversa: in quel caso i tempi sarebbero molto più vicini al valor medio della distribuzione all'interno dell'intera fascia in esame, invece si vuole modellare che il tempo di interarrivo diminuisce in un intorno di un certo tempo. \\
 
-
+La simulazione permette di disabilitare questa opzione inserendo l'opportuno \textit{flag} nel lancio del programma.
 
 
 \subsection{Assunzioni}
@@ -425,93 +443,76 @@ Non si è usata una gaussiana direttamente come distribuizione del tempo di inte
 \]
   Con $T$ tempo di chiusura giornaliero e $\mathcal{B} \cup \mathcal{P}$ l'unione dell'insieme dei serventi di tipo \textit{B} e \textit{P}. Come conseguenza, l'ultimo evento non può essere un arrivo, e sarà quindi o una partenza o un campionamento.
 
-  \item I tempi di servizio di ognuno dei serventi si assumono  esponenziali e indipendenti dalla fascia oraria. In particolare, ogni servente di tipo \textit{B} lavora con frequenza media pari a $\mu\textsubscript{B} = \frac{1}{2}\ j/min$; ogni servente di tipo \textit{P} lavora con frequenza media pari a $\mu\textsubscript{P} = \frac{1}{3}\ j/min$.
-
-  
+  \item I tempi di servizio di ognuno dei serventi si assumono  esponenziali e indipendenti dalla fascia oraria. In particolare, ogni servente di tipo \textit{B} lavora con frequenza media pari a $\mu\textsubscript{B} = \frac{1}{2}\ j/min$; ogni servente di tipo \textit{P} lavora con frequenza media pari a $\mu\textsubscript{P} = \frac{1}{3}\ j/min$. 
 \end{itemize}
+
+\subsection{Guadagni e costi}
+
+
+\section{Modello analitico}
+Di seguito sono rappresentate le formule utilizzate per l’analisi teorica del sistema. In particolare, tutti i centri sono stati modellati come M/M/m per i quali si hanno le seguenti formule teoriche:
+\begin{minipage}{0.5\textwidth}
+\begin{itemize}
+\item[] \[
+P(0) = \left[\sum_{i=0}^{m-1} \frac{(m\rho)^i}{i!} + \frac{(m\rho)^m}{m!(1-\rho)}\right]^{-1}
+\]
+\item[] \[
+P_Q = \frac{(m\rho)^m}{m!(1-\rho)} \cdot p(0)
+\]
+
+\item[] \[
+E(TQ) = \frac{P_Q E(S)}{1-\rho}
+\]
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{itemize}
+\item[] \[
+E(TS) = E(TQ) + E(S_i)
+\]
+\item[] \[
+E(NQ)_{Erlang} = \frac{PQ \rho}{1-\rho}
+\]
+
+\item[] \[
+E(NS) = E(NQ) + m\rho
+\]
+\end{itemize}
+\end{minipage}
+
+
+
 
 \newpage
 \section{Modello computazionale}
-Il modello computazionale è stato sviluppato in \emph{Python} ed è il programma \key{simulation.py}; i parametri configurabili sono definiti invece nel file \key{configurations.py}.  
+Il modello computazionale è stato sviluppato in \emph{Python} ed è il programma \key{simulation.py}; i parametri configurabili sono definiti invece nel file \key{configurations/Config.py}. Il programma è lanciabile da riga comando con diversi \textit{flag} che ne influenzano il comportamento, listabili con il comando: \key{python simulation.py -h} (oppure \key{python simulation.py --help}), ottenendo il seguente messaggio:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{program_help}
+\end{figure}
 
-\subsection{configurations.py}
-File di configurazione che definisce le costanti per:
+In particolare, col flag \key{-cc} è possibile cambiare una qualsiasi impostazione presente nel file di configurazione specificandone il valore a riga comando, mentre col flag \key{-ngf} (cioè \key{--no_gaussian_factor}) si disabilita la normalizzazione del tempo di interarrivo col fattore gaussiano determinato secondo le modalità descritte nella \hyperlink{interarrivi gaussiani}{sezione dedicata alla distribuzione degli arrivi}. \\
+
+Il programma è realizzato seguendo l'approccio della \textit{next-event simulation} e perciò sono state create opportune classi python, memorizzate ognuna in un file diverso. \\
+
+Le funzioni per processare gli arrivi sono \key{processArrivalB()} e \key{processArrivalP()} al cui interno è implementatata la logica per recuperare il $\lambda$ corretto in base alla fascia oraria, il cui inverso va usato come parametro per la funzione \key{getArrivalB(m)} e \key{getArrivalP(m)} dove viene invocata la \key{Exponential(m)} dopo aver selezionato opportunamente uno \textit{stream} diverso. Le funzioni per processare le partenze sono \key{processDepartureB()}, \key{processDepartureP()}. \\
+
+La funzione per la selezione del servente è diversa per richieste di tipo \textit{B} e \textit{P}: si tratta di \key{FindOneB()} e \key{FindOneP()}. Queste funzioni utilizzano politiche di assegnazione ai server diverse: nel primo caso la politica è di \textit{equity}, ricercando quindi il server che risulta libero da più tempo, nel secondo, invece, dovendo simulare un pizzaiolo che può infornare contemporaneamente 2 pizze, la richiesta è assegnata al primo server libero di tipo \textit{P} che si trova, scandendo la lista in ordine crescente.\\
+
+I vari \textit{sample} che vengono raccolti durante la simulazione vengono memorizzati in una opportuna istanza di \key{SamplingList}, il cui metodo \key{append()}, oltre ad aggiungere il nuovo campione in fondo alla lista, implementa il \textit{one-pass alghoritm} secondo \textit{Welford} per ognuna delle grandezze raccolte; è quindi necessario, a fine simulazione, invocare i metodi \key{makeCorrectVariance} che divide per il numero di campioni tutte le varianze e \key{computeConfidenceInterval} per calcolare l'intervallo di confidenza per ognuna delle grandezze.
+
+\subsection{Dipendenze}
+Le librerie esterne importate, di cui il programma necessita per funzionare,  sono le seguenti e sono riportate anche nel file \key{dipendenze.txt}:
 \begin{itemize}
-  \item Slot temporali in cui vengono cambiate le frequenze di interarrivo
-  \item La durata di ogni slot temporale
-  \item Tempi in cui si attivano e disattivano gli eventi di arrivo
-  \item La durata della simulazione
-  \item Numero di serventi di tipo B e P
-  \item Tempi di arrivo per i due tipi 
-  \item Frequenze di interarrivo, per ogni tipo e per ogni fascia oraria, sia
-per i giorni infra-settimanali che fine-settimanali
-  \item La paga media per ogni servente di tipo B e di tipo P
-  \item Il costo medio di ogni richiesta di tipo B e di tipo P
-  \item Il costo mensile per l'affitto del locale
-  \item Il tasso dell'iva
-  \item Il costo medio mensile delle bollette 
+\item \key{copy}
+\item \key{argparse}
+\item \key{importlib}
+\item \key{ast}
+\item \key{math}
+\item \key{scipy.stats}
+\item \key{time}
 \end{itemize}
 
-\subsection{simulation.py}
-\begin{itemize}
-  \item \emph{indexes}: array che memorizza [$B(t)$, $P(t)$]
-  \item \emph{numbers}: array che memorizza [$l\textsubscript{B}(t)$,
-$l\textsubscript{P}(t)$]
-  \item \emph{areas}: array che memorizza [$\int_{0}^{t}l\textsubscript{B}(\theta)
-d\theta$, $\int_{0}^{t}l\textsubscript{P}(\theta)d\theta$]
-  \item \emph{sum}: array che memorizza, per ogni server \emph{s}, il tempo totale di
-servizio e il numero di richieste completate
-  \item \emph{samplingEventList}: array che memorizza l'insieme di campionamenti
-fatti durante la simulazione
-  \item \emph{initializedP}: variabile Booleana usata per impostare a 1 il valore
-dell'attributo \emph{x} relativo all'evento degli arrivi di tipo P: infatti, questo
-tipo di richieste iniziano ad arrivare alle ore 20:00
-  \item metodo \emph{changeSlot()} della classe \emph{Time}: questo metodo serve ad
-aggiornare la fascia oraria in cui ci si trova. Questo valore è memorizzato
-in un attributo della stessa classe, chiamato \emph{timeSlot} 
-  \item funzione \emph{evaluation(listOfSample)}: funzione che serve a valutare
-i risultati della simulazione in modo complessivo. Questa viene invocata due
-volte:
-    \begin{itemize}
-      \item la prima volta ha in input una lista di un solo elemento, che è un
-campione creato a fine simulazione. In questo modo, si fa quindi un'analisi
-a regime dei dati.
-      \item la seconda volta, invece, la lista è di più elementi: sono
-i campioni che vengono raccolti in un tempo intermedio durante la simulazione.
-Questo tempo è generato con una \emph{Uniform(a, b)} con i valori di input che
-corrispondono alla fascia oraria in cui sono attivi entrambi i processi degli
-arrivi. Ciò è stato necessario perché al termine di ogni giornata si c'è sempre
-un equilibrio tra richieste in entrata e richieste in uscita, mentre potrebbe
-essere più interessante valutare anche il numero di job in coda. \newline
-Il calcolo dei valori prevede una media su tutte le grandezze di
-tutti gli elementi della lista rispetto al numero di campioni raccolti. 
-    \end{itemize}
-I risultati di questa valutazione vengono stampati a schermo al termine del
-programma.
-
-  \item funzione \emph{FindOne(events, isP = False)}: questa funzione è stata
-riscritta perché bisogna tenere conto del tipo della richiesta che arriva: non
-si può infatti assegnare una richiesta di tipo \emph{B} a un servente vuoto di tipo
-\emph{P}. Per questo motivo, il secondo parametro in input serve a modificare
-opportunamente l'intervallo di ricerca dei server liberi. La funzione può
-ritornare un valore negativo: questo si verifica quando il prossimo evento
-simulato è un evento di arrivo di un qualunque tipo ma tutti i serventi in
-grado di gestire quella richiesta sono occupati.
-
-  \item La funzione \emph{GetService()} è stata "sdoppiata" nelle funzioni
-\emph{GetServiceB()} e \emph{GetServiceP()}. Stesso discorso vale per la funzione
-\emph{GetArrival()}, divisa in \emph{GetArrivalB()} e \emph{GetArrivalP()}. Per queste ultime,
-però, c'è anche un'altra modifica: essendo i tempi di interarrivo dipendenti
-dalle fasce orarie e dal giorno della settimana, è necessario poter 
-identificare la giusta media da utilizzare come parametro di \emph{Exponential(m)}.
-Per fare questo, viene definita la funzione \emph{getCorrectInterarrival(isP
-= False)}, che ricerca il giusto tempo di interarrivo basandosi sul \emph{timeSlot}
-memorizzato nell'istanza della classe \emph{Time} e sul parametro di input che
-identifica se la richiesta per cui si genera il prossimo tempo di arrivo è di
-tipo B o P.
-\end{itemize}
-
-\newpage
 \section{Verifica e validazione}
 I risultati ottenuti dall'esecuzione di \emph{simulation.py} con $m = 2$ e inserendo come seme il
 valore \emph{123} su un periodo di 365 giorni 
@@ -522,7 +523,7 @@ sono i seguenti: \newline
       \captionof*{table}{Per le richieste di tipo B} 
         \begin{tabular}{ |c|c| }
           \hline
-          Grandezza & Tempistica \\
+          \cellcolor{cellcolor}Grandezza & Tempistica \\
           \hline
           \hline
           $\frac{1}{\lambda\textsubscript{medio}}$ & 5.22 min \\

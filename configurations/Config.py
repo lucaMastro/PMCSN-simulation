@@ -7,8 +7,8 @@ class Config:
         self.B_WORKING_HOURS = 16
         self.P_WORKING_HOURS = 4
 
-        # 3:00 am == 27:00. STOP_B = 27 * 60 this is for B-requests
-        self.STOP_B = 27 * 60        
+        # 2:00 am == 26:00. STOP_B = 27 * 60 this is for B-requests
+        self.STOP_B = 26 * 60        
         self.STOP_P = self.SLOTSTIME[5]   
 
         # the bar will close at 15 and will reopen at 18. This means that the first B-Arrival after 
@@ -20,8 +20,6 @@ class Config:
         self.DURATIONS = [(self.SLOTSTIME + [self.STOP_B])[i+1] - (self.SLOTSTIME + [self.STOP_B])[i] \
             for i in range(len(self.SLOTSTIME + [self.STOP_B]) - 1)]
 
-        self.B_DAY_DURATION = 17 * 60
-        self.P_DAY_DURATION = 4 * 60
 
         # initial (open the door) for B requests: 420 [MIN] = 7:00 am 
         self.START_B = self.SLOTSTIME[0]  
@@ -40,7 +38,7 @@ class Config:
         self.WEEK_LAMBDA_B = [0.5, 0.21, 0, 0.42, 0.21, 0.17]
         self.WEEKEND_LAMBDA_B = [0.5, 0.34, 0, 0.75, 0.375, 0.34]
         self.WEEK_LAMBDA_P = 0.17
-        self.WEEKEND_LAMBDA_P = 1
+        self.WEEKEND_LAMBDA_P = 0.5
 
         self.MEAN_SERVICE_TIME_B = 2.0
         self.MEAN_SERVICE_TIME_P = 3.0
@@ -77,9 +75,10 @@ class Config:
         self.AUTOCORR_THRESHOLD = 1
         self.CONFIDENCE_LEVEL = 0.95
 
-        self.SAMPLING_UNIFORM_A = 0.5
-        self.SAMPLING_UNIFORM_B = 1
-    
+        self.SAMPLING_UNIFORM_A = 1.5
+        self.SAMPLING_UNIFORM_B = 2
+
+
     def storeConfig(self,outputFileName):
         # Make the file text
         s = f"class Config:\n"

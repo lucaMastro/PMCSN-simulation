@@ -1,18 +1,11 @@
 from support.Event import Event
 from support.AccumSum import AccumSum
-#from support.Config import config.START_B, config.SERVERS_B, config.STOP_P, config.STOP_B, config.SLOTSTIME, config.FIRST_HALFDAY_CLOSE_TIME, config.SECOND_HALFDAY_OPEN_TIME
 
 from configurations.Config import config
 
 
 class Statistics:
-    # The following variables are meant to store the last arrival of each time
-    # in the last day: in fact, it needs to compute the last arrival time for
-    # statistical analisys. the compution will be done in the following way:
-    #   for B type: t.day * 19 * 60 + ( t.lastBTypeArrival - config.START_B )
-    # in the simulated system, everything happens during the 19 hour between
-    # 7:00 and 2:00.
-    # [ lastBTyypeArrival, lastPTypeArrival ]
+
     def __init__(self, numEvents):
         self.lastArrivalsTime = [0, 0]
         self.events = [Event() for i in range(numEvents)]
@@ -45,7 +38,6 @@ class Statistics:
         self.events[len(self.events) - 1].x = 1
 
     def updateArrivalB(self, base_time:float, interarrival:float):
-        # !!!!!!!!!!!!!!!!!!!!
         newTime = base_time + interarrival
         if (newTime > config.FIRST_HALFDAY_CLOSE_TIME) and (newTime < config.SECOND_HALFDAY_OPEN_TIME):
             # in this case, next arrival is at bar reopening. P arrivals is closed and 
@@ -86,22 +78,9 @@ class Statistics:
 
     
     def resetStats(self):
-        
-        """@ param scaleDownValue: 
-        to reduce all the events.t of the same factor. It's necessary because of stats computation:
-        for example, interarrivals are (lastArrivalTime - config.Start_B) / processedJobs. But if time 
-        is not reduced, lastArrivalTime is 
-        
-        """
-        
+        # dont reset the number of job in the node to continue from the current state
         numEvents = len(self.events)
-        
-        """ dont reset the number of job in the node to continue from the current state
-        self.numbers = [0, 0]        # [ numberB, numberP ]: jobs in the node
-        self.number = 0              # total number of B and P requests 
-        """
         self.processedJobs = [0, 0]        # [ indexB, indexP ]: processed jobs
         self.areas = [0, 0]         # time integrated number in the node */
         self.sum = [AccumSum() for i in range(0, numEvents)] # one for each event
-        #self.lastArrivalsTime = [0, 0]
         
