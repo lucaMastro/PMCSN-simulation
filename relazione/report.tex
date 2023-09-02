@@ -501,6 +501,23 @@ La funzione per la selezione del servente è diversa per richieste di tipo \text
 
 I vari \textit{sample} che vengono raccolti durante la simulazione vengono memorizzati in una opportuna istanza di \key{SamplingList}, il cui metodo \key{append()}, oltre ad aggiungere il nuovo campione in fondo alla lista, implementa il \textit{one-pass alghoritm} secondo \textit{Welford} per ognuna delle grandezze raccolte; è quindi necessario, a fine simulazione, invocare i metodi \key{makeCorrectVariance} che divide per il numero di campioni tutte le varianze e \key{computeConfidenceInterval} per calcolare l'intervallo di confidenza per ognuna delle grandezze.
 
+\subsection{Makefile}
+Nella directory principale è presente un \key{Makefile} che aiuta ad eseguire correttamente il programma. Usando le configurazioni predisposte, nessun parametro di configurazione viene modificato: il flag \key{-cc} non viene mai usato. In particolare, il comando \key{make clean} elimina tutti i file di output \key{.csv} generati da precedenti esecuzioni. Il comando \key{make}, che corrisponde a \key{make all}, esegue, in ordine:
+\begin{lstlisting}[language=Bash, numbers=none, frame=none]
+rm -f ./output/*.csv
+rm -f ./output/finite/*.csv
+rm -f ./output/infinite/*.csv
+python3 simulation.py -ih -s 123 -of week
+python3 simulation.py -ih -s 123 -wed -of weekend
+python3 simulation.py -fh -s 123 -of week_gauss
+python3 simulation.py -fh -s 123 -of week -ngf
+python3 simulation.py -fh -s 123 -of weekend_gauss -wed
+python3 simulation.py -fh -s 123 -of weekend -wed -ngf
+\end{lstlisting}
+
+Questo comando è quello utilizzato per generaer gli output che verranno successivamente discussi.
+
+
 \subsection{Dipendenze}
 Le librerie esterne importate, di cui il programma necessita per funzionare,  sono le seguenti e sono riportate anche nel file \key{dipendenze.txt}:
 \begin{itemize}
@@ -514,8 +531,7 @@ Le librerie esterne importate, di cui il programma necessita per funzionare,  so
 \end{itemize}
 
 \section{Verifica e validazione}
-I risultati ottenuti dall'esecuzione di \emph{simulation.py} con $m = 2$ e inserendo come seme il
-valore \emph{123} su un periodo di 365 giorni 
+I risultati ottenuti dall'esecuzione di \emph{simulation.py} con $m = 2$ e inserendo come seme il valore \emph{123} su un periodo di 365 giorni 
 sono i seguenti: \newline 
 \begin{table}[!htb]
   \begin{minipage}{.5\linewidth}

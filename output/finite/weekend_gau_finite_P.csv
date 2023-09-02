@@ -1,4 +1,4 @@
-num. sample,statistic,mean,variance,std dev,interval length
+num. sample,statistic,mean,variance,std dev,w (interval length/2)
 2,avgInterarrivals,5.260,0.019,0.140,1.773
 2,avgWaits,3.480,0.005,0.073,0.928
 2,avgNumNodes,0.608,0.000,0.012,0.158
@@ -25,8 +25,8 @@ num. sample,statistic,mean,variance,std dev,interval length
 8,avgWaits,3.535,0.312,0.559,0.500
 8,avgNumNodes,0.496,0.018,0.135,0.121
 8,avgDelays,0.072,0.010,0.100,0.089
-8,avgNumQueues,0.010,0.000,0.014,0.013
-8,utilization_server4,0.349,0.008,0.090,0.081
+8,avgNumQueues,0.010,0.000,0.014,0.012
+8,utilization_server4,0.349,0.008,0.091,0.081
 8,service_server4,3.713,0.711,0.843,0.753
 8,share_server4,0.715,0.009,0.094,0.084
 8,utilization_server5,0.158,0.004,0.063,0.056
@@ -34,7 +34,7 @@ num. sample,statistic,mean,variance,std dev,interval length
 8,share_server5,0.346,0.009,0.096,0.086
 16,avgInterarrivals,6.783,1.749,1.322,0.728
 16,avgWaits,3.072,0.545,0.738,0.406
-16,avgNumNodes,0.431,0.020,0.143,0.079
+16,avgNumNodes,0.431,0.020,0.142,0.078
 16,avgDelays,0.074,0.008,0.092,0.051
 16,avgNumQueues,0.011,0.000,0.014,0.007
 16,utilization_server4,0.310,0.009,0.095,0.052
@@ -45,10 +45,10 @@ num. sample,statistic,mean,variance,std dev,interval length
 16,share_server5,0.292,0.013,0.113,0.062
 32,avgInterarrivals,6.465,1.674,1.294,0.474
 32,avgWaits,3.109,0.582,0.763,0.280
-32,avgNumNodes,0.453,0.022,0.148,0.054
+32,avgNumNodes,0.452,0.022,0.148,0.054
 32,avgDelays,0.117,0.039,0.198,0.073
 32,avgNumQueues,0.019,0.001,0.032,0.012
-32,utilization_server4,0.329,0.011,0.104,0.038
+32,utilization_server4,0.328,0.011,0.104,0.038
 32,service_server4,3.127,0.728,0.853,0.313
 32,share_server4,0.771,0.008,0.087,0.032
 32,utilization_server5,0.125,0.003,0.059,0.022
@@ -59,7 +59,7 @@ num. sample,statistic,mean,variance,std dev,interval length
 64,avgNumNodes,0.462,0.022,0.147,0.037
 64,avgDelays,0.136,0.047,0.216,0.054
 64,avgNumQueues,0.023,0.002,0.039,0.010
-64,utilization_server4,0.337,0.010,0.097,0.025
+64,utilization_server4,0.337,0.009,0.097,0.025
 64,service_server4,3.175,0.783,0.885,0.223
 64,share_server4,0.769,0.007,0.085,0.021
 64,utilization_server5,0.120,0.003,0.059,0.015
@@ -69,7 +69,7 @@ num. sample,statistic,mean,variance,std dev,interval length
 128,avgWaits,3.215,0.733,0.856,0.150
 128,avgNumNodes,0.460,0.024,0.156,0.027
 128,avgDelays,0.175,0.085,0.292,0.051
-128,avgNumQueues,0.029,0.002,0.048,0.008
+128,avgNumQueues,0.029,0.002,0.049,0.009
 128,utilization_server4,0.330,0.010,0.099,0.017
 128,service_server4,3.119,0.742,0.861,0.151
 128,share_server4,0.784,0.008,0.088,0.015
@@ -81,10 +81,10 @@ num. sample,statistic,mean,variance,std dev,interval length
 256,avgNumNodes,0.455,0.027,0.165,0.020
 256,avgDelays,0.165,0.086,0.293,0.036
 256,avgNumQueues,0.028,0.003,0.053,0.007
-256,utilization_server4,0.329,0.010,0.099,0.012
+256,utilization_server4,0.329,0.010,0.098,0.012
 256,service_server4,3.100,0.958,0.979,0.121
 256,share_server4,0.790,0.008,0.089,0.011
-256,utilization_server5,0.116,0.004,0.067,0.008
+256,utilization_server5,0.116,0.004,0.066,0.008
 256,service_server5,2.581,1.517,1.232,0.152
 256,share_server5,0.260,0.009,0.096,0.012
 512,avgInterarrivals,6.567,1.841,1.357,0.118

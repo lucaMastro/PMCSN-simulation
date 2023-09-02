@@ -1,4 +1,4 @@
-num. sample,statistic,mean,variance,std dev,interval length
+num. sample,statistic,mean,variance,std dev,w (interval length/2)
 2,avgInterarrivals,20.287,205.755,14.344,182.260
 2,avgWaits,3.230,0.009,0.093,1.176
 2,avgNumNodes,0.554,0.001,0.030,0.375

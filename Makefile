@@ -1,19 +1,28 @@
-
 PYTHON = python3
-SCRIPT = simulation.py 
+SCRIPT = simulation.py
 SEED = 123
+WEEK_OUTPUT = week
+WEEKEND_OUTPUT = weekend
 
-infinite:
-	$(PYTHON) $(SCRIPT) -ih -s $(SEED)
+all: clean infinite-week infinite-weekend finite-week finite-week-no-gauss finite-weekend finite-weekend-no-gauss
 
-finite:
-	$(PYTHON) $(SCRIPT) -fh -s $(SEED)
+infinite-week:
+	$(PYTHON) $(SCRIPT) -ih -s $(SEED) -of $(WEEK_OUTPUT)
 
-infinite-no-gauss:
-	$(PYTHON) $(SCRIPT) -ih -s $(SEED) -ngf
+infinite-weekend:
+	$(PYTHON) $(SCRIPT) -ih -s $(SEED) -wed -of $(WEEKEND_OUTPUT)
 
-finite-no-gauss:
-	$(PYTHON) $(SCRIPT) -fh -s $(SEED) -ngf
+finite-week:
+	$(PYTHON) $(SCRIPT) -fh -s $(SEED) -of $(WEEK_OUTPUT)_gauss
+
+finite-week-no-gauss:
+	$(PYTHON) $(SCRIPT) -fh -s $(SEED) -of $(WEEK_OUTPUT) -ngf
+
+finite-weekend:
+	$(PYTHON) $(SCRIPT) -fh -s $(SEED) -of $(WEEKEND_OUTPUT)_gauss -wed
+
+finite-weekend-no-gauss:
+	$(PYTHON) $(SCRIPT) -fh -s $(SEED) -of $(WEEKEND_OUTPUT) -wed -ngf
 
 clean:
 	rm -f ./output/*.csv

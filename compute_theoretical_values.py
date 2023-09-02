@@ -146,7 +146,7 @@ if __name__ == '__main__':
         nq = l * tq
         ns = l * ts
 
-        print(f'slot: {i + 1}\n\tinterarr = {1/l:.2f}\n\tTQ = {tq:.2f}\n\tNQ = {nq:.2f}\n\tTS = {ts:.2f}\n\tNS = {ns:.2f}\n')
+        print(f'slot: {i + 1}\n\tinterarr = {1/l:.3f}\n\tTS = {ts:.3f}\n\tNS = {ns:.3f}\n\tTQ = {tq:.3f}\n\tNQ = {nq:.3f}\n')
         etq.append(tq)
         ets.append(ts)
         enq.append(nq)
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     ts = sum([t * d for t,d in zip(ets, durations)]) / day_durations
     nq = sum([t * d for t,d in zip(enq, durations)]) / day_durations
     ns = sum([t * d for t,d in zip(ens, durations)]) / day_durations
-    print(f'\tinterarr = {1/l:.2f}\n\tTQ = {tq:.2f}\n\tNQ = {nq:.2f}\n\tTS = {ts:.2f}\n\tNS = {ns:.2f}\n')
+    print(f'\tinterarr = {1/l:.3f}\n\tTS = {ts:.3f}\n\tNS = {ns:.3f}\n\tTQ = {tq:.3f}\n\tNQ = {nq:.3f}\n')
 
 
 

@@ -162,7 +162,7 @@ class SamplingList:
         num = self.numSampleB if kind == 0 else self.numSampleP
 
         if addLegend:
-            string = 'num. sample,statistic,mean,variance,std dev,interval length\n'
+            string = 'num. sample,statistic,mean,variance,std dev,w (interval length/2)\n'
         
         for attr, value in vars(self).items():
             if attr in ('sampleListB', 'serversStats', 'sampleListP', \
