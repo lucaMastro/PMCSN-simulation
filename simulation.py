@@ -22,8 +22,9 @@ def processArrivalB(stats:Statistics, time:Time):
     m = getCorrectLambdaB(time)
     gaussianFactor = 1
     if config.USE_GAUSSIAN_FACTOR:
-        gaussianFactor = gaussianWeighter.gaussianWeighterFactorB(time.current, time.timeSlot)
+        gaussianFactor = gaussianWeighter.gaussianWeighterFactorB(time.current, time.timeSlot) 
     b_time = GetArrivalB(1/m) / gaussianFactor
+    
 
     stats.updateArrivalB(dayArrivals[0], b_time)
     # stats.events[0].t is updated to the new arrival time
@@ -139,7 +140,7 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
     # always start from timeslot 0. This will change only for infinite h. simulation
     # when a batch is full
     samplingElementList = listOfSamplingElementList[0]
-
+    reset = False
     while (True): 
         #initializing sampling
         
@@ -156,15 +157,31 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
             print(t)
             print()
 
+        if t.next >= config.SECOND_HALFDAY_OPEN_TIME and\
+                t.current < config.SECOND_HALFDAY_OPEN_TIME:
+            t.current = config.SECOND_HALFDAY_OPEN_TIME
         diff = t.next - t.current
         t.simulationTimeB += diff
         if t.timeSlot == 4:
             t.simulationTimeP += diff
+        
 
         # advance the clock
         t.current = t.next
+
+        oldSlot = t.timeSlot
         #checking if time slot changed:
         t.changeSlot()
+        if config.SPLIT_STATS_ANALYSIS_FOR_8_H and t.next >= config.SECOND_HALFDAY_OPEN_TIME \
+                and not reset:
+            samplingElementList.makeCorrectVariance(False)
+            #samplingElementList.computeConfidenceInterval(config.CONFIDENCE_LEVEL, False)
+            samplingElementList = listOfSamplingElementList[1]
+            
+            t.changeBatchTimeB = config.SLOTSTIME[3]
+            t.simulationTimeB = 0
+            stats.resetStats()
+            reset = True
 
         if (e == 0): 
              # process a B-arrival 
@@ -189,6 +206,10 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
                 #sample also a P type:
                 samplingElementList.append(SamplingEvent(paramDic, True))
             
+            if config.DEBUG:
+                print('SAMPLING LIST')
+                print(samplingElementList)
+                print('\n\n')
             if (config.FIND_B_VALUE or config.INFINITE_H):
                 # check if enough samples:
                 enoughSampleB = batch_b <= samplingElementList.numSampleB 
@@ -218,7 +239,13 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
                         samplingElementList = listOfSamplingElementList[currBatch_k]
 
             
-            stats.events[e].t += samplingInterarrivalTime
+            # stats.events[e].t += samplingInterarrivalTime
+            times = []
+            for index, ev in enumerate(stats.events):
+                if index != e and ev.x == 1:
+                    times.append(ev.t)
+            stats.events[e].t = min(times) + samplingInterarrivalTime
+        
             
 
         #it's a departure
@@ -237,24 +264,32 @@ def loop(stats:Statistics, t:Time, listOfSamplingElementList:list[SamplingList])
             break
     # divide by n each variance before ending
     samplingElementList.makeCorrectVariance(True)
-    samplingElementList.computeConfidenceInterval(config.CONFIDENCE_LEVEL, True)
+
+    if not config.SPLIT_STATS_ANALYSIS_FOR_8_H:
+        samplingElementList.computeConfidenceInterval(config.CONFIDENCE_LEVEL, True)
     
 
-def batchMeansAnalysis(batches:list, time:Time, fileName:str = None) -> SamplingList:
+def batchMeansAnalysis(batches:list[SamplingList], time:Time, fileName:str = None) -> SamplingList:
     # batches is a list of SamplingList
     global stats    
     batchMeans = SamplingList()
     # exponent is to trace 2**exponent. i want to store data for 2 pows
     exponent = 1
+    
+    processedJobs = [0,0]
+    iterations = 1
+    if time.timeSlot == 4:
+        iterations = 2
+
     for numSample, sl in enumerate(batches):
         serverStats = deepcopy(sl.serversStats)
-        iterations = 1
-        if time.timeSlot == 4:
-            iterations = 2
         # get statistics for each type B or P:
         for i in range(iterations):
             dic = {}
             # processedJobs are required for computing means from statistics. they are useless here
+            # but trace them for next. Later, batchMeans.processeJobs will keep the avg num of node 
+            # for each kind
+            processedJobs[i] += sl.processedJobs[i]
             dic['processedJobs'] = 0
             dic['avgInterarrivals'] = sl.avgInterarrivals[i]['mean']
             dic['avgWaits'] = sl.avgWaits[i]['mean']
@@ -301,6 +336,9 @@ def batchMeansAnalysis(batches:list, time:Time, fileName:str = None) -> Sampling
 
     batchMeans.makeCorrectVariance()
     batchMeans.computeAutocorrelation()
+
+    for i in range(iterations):
+        batchMeans.processedJobs[i] = processedJobs[i] // len(batches)
     
     return batchMeans
 
@@ -351,13 +389,17 @@ def infinite(fileName:str = None):
     
         # making an ensample of k batches for each slots
         for i in range(slotsNum):
+            restart = True
             listOf_K_SamplingElementList = samplingElementMatrix[i]
             loop(stats, t, listOf_K_SamplingElementList)
             # make analisys on lagj:
             batchMeans = batchMeansAnalysis(listOf_K_SamplingElementList, t, fileName)
             
             # evaluateAutocorr returns True if every value of autocorr is < config.THRESHOLD
-            restart = not batchMeans.evaluateAutocorrelation()
+            if config.FIND_B_VALUE:
+                restart = not batchMeans.evaluateAutocorrelation()
+            else:
+                restart = False
 
             #input()
             if restart:
@@ -388,9 +430,23 @@ def finite(fileName:str):
         t = Time()
         stats = Statistics(numEvents)
         setInitialState(stats, t)
-        samplingList = SamplingList()
+
+        listOfSamplingList:list[SamplingList] = []
+        iterations = 2 if config.SPLIT_STATS_ANALYSIS_FOR_8_H else 1
+        for _ in range(iterations):
+            listOfSamplingList.append(SamplingList())
+
         # sampling list has to be put in a list
-        loop(stats, t, [samplingList])
+        loop(stats, t, listOfSamplingList)
+        
+        samplingList = None
+        # merge 2 lists if needed
+        if config.SPLIT_STATS_ANALYSIS_FOR_8_H:
+            merged = listOfSamplingList[0].merge(listOfSamplingList[1])
+            merged.computeConfidenceInterval(config.CONFIDENCE_LEVEL, True)
+            samplingList = merged
+        else:
+            samplingList = listOfSamplingList[0]
 
         runs.append(samplingList)   
         # for j in range(i+1):
@@ -402,31 +458,27 @@ def finite(fileName:str):
             lastSampleP = SamplingEvent(paramDic, True)
             print(lastSampleB)
             print(lastSampleP)
-        
-        # if i == 1:
-
-        #     exit(1)
-    # make a new samplingList to catch runs' mean statistics
-    # for i,item in enumerate(runs):
-    #     print(f'wait-{i}th:\n{item.avgWaits[0]}\n{item}\n\n')
-
-    # exit(1)
+                
     means = runsAnalysis(runs, fileName)
     
     return runs, means
 
 
-def runsAnalysis(runs:list, fileName:str = None) -> SamplingList:
+def runsAnalysis(runs:list[SamplingList], fileName:str = None) -> SamplingList:
     # batches is a list of SamplingList
     runsMeans = SamplingList()
     # exponent is to trace 2**exponent. i want to store data for 2 pows
     exponent = 1
+    processedJobs = [0,0]
     for numSample, run in enumerate(runs):
         serverStats = deepcopy(run.serversStats)
         # get statistics for each type B or P:
         for i in range(2):
             dic = dict()
             # processedJobs are required for computing means from statistics. they are useless here
+            # but trace them for next. Later, batchMeans.processeJobs will keep the avg num of node 
+            # for each kind
+            processedJobs[i] += run.processedJobs[i]
             dic['processedJobs'] = 0
             dic['avgInterarrivals'] = run.avgInterarrivals[i]['mean']
             dic['avgWaits'] = run.avgWaits[i]['mean']
@@ -460,7 +512,7 @@ def runsAnalysis(runs:list, fileName:str = None) -> SamplingList:
 
             # append the sample to automatically compute avg variance and lag j
             runsMeans.append(sample)  
-        
+
         # write on file when both B and P type are sampled, each 2^i iteration, for each kind:
         
         if fileName and numSample + 1 == pow(2, exponent):
@@ -473,9 +525,11 @@ def runsAnalysis(runs:list, fileName:str = None) -> SamplingList:
                 writeOnFile(f'{outputFileName}', copyRun, i, addLegend=(exponent==1))
             exponent += 1
 
-    runsMeans.makeCorrectVariance()
-    runsMeans.computeAutocorrelation()
-    
+    runsMeans.makeCorrectVariance(True)
+    runsMeans.computeConfidenceInterval(config.CONFIDENCE_LEVEL,True)
+    # setting up the avg number of job for each kind:
+    for i in range(2):
+        runsMeans.processedJobs[i] = processedJobs[i] // len(runs)
     return runsMeans
 
 
@@ -606,6 +660,7 @@ if __name__ == '__main__':
 
     elif config.FINITE_H:
         runs, means = finite(outputFile)
+        print(means)
 
     else: 
         # single run. not so interesting
@@ -613,17 +668,30 @@ if __name__ == '__main__':
         numEvents = config.SERVERS_B + 1 + config.SERVERS_P + 1 + 1
         stats = Statistics(numEvents)
         setInitialState(stats, t)
-        samplingList = SamplingList()
-        # sampling list has to be put in a list
-        loop(stats, t, [samplingList])
-        paramDic = {'stats': stats, 'time': t}
-        lastSampleB = SamplingEvent(paramDic)
-        lastSampleP = SamplingEvent(paramDic, True)
-        print(lastSampleB)
-        print(lastSampleP)
+        listOfSamplingList = []
+        iterations = 2 if config.SPLIT_STATS_ANALYSIS_FOR_8_H else 1
+        for i in range(iterations):
+            listOfSamplingList.append(SamplingList())
 
-        print('\n\n\n')
-        print(samplingList)
+        # sampling list has to be put in a list
+        loop(stats, t, listOfSamplingList)
+        
+        # printing half day lists or single list if not SPLIT_STATS_ANALYSIS_FOR_8_H
+        for index,samplingList in enumerate(listOfSamplingList):
+            if config.SPLIT_STATS_ANALYSIS_FOR_8_H: 
+                if index == 0:
+                    print('FIRST 8 HOURS:')
+                else:
+                    print('SECOND 8 HOURS:')
+
+            print(samplingList)
+
+        # global analysis
+        if config.SPLIT_STATS_ANALYSIS_FOR_8_H:
+            print('\n\nGLOBALS:')
+            merged = listOfSamplingList[0].merge(listOfSamplingList[1])
+            merged.computeConfidenceInterval(config.CONFIDENCE_LEVEL, True)
+            print(merged)
 
     parser.storePersonalConfig()
 

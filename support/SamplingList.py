@@ -2,6 +2,7 @@ from support.SamplingEvent import SamplingEvent
 from math import sqrt
 from configurations.Config import config
 from support.rvms import idfStudent
+from copy import deepcopy
 
 def makeDict():
     d = dict()
@@ -64,7 +65,8 @@ class SamplingList:
         used this struct for keep batches but also for computed lag j beetwen batches, it's 'append'
         algho is differentiate by the following boolean:    
     """
-    # computeAutocorrelation = None
+    
+    processedJobs = None
 
 
     def __init__(self):
@@ -78,6 +80,7 @@ class SamplingList:
         self.avgNumNodes = [makeDict(), makeDict()]
         self.avgDelays = [makeDict(), makeDict()]
         self.avgNumQueues = [makeDict(), makeDict()]
+        self.processedJobs = [0, 0]
         self.serversStats = dict()
         for s in list(range(1, config.SERVERS_B + 1)) + list(range(config.SERVERS_B + 2, config.SERVERS_B + 2 + config.SERVERS_P)):
     
@@ -110,35 +113,35 @@ class SamplingList:
         sizes = [self.numSampleB, self.numSampleP]
         my_string = "Sample List statistics are:\n"
         for i in range(2):
-            my_string += f'for {sizes[i]} jobs in the {titles[i]}:\n'
+            my_string += f'for {self.processedJobs[i]} jobs in the {titles[i]} and {sizes[i]} sample:\n'
             my_string += "        statistic          mean    variance      conf int\n"
-            my_string += "  avg interarrivals .. : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+            my_string += "  avg interarrivals .. : {0:6.3f}    {1:6.3f}        {2:6.3f}\n".\
                 format(self.avgInterarrivals[i]['mean'],
                     self.avgInterarrivals[i]['variance'],
                     self.avgInterarrivals[i]['confidence_interval_length'])
 
-            my_string += "  avg wait ........... : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+            my_string += "  avg wait ........... : {0:6.3f}    {1:6.3f}        {2:6.3f}\n".\
                 format(self.avgWaits[i]['mean'],
                     self.avgWaits[i]['variance'],
                     self.avgWaits[i]['confidence_interval_length'])
             
-            my_string += "  avg # in node ...... : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+            my_string += "  avg # in node ...... : {0:6.3f}    {1:6.3f}        {2:6.3f}\n".\
                 format(self.avgNumNodes[i]['mean'],
                     self.avgNumNodes[i]['variance'],
                     self.avgNumNodes[i]['confidence_interval_length'])
             
-            my_string += "  avg delay .......... : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+            my_string += "  avg delay .......... : {0:6.3f}    {1:6.3f}        {2:6.3f}\n".\
                 format(self.avgDelays[i]['mean'], 
                     self.avgDelays[i]['variance'], 
                     self.avgDelays[i]['confidence_interval_length'])
             
-            my_string += "  avg # in queue ..... : {0:6.2f}    {1:6.2f}        {2:6.2f}\n".\
+            my_string += "  avg # in queue ..... : {0:6.3f}    {1:6.3f}        {2:6.3f}\n".\
                 format(self.avgNumQueues[i]['mean'],
                     self.avgNumQueues[i]['variance'],
                     self.avgNumQueues[i]['confidence_interval_length'])
             
             my_string += "\nthe server statistics are:\n"
-            my_string += "    server     utilization     avg service        share\n"
+            my_string += "    server     utilization     avg service +/- w        share\n"
             startingPoint = None
             endingPoint = None
             if (i == 0):
@@ -148,9 +151,10 @@ class SamplingList:
                 startingPoint = config.SERVERS_B + 2 
                 endingPoint = config.SERVERS_B + 2 + config.SERVERS_P
             for s in range(startingPoint, endingPoint):  
-                my_string += "{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}\n".\
+                my_string += "{0:8d} {1:14.3f} {2:15.3f} +/- {3:.3f} {4:15.3f}\n".\
                     format(s, self.serversStats[s]['utilization']['mean'], 
                         self.serversStats[s]['service']['mean'], 
+                        self.serversStats[s]['service']['confidence_interval_length'], 
                         self.serversStats[s]['share']['mean'])
             my_string += '\n\n'
         return my_string
@@ -166,7 +170,7 @@ class SamplingList:
         
         for attr, value in vars(self).items():
             if attr in ('sampleListB', 'serversStats', 'sampleListP', \
-                'numSampleB', 'numSampleP', 'computeAutocorrelation'):
+                'numSampleB', 'numSampleP', 'computeAutocorrelation', 'processedJobs'):
                     continue
             
             m = value[kind]['mean']
@@ -200,6 +204,10 @@ class SamplingList:
         
 
     def append(self, newEvent:SamplingEvent):
+        if config.DEBUG:
+            print('NEW EVENT')
+            print(newEvent)
+            print('\n')
         type = newEvent.type
         num = None
         if type == 0:
@@ -207,11 +215,13 @@ class SamplingList:
             self.numSampleB += 1
             # used in welford algho
             num = self.numSampleB
+            self.processedJobs[0] = newEvent.processedJobs
         else:
             self.sampleListP.append(newEvent)
             self.numSampleP += 1
             # used in welford algho
             num = self.numSampleP
+            self.processedJobs[1] = newEvent.processedJobs
             
         # one pass algho for each statistic:
         mean = self.avgInterarrivals[type]['mean']
@@ -424,6 +434,7 @@ class SamplingList:
         
         if config.DEBUG:
             print(f'l = {l}')
+            print(f'will restart? {not all(abs(val) < config.AUTOCORR_THRESHOLD for val in l)}')
 
         return all(abs(val) < config.AUTOCORR_THRESHOLD for val in l)
 
@@ -466,3 +477,115 @@ class SamplingList:
             stdev = sqrt(statisticDict['variance'] / num)
         w = t * stdev / sqrt(num - 1)
         statisticDict['confidence_interval_length'] = w
+
+
+    def merge(self, otherSamplingList:'SamplingList'):
+        outputList = SamplingList()
+
+        # commented out since useless right now
+        # outputList.sampleListB = deepcopy(self.sampleListB) + deepcopy(otherSamplingList.sampleListB)
+        # outputList.sampleListP = deepcopy(otherSamplingList.sampleListP)
+        
+        firstHalfProcessedJobs = self.processedJobs[0]
+        secondHalfProcessedJobs = otherSamplingList.processedJobs[0]
+        totalJobs = firstHalfProcessedJobs + secondHalfProcessedJobs
+
+        # all the p type requests are stored into the second half
+        outputList.processedJobs = [totalJobs, otherSamplingList.processedJobs[1]]
+        outputList.numSampleB = self.numSampleB + otherSamplingList.numSampleB
+        outputList.numSampleP = otherSamplingList.numSampleP
+        
+        firstHalfMean = self.avgInterarrivals[0]['mean']
+        secondHalfMean = otherSamplingList.avgInterarrivals[0]['mean']
+        outputList.avgInterarrivals[0]['mean'] = firstHalfMean * firstHalfProcessedJobs +\
+             secondHalfMean * secondHalfProcessedJobs
+        outputList.avgInterarrivals[0]['mean'] /= totalJobs
+
+        firstHalfVariance = self.avgInterarrivals[0]['variance']
+        secondHalfVariance = otherSamplingList.avgInterarrivals[0]['variance']
+        outputList.avgInterarrivals[0]['variance'] = firstHalfVariance * firstHalfProcessedJobs +\
+             secondHalfVariance * secondHalfProcessedJobs
+        outputList.avgInterarrivals[0]['variance'] /= totalJobs
+
+        
+        firstHalfMean = self.avgWaits[0]['mean']
+        secondHalfMean = otherSamplingList.avgWaits[0]['mean']
+        outputList.avgWaits[0]['mean'] = firstHalfMean * firstHalfProcessedJobs + \
+            secondHalfMean * secondHalfProcessedJobs
+        outputList.avgWaits[0]['mean'] /= totalJobs
+
+        firstHalfVariance = self.avgWaits[0]['variance']
+        secondHalfVariance = otherSamplingList.avgWaits[0]['variance']
+        outputList.avgWaits[0]['variance'] = firstHalfVariance * firstHalfProcessedJobs +\
+             secondHalfVariance * secondHalfProcessedJobs
+        outputList.avgWaits[0]['variance'] /= totalJobs
+
+
+
+        firstHalfMean = self.avgNumNodes[0]['mean']
+        secondHalfMean = otherSamplingList.avgNumNodes[0]['mean']
+        outputList.avgNumNodes[0]['mean'] = firstHalfMean * firstHalfProcessedJobs + \
+            secondHalfMean * secondHalfProcessedJobs
+        outputList.avgNumNodes[0]['mean'] /= totalJobs
+
+        firstHalfVariance = self.avgNumNodes[0]['variance']
+        secondHalfVariance = otherSamplingList.avgNumNodes[0]['variance']
+        outputList.avgNumNodes[0]['variance'] = firstHalfVariance * firstHalfProcessedJobs +\
+             secondHalfVariance * secondHalfProcessedJobs
+        outputList.avgNumNodes[0]['variance'] /= totalJobs
+
+
+
+        firstHalfMean = self.avgDelays[0]['mean']
+        secondHalfMean = otherSamplingList.avgDelays[0]['mean']
+        outputList.avgDelays[0]['mean'] = firstHalfMean * firstHalfProcessedJobs + \
+            secondHalfMean * secondHalfProcessedJobs
+        outputList.avgDelays[0]['mean'] /= totalJobs
+
+        firstHalfVariance = self.avgDelays[0]['variance']
+        secondHalfVariance = otherSamplingList.avgDelays[0]['variance']
+        outputList.avgDelays[0]['variance'] = firstHalfVariance * firstHalfProcessedJobs +\
+             secondHalfVariance * secondHalfProcessedJobs
+        outputList.avgDelays[0]['variance'] /= totalJobs
+
+
+
+
+        firstHalfMean = self.avgNumQueues[0]['mean']
+        secondHalfMean = otherSamplingList.avgNumQueues[0]['mean']
+        outputList.avgNumQueues[0]['mean'] = firstHalfMean * firstHalfProcessedJobs + \
+            secondHalfMean * secondHalfProcessedJobs
+        outputList.avgNumQueues[0]['mean'] /= totalJobs
+
+        firstHalfVariance = self.avgNumQueues[0]['variance']
+        secondHalfVariance = otherSamplingList.avgNumQueues[0]['variance']
+        outputList.avgNumQueues[0]['variance'] = firstHalfVariance * firstHalfProcessedJobs +\
+             secondHalfVariance * secondHalfProcessedJobs
+        outputList.avgNumQueues[0]['variance'] /= totalJobs
+
+
+        # copy P-value from second 8 hrs 
+        outputList.avgInterarrivals[1] = deepcopy(otherSamplingList.avgInterarrivals[1])
+        outputList.avgWaits[1] = deepcopy(otherSamplingList.avgWaits[1])
+        outputList.avgNumNodes[1] = deepcopy(otherSamplingList.avgNumNodes[1])
+        outputList.avgDelays[1] = deepcopy(otherSamplingList.avgDelays[1])
+        outputList.avgNumQueues[1] = deepcopy(otherSamplingList.avgNumQueues[1])
+
+
+        firstServerIndexes = list(range(1, config.SERVERS_B + 1))
+
+        # for each server 
+        for s in self.serversStats.keys():
+            if s not in firstServerIndexes:
+                outputList.serversStats[s] = deepcopy(otherSamplingList.serversStats[s])
+            else:
+                for statistic in self.serversStats[s]:
+                    firstHalfMean = self.serversStats[s][statistic]['mean']
+                    secondHalfMean = otherSamplingList.serversStats[s][statistic]['mean']
+                    outputList.serversStats[s][statistic]['mean'] = \
+                        firstHalfMean * firstHalfProcessedJobs + \
+                        secondHalfMean * secondHalfProcessedJobs
+
+                    outputList.serversStats[s][statistic]['mean'] /= totalJobs
+
+        return outputList

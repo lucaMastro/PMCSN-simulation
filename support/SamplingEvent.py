@@ -10,6 +10,7 @@ def computeAvgInterarrivals(stats:Statistics, time:Time, kindP=False):
     if not kindP:
         interarrivalWindow = stats.lastArrivalsTime[0] - time.changeBatchTimeB
         if time.current > config.SECOND_HALFDAY_OPEN_TIME and\
+            not config.SPLIT_STATS_ANALYSIS_FOR_8_H and \
             not (config.INFINITE_H or config.FIND_B_VALUE):
                 interarrivalWindow -= (config.SECOND_HALFDAY_OPEN_TIME - config.FIRST_HALFDAY_CLOSE_TIME)
         processedJobs = stats.processedJobs[0] 
@@ -146,10 +147,14 @@ def computeAvgServerStats(stats:Statistics, time:Time, kindP=False):
         den = stats.sum[s].served
         if den != 0:
             d['service'] = stats.sum[s].service / den
+        else:
+            d['service'] = 0
         
         den = processedJobs
         if den != 0:
             d['share'] = stats.sum[s].served / den
+        else:
+            d['share'] = 0
 
         ext_dict[s] = d
 
@@ -234,6 +239,8 @@ class SamplingEvent:
 
         for s in range(startingPoint, endingPoint):  
             
+            print(self.avgServersStats)
+
             my_string += "{0:8d} {1:14.3f} {2:15.2f} {3:15.3f}\n".format(s, self.avgServersStats[s]['utilization'], 
                 self.avgServersStats[s]['service'], 
                 self.avgServersStats[s]['share'])

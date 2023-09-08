@@ -41,8 +41,8 @@ class GaussianWeighter:
         # P value inizialitazion
         mu = config.GAUSSIAN_MEAN_P
         sigma = config.GAUSSIAN_STD_DEV_P
-        lowerBound = config.START_P / 60
-        upperBound = config.STOP_P / 60
+        lowerBound = config.START_P / config.CONVERSION_FACTOR
+        upperBound = config.STOP_P / config.CONVERSION_FACTOR
         F_upperBound = norm.cdf(upperBound, loc = mu, scale = sigma)
         F_lowerBound = norm.cdf(lowerBound, loc = mu, scale = sigma)
         self.normalizerFactorP = F_upperBound - F_lowerBound 
@@ -61,7 +61,7 @@ class GaussianWeighter:
         # computing the density value
 
         # again in hours
-        t0 = currenTime / 60
+        t0 = currenTime / config.CONVERSION_FACTOR
         f_t0 = norm.pdf(t0, loc=mu, scale=sigma)
         
         # make the normalization:
@@ -85,7 +85,7 @@ class GaussianWeighter:
         # computing the density value
 
         # again in hours
-        t0 = currenTime / 60
+        t0 = currenTime / config.CONVERSION_FACTOR
         f_t0 = norm.pdf(t0, loc=mu, scale=sigma)
         
         # make the normalization:

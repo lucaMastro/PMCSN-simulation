@@ -43,11 +43,12 @@ class Config:
         self.MEAN_SERVICE_TIME_B = 2.0
         self.MEAN_SERVICE_TIME_P = 3.0
 
-        self.COSTS = [40, 50]
-        self.REVENUES = [4, 7]
-        self.RENT = 1500         # € for month
-        self.IVA = 0.22            # 22%
-        self.BILL_COSTS = 2000   # € for month
+        self.WORKERS_COSTS = [40, 50]      # € for worker [B, P] per day
+        self.REVENUES = [5, 10]     # € for request [B, P]
+        self.RENT = 1500           # € for month
+        self.IVA = 0.10            # 10%
+        self.BILL_COSTS = 2750     # € for month
+        self.SUPPLIERS_COST = 2000 # € for month
 
         self.GAUSSIAN_MEANS_B = [8, 13.5, 0, 18.5, 22.5, 24] # in hours
         self.GAUSSIAN_STD_DEV_B = [1.2, 2, 0, 0.4, 2, 0.9]
@@ -63,7 +64,6 @@ class Config:
         self.INFINITE_H = False
         self.FIND_B_VALUE = False
         self.SEED = 0
-        self.LAG_J = 1
         self.USE_GAUSSIAN_FACTOR = True
         # batch b keeps the initial values of B for sampling events. If the value for a specific slot
         # does not guarantee the autocorr < THRESHOLD for each stats, it's doubled and it restarts with
@@ -72,12 +72,15 @@ class Config:
         self.BATCH_K = 128
         self.RUNS = 1024
         
-        self.AUTOCORR_THRESHOLD = 1
+        self.AUTOCORR_THRESHOLD = 0.2
         self.CONFIDENCE_LEVEL = 0.95
 
         self.SAMPLING_UNIFORM_A = 1.5
         self.SAMPLING_UNIFORM_B = 2
+        # to compute from minutes to hours
+        self.CONVERSION_FACTOR = 60
 
+        self.SPLIT_STATS_ANALYSIS_FOR_8_H = True
 
     def storeConfig(self,outputFileName):
         # Make the file text

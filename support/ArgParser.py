@@ -1,6 +1,7 @@
 import argparse
 import importlib
 import ast
+import os
 
 from configurations.Config import config
 
@@ -20,6 +21,7 @@ class ArgParser:
         self.parser.add_argument("-ngf", "--no_gaussian_factor", action="store_true", help="don't use the gaussian probability value to weight interarrival times")
         self.parser.add_argument("-of", "--output_file", metavar=("FILE"), help="save output in ./output/OUTPUTFILE.csv. The file format .csv is added if not already present")
         self.parser.add_argument("-wed", "--weekend_day", action="store_true", help="simulate a weekend day, with the proper system variables. Default this option is disabled, meaning that a week day is simulate")
+        self.parser.add_argument("-ns", "--no_split", action="store_true", help="don't split the analysis using 2 lists for first half and second half of the day")
         
 
     def parse(self):
@@ -40,12 +42,15 @@ class ArgParser:
             if not args.finite_horizont:
                 config.INFINITE_H = True
                 config.USE_GAUSSIAN_FACTOR = False
+                config.SPLIT_STATS_ANALYSIS_FOR_8_H = False
             else:
                 raise argparse.ArgumentTypeError("Cannot perform finite and infinite horizont together.")
         
         if args.find_b_value:
             config.FIND_B_VALUE = True
             config.AUTOCORR_THRESHOLD = float(args.find_b_value)
+            config.USE_GAUSSIAN_FACTOR = False
+            config.SPLIT_STATS_ANALYSIS_FOR_8_H = False
 
         if args.seed:
             config.SEED = int(args.seed)
@@ -55,6 +60,9 @@ class ArgParser:
 
         if args.weekend_day:
             config.SIMULATE_WEEK = False
+
+        if args.no_split:
+            config.SPLIT_STATS_ANALYSIS_FOR_8_H = False
 
     def getOutputFileName(self):
         args = self.parser.parse_args()
@@ -78,14 +86,25 @@ class ArgParser:
     def loadPersonalConfig(self, filePath):
         global config
         try:
-            newConfig = importlib.import_module(filePath.strip('.py'))
-            config = newConfig.Config()
+            # removing extension from filePath:
+            modulePath = os.path.splitext(filePath)[0]
+            # replace eventual / with . to load the correct module
+            moduleName = modulePath.replace('/', '.')
+            newConfig = importlib.import_module(moduleName)
+            newConfigInstance = newConfig.Config()
+            # scan attr and set values:
+            for attr, value in vars(newConfigInstance).items():
+                # check if same type of original one
+                if type(value) != type(getattr(config, attr)):
+                    raise ValueError(f"Bad format type representation. Please use brackets for list.")
+                else:
+                    setattr(config, attr, value)
+                
         except Exception as e:
             print(e)
             raise argparse.ArgumentTypeError("Invalid file.")
 
 
-    
     def changeConfig(self, listOption):
         # list option is [ ['OPTION1', 'VALUE1'], ['OPTION2', 'VALUE2'], ...]
         # and its relative to -cc option
@@ -99,7 +118,7 @@ class ArgParser:
         }
         try:
             for l in listOption:
-                attr = l[0]
+                attr = l[0].upper()
                 value = l[1]
                 original_value = getattr(config, attr)
                 new_value = None
