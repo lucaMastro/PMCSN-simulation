@@ -151,11 +151,11 @@
 \newpage
 \section{Traccia della Simulazione}
 \subsection{Caso di studio}
-Si vuole valutare l'idea di aprire un locale in un piccolo paese. L'attività dovrà offrire ai clienti servizi di bar e di pizzeria. Il locale è già provvisto di tutto l'arredamento e lo si affitterà per un costo 1500 $\mbox{\euro}$ al mese. Il pizzaiolo scelto per i servizi di pizzeria ha comunicato che, nel forno presente, si possono preparare contemporaneamente al massimo 2 pizze, ognuna delle quali può essere preparata con un tempo medio di 3 minuti. Inoltre, si è già trovato un accordo con lui: lavorerà ogni giorno della settimana dalle ore 19:00 alle ore 23:00, percependo una paga di 50 $\mbox{\euro}$ al giorno con il vincolo che tutte le ordinazioni arrivate prececedentemente alle 23:00 
-verranno sempre completate, anche se per farlo dovrà continuare a sfornare pizze oltre questo orario. Per quanto riguarda le richieste al bar, si vuole che "l'ultimo giro" venga chiamato alle ore 02:00, senza accettare altre richieste successive a quell'orario ma completando tutte quelle ancora presenti. \newline
-Dopo un'osservazione settimanale di altri locali che offrono servizi simili, si è notato che il numero di clienti che arrivano al locale si differenzia per fasce orarie della giornata diverse. Inoltre, nel fine settimana, la frequenza delle richieste nelle fasce orarie identificate è maggiore rispetto a quella settimanale. Infine, si è osservato che nella fascia oraria tra le 15:00 e le 18:00 le richieste sono talmente poche che non è conveninente mantenere il locale aperto. Si riportano di seguito delle tabelle riassuntive per le frequenze di arrivo:
+Si vuole valutare l'opportunità di aprire un locale in un piccolo paese che offrirà servizi di bar e pizzeria. Il locale è già dotato di tutto l'arredamento e verrà affittato al costo mensile di 1.500,00 $\mbox{\euro}$. Il pizzaiolo selezionato per il servizio di pizzeria ha indicato che nel forno disponibile è possibile preparare contemporaneamente un massimo di 2 pizze, ciascuna delle quali richiede in media 3 minuti di preparazione. Inoltre, è stato concordato con il pizzaiolo che lavorerà tutti i giorni della settimana dalle 19:00 alle 23:00, con una retribuzione giornaliera di 50 euro, con l'accordo che tutte le ordinazioni ricevute prima delle 23:00 verranno comunque servite, anche se ciò richiederà di continuare a cuocere pizze oltre quell'orario. Per quanto riguarda le richieste relative al bar, si desidera che "l'ultimo giro" venga chiamato alle 02:00, senza accettare ulteriori richieste dopo quell'orario, ma completando tutte quelle già presenti.\\
 
-\target{tabelle riassuntiva dei tassi di arrivo}
+Dopo un'osservazione settimanale di altri locali che offrono servizi simili, è emerso che il numero di clienti che frequentano il locale varia nelle diverse fasce orarie della giornata. Inoltre, durante il fine settimana, si registra un aumento della frequenza delle richieste rispetto ai giorni feriali. Infine, è stato notato che nella fascia oraria compresa tra le 15:00 e le 18:00 le richieste sono così scarse che non è conveniente mantenere il locale aperto. Di seguito sono riportate delle tabelle riassuntive per le frequenze di arrivo.
+
+\target{tabelle riassuntive dei tassi di arrivo}
 \begin{table}[!htb]
 \begin{minipage}{.5\linewidth}
 \centering
@@ -211,24 +211,30 @@ Dopo un'osservazione settimanale di altri locali che offrono servizi simili, si 
 \bigskip
 
 \subsection{Obiettivi}
-Obiettivo dell'analisi è la valutazione del numero di baristi da
-assumere, col fine ultimo di massimizzare i guadagni. Si considera una paga di 40 $\mbox{\euro}$ al giorno per ognuno di loro, assumendo per loro turni di 8 ore. Si assume che ogni barista sia in grado di servire un'ordinazione in 2 minuti, durante i quali si dedica esclusivamente a quella richiesta. Si assume inoltre che il prezzo medio delle richieste di tipo B sia di 5 $\mbox{\euro}$, mentre quello delle richieste di tipo P sia di 7 $\mbox{\euro}$. Si vuole, però, che i seguenti vincoli siano sempre rispettati:
+L'obiettivo dell'analisi è determinare il numero ottimale di baristi da assumere per massimizzare i guadagni, tenendo conto di alcune condizioni e vincoli specifici.\\
+
+Si considera una retribuzione di 40,00 $\mbox{\euro}$ al giorno per ciascun barista, con un turno lavorativo di 8 ore. Si presume che ogni barista sia in grado di servire un'ordinazione in 2 minuti, durante i quali si dedica esclusivamente a quella richiesta. Si assume inoltre che il prezzo medio delle richieste al bar sia di 5,00 $\mbox{\euro}$, mentre quello delle richieste alla pizzeria sia di 7,00 $\mbox{\euro}$. Tuttavia, esistono alcuni vincoli che si vuole che siano sempre rispettati:
 \begin{itemize}
-  \item Ogni ordinazione al bar deve essere servita in un tempo strettamente minore di 3 minuti;
-  \item Ogni ordinazione per la pizzeria sia servita in un tempo strettamente minore di 10 minuti 
+\item Ogni ordinazione al bar deve essere servita entro un massimo di 3 minuti.
+\item Ogni ordinazione per la pizzeria deve essere servita entro un massimo di 10 minuti.
 \end{itemize}
 
-\newpage
+Per massimizzare i guadagni, è necessario determinare quanti baristi assumere in modo che siano sufficienti a gestire il flusso di ordini, mantenendo comunque i tempi di servizio entro i limiti stabiliti dai vincoli; inoltre, per rispettare i vincoli, si può valutare l'assunzione di un nuovo pizzaiolo e l'acquisto di un forno più grande.
+
 \section{Modello concettuale}
 \subsection{Visualizzazione grafica}
-	\includegraphics[width=\textwidth]{conceptual_model}
-La frequenza di arrivo $\lambda$ si compone della frequenza di arrivo
-$\lambda\textsubscript{B}$ e $\lambda\textsubscript{P}$, che sono rispettivamente i tassi di arrivo per richieste al bar e alla pizzeria. Una opportuna coda per ogni tipologia rappresenta la lista di attesa della tipologia stessa. Ogni servente di tipo \emph{B} rappresenta un barista assunto, che lavora con una frequenza $\mu\textsubscript{B}$. Ogni servente di tipo \emph{P}, invece, rappresenta una delle due richieste che il pizzaiolo è in grado di gestire contemporaneamente.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{conceptual_model}
+\end{figure}
+
+La frequenza di arrivo $\lambda$ si compone della frequenza di arrivo $\lambda_B$ e $\lambda_P$, che sono rispettivamente i tassi di arrivo per richieste al bar e alla pizzeria. Una opportuna coda per ogni tipologia rappresenta la lista di attesa della tipologia stessa. Ogni servente di tipo \textit{B} rappresenta un barista assunto, che lavora con una frequenza $\mu_B$. Ogni servente di tipo \textit{P}, invece, rappresenta una delle due richieste che il pizzaiolo è in grado di gestire contemporaneamente e lavora con frequenza $\mu_P$.
 
 
 \subsection{Eventi del sistema e variabili di stato}
 \subsection{Eventi}
 \begin{center}
+
 \begin{tabular}{ |c|c|c|c| }
 	\hline
     \cellcolor{cellcolor}Indice & \cellcolor{cellcolor}Descrizione & \cellcolor{cellcolor}Attributo 1 & \cellcolor{cellcolor}Attributo 2 \\
@@ -252,8 +258,7 @@ $\lambda\textsubscript{B}$ e $\lambda\textsubscript{P}$, che sono rispettivament
     \hline
 \end{tabular}
 \end{center}
-L'attributo \emph{t} indentifica il tempo schedulato per la successiva occorrenza
-dell'evento di quel tipo; l'attributo \emph{x} identifica lo stato di attività
+L'attributo \key{t} indentifica il tempo schedulato per la successiva occorrenza dell'evento di quel tipo; l'attributo \key{x} identifica lo stato di attività
 dell'evento.
 
 \subsection{Variabili di stato}
@@ -274,7 +279,9 @@ dell'evento.
 \section{Modello delle specifiche}
 
 \subsection{Periodo di osservazione}
-Il periodo di osservazione è quello di un intero anno e ogni giorno si osserva l'intera giornata lavorativa costituita dalle due fasce orarie riportate precedentemente nelle \attach{tabelle riassuntiva dei tassi di arrivo}.
+Il periodo di osservazione copre una giornata lavorativa composta dalle fasce orarie precedentemente riportate nelle \attach{tabelle riassuntive dei tassi di arrivo}. Questa giornata lavorativa può essere considerata sia durante la settimana (\textit{week}) che nel fine settimana (\textit{weekend}): è importante valutare il sistema in entrambi i casi poiché il flusso di richieste in ingresso varia tra i giorni lavorativi e i giorni feriali.
+
+%Il periodo di osservazione è quello di un giorno lavorativo composto dalle due fasce orarie riportate precedentemente nelle \attach{tabelle riassuntiva dei tassi di arrivo}. Il giorno lavorativo può essere settimanale o feriale (\textit{week} è \textit{weekend}), ed è opportuno valutare il sistema in entrambi i casi a causa della variazione del flusso delle richieste in ingresso.
 
 \target{interarrivi gaussiani}
 \subsection{Distribuzione degli arrivi}
@@ -438,7 +445,7 @@ La simulazione permette di disabilitare questa opzione inserendo l'opportuno \te
 
 
 \section{Modello analitico}
-Di seguito sono rappresentate le formule utilizzate per l’analisi teorica del sistema. In particolare, tutti i centri sono stati modellati come M/M/m per i quali si hanno le seguenti formule teoriche:
+Di seguito sono riportaet le formule utilizzate per l’analisi teorica del sistema. In particolare, tutti i centri sono stati modellati come M/M/m per i quali si hanno le seguenti formule teoriche:
 \begin{minipage}{0.5\textwidth}
 \begin{itemize}
 \item[] \[
@@ -471,21 +478,25 @@ E(NS) = E(NQ) + m\rho
 
 
 \section{Modello computazionale}
-Il modello computazionale è stato sviluppato in \emph{Python} ed è il programma \key{simulation.py}; i parametri configurabili sono definiti invece nel file \key{configurations/Config.py}. Il programma è lanciabile da riga comando con diversi \textit{flag} che ne influenzano il comportamento, listabili con il comando: \key{python simulation.py -h} (oppure \key{python simulation.py --help}), ottenendo il seguente messaggio:
+Il modello computazionale è stato sviluppato in linguaggio \textit{Python} ed è implementato nel programma \texttt{simulation.py}. All'interno della cartella \key{configuration/}, sono conservati tutti i file di configurazione utilizzati nel corso dell'analisi, e questo è anche il percorso in cui vengono salvati eventuali nuovi file di configurazione. I parametri configurabili e i loro valori di default sono definiti nel file \key{configurations/Config.py}. \\
+
+Il programma può essere eseguito da riga di comando, e offre diversi flag che ne influenzano il comportamento. È possibile ottenere un elenco di questi flag eseguendo il comando \key{python simulation.py -h} o \key{python simulation.py --help}, il quale restituirà il seguente messaggio:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{program_help}
 \end{figure}
 
-In particolare, col flag \key{-cc} è possibile cambiare una qualsiasi impostazione presente nel file di configurazione specificandone il valore a riga comando, mentre col flag \key{-ngf} (cioè \key{--no_gaussian_factor}) si disabilita la normalizzazione del tempo di interarrivo col fattore gaussiano determinato secondo le modalità descritte nella \hyperlink{interarrivi gaussiani}{sezione dedicata alla distribuzione degli arrivi}. \\
+Tra questi, il flag \key{-cc} consente di modificare qualsiasi impostazione presente nel file di configurazione specificando il valore desiderato direttamente da riga di comando, mentre il flag \key{-ngf}, ovvero \key{--no_gaussian_factor}, disabilita la normalizzazione del tempo di interarrivo utilizzando il fattore gaussiano determinato secondo le modalità descritte nella \hyperlink{interarrivi gaussiani}{sezione dedicata alla distribuzione degli arrivi}. \\.
 
-Il programma è realizzato seguendo l'approccio della \textit{next-event simulation} e perciò sono state create opportune classi python, memorizzate ognuna in un file diverso. \\
+%In particolare, col flag \key{-cc} è possibile cambiare una qualsiasi impostazione presente nel file di configurazione specificandone il valore a riga comando, mentre col flag \key{-ngf} (cioè \key{--no_gaussian_factor}) si disabilita la normalizzazione del tempo di interarrivo col fattore gaussiano determinato secondo le modalità descritte nella \hyperlink{interarrivi gaussiani}{sezione dedicata alla distribuzione degli arrivi}. \\
 
-Le funzioni per processare gli arrivi sono \key{processArrivalB()} e \key{processArrivalP()} al cui interno è implementatata la logica per recuperare il $\lambda$ corretto in base alla fascia oraria, il cui inverso va usato come parametro per la funzione \key{getArrivalB(m)} e \key{getArrivalP(m)} dove viene invocata la \key{Exponential(m)} dopo aver selezionato opportunamente uno \textit{stream} diverso. Le funzioni per processare le partenze sono \key{processDepartureB()}, \key{processDepartureP()}. \\
+Il programma è stato realizzato seguendo l'approccio della \textit{next-event simulation} e, per massimizzare la modularità, sono state create opportune classi Python, ognuna memorizzata in un file separato. \\
 
-La funzione per la selezione del servente è diversa per richieste di tipo \textit{B} e \textit{P}: si tratta di \key{FindOneB()} e \key{FindOneP()}. Queste funzioni utilizzano politiche di assegnazione ai server diverse: nel primo caso la politica è di \textit{equity}, ricercando quindi il server che risulta libero da più tempo, nel secondo, invece, dovendo simulare un pizzaiolo che può infornare contemporaneamente 2 pizze, la richiesta è assegnata al primo server libero di tipo \textit{P} che si trova, scandendo la lista in ordine crescente.\\
+Le funzioni per elaborare gli arrivi sono \key{processArrivalB()} e \key{processArrivalP()}, all'interno delle quali è implementata la logica per ottenere il tasso di arrivo $\lambda$ corretto in base alla fascia oraria. L'inverso di questo tasso di arrivo viene poi utilizzato come parametro per le funzioni \key{getArrivalB(m)} e \key{getArrivalP(m)}, che richiamanono a loro volta la funzione \key{Exponential(m)} dopo aver selezionato opportunamente uno specifico \textit{stream}. Le funzioni per gestire le partenze sono invece \key{processDepartureB()} e \key{processDepartureP()}. \\
 
-L'evento di campionamento viene schedulato aggiungendo un valore di tempo costante generato da una chiamata a \key{Uniform(config.SAMPLING_UNIFORM_A, config.SAMPLING_UNIFORM_B)} ad il tempo minimo tra quello dei prossimi eventi schedulati:
+La selezione del servente avviene in modo diverso per le richieste al bar e alla pizzeria. Per le richieste "B", viene utilizzata la politica di \textit{equity}, cercando il server che è rimasto libero per più tempo. Per quanto riguarda le richieste alla pizzeria ("P"), la selezione avviene in base al primo server libero di quel tipo che viene trovato, scandendo la lista in ordine crescente. Questa scelta è motivata dal fatto che i server di tipo "P" simulano un pizzaiolo capace di cuocere contemporaneamente 2 pizze, ed avrebbe poco senso modellarlo con una politica di equità.\\
+
+L'evento di campionamento viene programmato aggiungendo un valore di tempo costante al tempo minimo tra i prossimi eventi schedulati:
 \begin{lstlisting}[language=Python, firstnumber=242, title=\key{simulation.py}, tabsize=3,framexleftmargin={\dimexpr 1.5em+15pt}, xleftmargin={\dimexpr 1.5em+15pt},]
 times = []
 for index, ev in enumerate(stats.events):
@@ -493,10 +504,12 @@ for index, ev in enumerate(stats.events):
 		times.append(ev.t)
 stats.events[e].t = min(times) + samplingInterarrivalTime
 \end{lstlisting}
-I vari \textit{sample} che vengono raccolti durante la simulazione vengono memorizzati in una opportuna istanza di \key{SamplingList}, il cui metodo \key{append()}, oltre ad aggiungere il nuovo campione in fondo alla lista, implementa il \textit{one-pass alghoritm} secondo \textit{Welford} per ognuna delle grandezze raccolte; è quindi necessario, a fine simulazione, invocare i metodi \key{makeCorrectVariance} che divide per il numero di campioni tutte le varianze e \key{computeConfidenceInterval} per calcolare l'intervallo di confidenza per ognuna delle grandezze.
+Il valore costante da aggiungere a ogni nuova schedulazione è generato a inizio simulazione con una invocazione della funzione \key{Uniform(config.SAMPLING_UNIFORM_A, config.SAMPLING_UNIFORM_B)}, in modo da evitare di schedulare successivamente due eventi di campionamento. Nel corso della simulazione, i vari campioni raccolti vengono conservati in un'apposita istanza di \key{SamplingList}. Il metodo \key{append()} di questa classe, oltre ad aggiungere il nuovo campione alla fine della lista, implementa anche l'algoritmo \textit{one-pass} di Welford per calcolare dinamicamente la media e la varianza per ciascuna delle grandezze rilevate. Alla fine della simulazione, è necessario invocare il metodo  \key{makeCorrectVariance()}, che divide le varianze calcolate per ciascuna grandezza per il numero totale di campioni raccolti. 
 
 \subsection{Makefile}
-Nella directory principale è presente un \key{Makefile} che aiuta ad eseguire correttamente il programma. Usando le configurazioni predisposte, nessun parametro di configurazione viene modificato: il flag \key{-cc} non viene mai usato. In particolare, il comando \key{make clean} elimina tutti i file di output \key{.csv} generati da precedenti esecuzioni. Il comando \key{make}, che corrisponde a \key{make all}, esegue, in ordine:
+Nella directory principale è presente un \key{Makefile} che aiuta ad eseguire correttamente il programma. Usando le configurazioni predisposte, nessun parametro di configurazione viene modificato: il flag \key{-cc} non viene mai usato. \\
+
+In particolare, il comando \key{make clean} elimina tutti i file di output \key{.csv} generati da precedenti esecuzioni. Il comando \key{make}, che corrisponde a \key{make all}, esegue, in ordine:
 \begin{lstlisting}[language=Bash, numbers=none, frame=none]
 rm -f ./output/*.csv
 rm -f ./output/finite/*.csv
@@ -509,26 +522,43 @@ python3 simulation.py -fh -s 123 -of weekend_gauss -wed
 python3 simulation.py -fh -s 123 -of weekend -wed -ngf
 \end{lstlisting}
 
-Questo comando è quello utilizzato per generaer gli output che verranno successivamente discussi.
+Questo comando è quello utilizzato per generare gli output che verranno successivamente discussi.
 
 
 \subsection{Dipendenze}
-Le librerie esterne importate, di cui il programma necessita per funzionare,  sono le seguenti e sono riportate anche nel file \key{dipendenze.txt}:
+Le librerie esterne importate, di cui il programma necessita per funzionare,  sono le seguenti e sono riportate anche nel file \key{dipendenze.txt}:\\
+
+\begin{minipage}{0.5\textwidth}
 \begin{itemize}
 \item \key{copy}
 \item \key{argparse}
 \item \key{importlib}
 \item \key{ast}
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{itemize}
 \item \key{math}
 \item \key{scipy.stats}
 \item \key{time}
+\item[]
 \end{itemize}
+\end{minipage}
 
 \subsection{Script di supporto}
+Nella cartella \key{scripts/} sono presenti degli script di supporto utilizzati:
+\begin{itemize}
+\item \key{compute_theoretical_values.py}: consente di calcolare i valori teorici a partire da un eventuale file di configurazione. È anche possibile salvare i risultati in formato CSV utilizzando l'opportuno flag. Altre informazioni si ottengono usando \key{-h} a riga comando.
 
+\item \key{check_interval.py}: a partire da un file CSV contenenti i risultati teorici, verifica se i risultati teorici cadono o meno nell'intervallo di confidenza della media sperimentale di ogni grandezza guardando ai file prodotti dalla simulazione e salvati nella cartella \key{output} nella root del progetto.
+
+\item \key{costs_analysis.py}: effettua l'analisi dei costi e dei guadagni a partire dai valori teorici ottenuti. Questi parametri devono essere configurati all'interno del codice.
+
+\item \key{graph_generator.py}: genera tutti i grafici mostrati nel corso della presentazione. Può crearli tutti contemporaneamente o uno per volta, specificando le opzioni opportune.
+\end{itemize}
 
 \section{Verifica}
-La fase di verifica serve a capire se, rispetto al modello che io avevo, il programma implementato è corretto. Si è quindi confrontato il valore delle statistiche restituito dal simulatore con quelle teoriche e perciò si è fatto riferimento ai valori ottenuti da una esecuzione senza il peso gaussiano. I risultati ottenuti dall'esecuzione di \key{python simulation.py -s 123 -ngf [-wed]} differiscono leggermente da quelli teorici:\\
+La fase di verifica serve a capire se, rispetto al modello, il programma implementato è corretto. Si è quindi confrontato il valore delle statistiche restituito dal simulatore con quelle teoriche e perciò si è fatto riferimento ai valori ottenuti da una esecuzione senza il peso gaussiano. I risultati ottenuti dall'esecuzione di \key{python simulation.py -s 123 -ngf [-wed]} differiscono leggermente da quelli teorici:\\
 
 \begin{adjustbox}{width=\textwidth}
 \centering
@@ -585,68 +615,12 @@ avgService (2) & 3 min & 4.722 $\pm$ 0.201 min & 3 min & 3.361 $\pm$ 0.069 min \
 \end{adjustbox}
 \bigskip
 
-%\begin{adjustbox}{width=\textwidth}
-%\centering
-%\begin{tabular}{ |c|c|c|c|c|c|c| }
-%\hline
-%\cellcolor{cellcolor} \textit{B type} & \multicolumn{3}{|c|}{\cellcolor{cellcolor}Week} & \multicolumn{3}{|c|}{\cellcolor{cellcolor}Weekend} \\
-%\hline
-%\cellcolor{cellcolor}Statistica & \cellcolor{cellcolor}Risultato teorico & \cellcolor{cellcolor}Risultato sperimentale & \cellcolor{cellcolor}Errore & \cellcolor{cellcolor}Risultato teorico & \cellcolor{cellcolor}Risultato sperimentale & \cellcolor{cellcolor}Errore\\
-%\hline
-%\hline
-%avgInterarrivals & 3.471 min & 2.984 $\pm$ 0.076 min & 0.411 & 2.413 min & 2.494 $\pm$ 0.025 min & 0.056\\
-%\hline
-%avgWaits & 2.251 min & 2.284 $\pm$ 0.047 min & 0 & 2.524 min & 2.266 $\pm$ 0.036 min & 0.222\\
-%\hline
-%avgNumNodes & 0.682 j & 0.788 $\pm$ 0.029 j & 0.0.77 & 1.102 j & 0.801 $\pm$ 0.021 j & 0.280 \\
-%\hline
-%avgDelays & 0.251 min & 0.268 $\pm$ 0.014 min & 0.003 & 0.524 min & 0.286 $\pm$ 0.010 min & 0.228\\
-%\hline
-%avgNumQueues & 0.106 j & 0.091 $\pm$ 0.008 j & 0.007 & 0.273 j & 0.103 $\pm$  0.005 j & 0.165 \\
-%\hline
-%avgService (1) & 2 min & 1.724 $\pm$ 0.047 min & 0.229 & 2 min & 1.772 $\pm$  0.035 min & 0.193 \\
-%\hline
-%avgService (2) & 2 min & 2.367 $\pm$ 0.039 min & 0.328 & 2 min & 2.216 $\pm$ 0.036 min & 0.18 \\
-%\hline
-%\end{tabular}
-%\end{adjustbox}
-%\bigskip
-%
-%\begin{adjustbox}{width=\textwidth}
-%\centering
-%\begin{tabular}{ |c|c|c|c|c|c|c| }
-%\hline
-%\cellcolor{cellcolor} \textit{P type} & \multicolumn{3}{|c|}{\cellcolor{cellcolor}Week} & \multicolumn{3}{|c|}{\cellcolor{cellcolor}Weekend} \\
-%\hline
-%\cellcolor{cellcolor}Statistica & \cellcolor{cellcolor}Risultato teorico & \cellcolor{cellcolor}Risultato sperimentale & \cellcolor{cellcolor}Errore & \cellcolor{cellcolor}Risultato teorico & \cellcolor{cellcolor}Risultato sperimentale & \cellcolor{cellcolor}Errore\\
-%\hline
-%\hline
-%avgInterarrivals & 5.882 min & 4.408 $\pm$ 0.160 min & 1.242 & 2.000 min & 1.846 $\pm$ 0.036 min & 0.103 \\
-%\hline
-%avgWaits & 3.209 min & 3.465 $\pm$ 0.116 min & 0.098 & 6.857 min & 5.667 $\pm$ 0.151 min & 0.994\\
-%\hline
-%avgNumNodes & 0.545 j & 0.761 $\pm$ 0.042 j & 0.166 & 3.429 j & 2.962 $\pm$ 0.046 j & 0.411\\
-%\hline
-%avgDelays & 0.209 min & 0.050 $\pm$ 0.008 min & 0.143 & 3.857 min & 2.514 $\pm$ 0.083 min & 1.232\\
-%\hline
-%avgNumQueues & 0.035 j & 0.013 $\pm$ 0.003 j & 0.016 & 1.929 j & 1.316 $\pm$ 0.037 j & 0.564 \\
-%\hline
-%avgService (1) & 3 min & 2.918 $\pm$ 0.136 min &  & 3 min & 2.947 $\pm$ 0.116 & 0.193 \\
-%\hline
-%avgService (2) & 3 min & 4.722 $\pm$ 0.201 min & 0.007 & 3 min & 3.361 $\pm$ 0.069 min & 0.292 \\
-%\hline
-%
-%\end{tabular}
-%\end{adjustbox}
-%\bigskip
 
-Il motivo di tale differenza va ricercato nella bassa frequenza di arrivo: infatti, all'interno di un singolo run di tipo \textit{week}, i job processati di tipo \textit{B} non arrivano a 300, mentre quelli di tipo \textit{P} superano di poco i 50, rendendo le statistiche poco rappresentative. Perciò, si è definito un nuovo file di configurazione, 
-
-%Inoltre, essendoci molte fasce orarie con frequenze diverse, il sistema presenta una grossa variabilità che, per essere abbattuta, necessita di un gran numero di richieste per ognuna di queste fasce. Per verificare la bontà del simulatore, si è quindi deciso di provare a cambiare delle configurazioni e analizzare i risultati ottenuti, verificando che questi tendano al risultato teorico, accettando anche un eventuale errore che non sia troppo grande. 
+Il motivo di tale differenza va ricercato nella bassa frequenza di arrivo: infatti, all'interno di un singolo run di tipo \textit{week}, i job processati di tipo \textit{B} non arrivano a 300, mentre quelli di tipo \textit{P} superano di poco i 50, rendendo le statistiche poco rappresentative. Perciò, si è definito un nuovo file di configurazione, il file \key{configurations/verify1.py}.
 
 \subsection{\texttt{verify1.py}}
-Per ovviare al problema del basso tasso di interarrivo, si è costruito il file di configurazione \key{verify1.py} che cerca di aumentare il numero di job di ogni tipologia processati nel singolo \textit{run}. Per farlo, si è definito le seguenti frequenze di interarrivo, cercando di abbattere anche il contributo di una eccessiva variabilità tra le fasce:
-\begin{table}
+Per ovviare al problema del basso tasso di interarrivo, si è costruito il file di configurazione \key{verify1.py} che cerca di aumentare il numero di job di ogni tipologia processati nel singolo \textit{run}. Per farlo, sono state impostate le seguenti frequenze di interarrivo, cercando di abbattere anche il contributo di una eccessiva variabilità tra le fasce:
+\begin{table}[H]
 \centering
 \begin{tabular}{ |c|c|c| }
 	\hline
@@ -681,13 +655,6 @@ WEEK_LAMBDA_P = 1.7
 \end{lstlisting}
 
 Eseguendo il comando \key{python simulation.py -s 123 -ngf -cf configurations/verify1.py}, si ottengono i seguenti risultati:
-
-%        statistic          mean    variance      conf int
-%  avg interarrivals .. :  0.466     0.002         0.000
-%  avg wait ........... :  0.337     0.000         0.000
-%  avg # in node ...... :  0.730     0.008         0.001
-%  avg delay .......... :  0.037     0.000         0.000
-%  avg # in queue ..... :  0.083     0.001         0.000
 
 \begin{table}[H]
 \centering
@@ -745,13 +712,23 @@ avgService (2) & 0.5 s & 0.501 $\pm$ 0.000 s \\
 
 Si può osservare come i valori teorici per le richieste di tipo \textit{P}, che sono state in tutto 24407, cominciano a convergere ai valori teorici. Per le richieste di tipo \textit{B}, nonostante siano state 181785, i valori ottenuti sono ancora lontani da quelli teorici.\\
 
-Si può però osservare che la frequenza di interarrivo media nella prima metà della giornata è più piccola, e perciò il numero di job processati e di campioni fatti nelle prime 8 ore sarà minore rispetto a quelli fatti nelle seconde 8. Per questo motivo, nel calcolo della media globale, i dati delle statistiche raccolti nella prima metà della giornata tende a pesare di meno rispetto a quelli raccolti nella seconda metà. Alla luce di questo comportamento, è stata aggiunta una nuova opzione, attiva per default, che serve a \textit{spezzare} l'analisi media nelle due fasce orarie. In particolare, si raccolgono i dati in entrambe le metà separatamente, calcolando per ogni statistica la sua media e varianza per poi mediarle col numero di job processati:
-\[
-	\mu_{glob} = \frac{n_1 \mu_i + n_2 \mu_2}{n_1 + n_2}
-\]
-Dove $n_1$ ed $n_2$ sono rispettivamente il numero di job processati nella prima e nella seconda metà, mentre $\mu_1$ e $\mu_2$ sono le medie raccolte nelle due metà. Per disabilitare questa funzione, bisogna specificare a riga comando il flag \key{-ns}. \\
+Si può però osservare che la frequenza di interarrivo media nella prima metà della giornata è più piccola, e perciò il numero di job processati e di campioni fatti nelle prime 8 ore sarà minore rispetto a quelli fatti nelle seconde 8. Per questo motivo, nel calcolo della media globale, i dati delle statistiche raccolti nella prima metà della giornata tende a pesare di meno rispetto a quelli raccolti nella seconda metà. Alla luce di questo comportamento, è stata aggiunta una nuova opzione, attiva per default, che serve a \textit{spezzare} l'analisi media nelle due fasce orarie. In particolare, si raccolgono i dati in entrambe le metà separatamente, calcolando per ogni statistica la sua media e varianza per poi mediarle col numero di job processati:\\
 
-I risultati ottenuti dal comando \key{python simulation.py -s 123 -ngf -cf configurations/verify1.py} senza aver cambiato nulla nel file di configurazione rispetto al caso precedente sono i seguenti:
+\begin{minipage}{0.5\textwidth}
+\[
+	\mu_{glob} = \frac{n_1 \mu_1 + n_2 \mu_2}{n_1 + n_2}
+\]
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\[
+	\sigma^2_{glob} = \frac{n_1 \sigma^2_1 + n_2 \sigma^2_2}{n_1 + n_2}
+\]
+\end{minipage}
+\bigskip
+
+Dove $n_1$ ed $n_2$ sono rispettivamente il numero di job processati nella prima e nella seconda metà, mentre $\mu_1$, $sigma^2_1$ e $\mu_2$, $sigma^2_2$ sono le medie e le varianze calcolate per le due metà. Per disabilitare questa funzione, bisogna specificare a riga comando il flag \key{-ns}. \\
+
+Lanciando \key{python simulation.py -s 123 -ngf -cf configurations/verify1.py} senza aver cambiato nulla nel file di configurazione rispetto al caso precedente, si ottengono i seguenti risultati:
 
 \begin{table}[H]
 \centering
@@ -780,7 +757,31 @@ avgService (2) & 0.3 s & 0.299 $\pm$ 0.000 s \\
 \end{table}
 \bigskip
 
-Alla luce degli esperimenti fatti, si può concludere che il simulatore risponde bene ai cambiamenti di configurazione e che, con un numero adeguato di job, produce risultati fedeli a quelli teorici dimostrando così di essere fedele al modello di sistema in esame. 
+Anche per le richieste di tipo "B", adesso i risultati convergono a quelli teorici.
+
+\subsection{Verifica dello scheduling}
+È stato esaminato anche un altro aspetto importante, ovvero la politica di schedulazione utilizzata. Per valutarla, è stato eseguito il seguente comando:\\
+
+\key{python simulation.py -s 123 -ngf -cf configurations/verify1.py -cc servers_b 10 -cc servers_p 10}\\
+
+I risultati ottenuti da questa configurazione sono riportati di seguito:\\
+
+\hspace*{\fill}
+\begin{minipage}{0.4\textwidth}
+\includegraphics[width=\textwidth]{rho_services_b}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+\includegraphics[width=\textwidth]{rho_services_p}
+\end{minipage}
+\hspace*{\fill}
+\bigskip
+
+Dai risultati relativi all'utilizzazione, al tempo medio di servizio e alla condivisione delle risorse, emerge chiaramente il rispetto delle specifiche prestabilite: infatti tutti i server di tipo "B" presentano valori simili per tutte le grandezze in esame mentre per i server di tipo "P" si osserva una tendenza al decremento dei valori all'aumentare dell'indice del server.
+
+\subsection{Conclusione}
+
+Sulla base dei risultati ottenuti dagli esperimenti condotti, è possibile trarre la conclusione che il simulatore dimostra una buona capacità di adattamento ai cambiamenti di configurazione. Inoltre, utilizzando un numero sufficiente di job nella simulazione, si osserva che il simulatore è in grado di produrre risultati coerenti con le previsioni teoriche. Ciò suggerisce che il simulatore è fedele al modello del sistema in esame e offre una rappresentazione affidabile del comportamento del sistema stesso
 
 
 \section{Validazione}
@@ -791,8 +792,6 @@ Nella fase di validazione il quesito fondamentale è: "Stiamo costruendo il prod
 Per affrontare questa sfida, si è deciso di adottare un'analisi a orizzonte infinito in modo da ottenere risultati più stabili. In questa fase di validazione, verifichiamo se, per ciascuna fascia oraria, le statistiche generate dal nostro simulatore convergono ai valori teorici, considerati come punti di riferimento per il nostro sistema. Questo approccio ci assicura che il sistema software risponda alle caratteristiche previste e ai requisiti desiderati. 
 
 \subsection{Analisi a orizzonte infinito}
-%Per svolgere l'analisi a orizzonte infinito si può utilizzare il comando \key{make infinite-week} e \key{make infinite-weekend}, che eseguono rispettivamente: \key{python3 simulation.py -ih -s 123 -of week} e \key{python3 simulation.py -ih -s 123 -wed -of weekend}; è opportuno eliminare eventuali file di output csv già presenti. Per questo tipo di analisi, è possibile specificare il flag \key{-fb THRESHOLD} con cui si determina dinamicamente il numero di campioni da fare per il singolo batch. Il valore scelto è quello che rende il valore di autocorrelazione minore di \key{THRESHOLD} per \textit{lag j} $= 1$, per ogni statistica. Utilizzando $k = 128$ \textit{batches}, ognuno di $b = 1024$ campioni, si ottiene che il valore di autocorrelazione per \textit{lag j} $= 1 < 0.2$. L'analisi è stata fatta per ogni tipo di richiesta, per ogni statistica e per ogni fascia oraria, sia nel caso di giorno settimanale che di giorno fine-settimanale. I risultati vengono riportati in forma tabellare e in forma grafica, utilizzando nelle tabelle il risultato sperimentale relativo all'ultimo \textit{batch}:\\
-
 Per condurre un'analisi a orizzonte infinito, è necessario utilizzare i seguenti comandi:
 
 \begin{itemize}
@@ -1032,12 +1031,11 @@ L'analisi a orizzonte infinito ha dimostrato che la maggior parte dei risultati 
 Per effettuare l'analisi dei costi e dei guadagni sul caso di studio in esame è stata eseguita un'analisi a orizzonte finito che, seppur poco rappresentativa in ambito di validazione, è quella che permette effettivamente di valutare le entrate e le uscite per un sistema con queste specifiche. 
 
 \subsection{Analisi a orizzonte finito}
-Con questo metodo, il sistema viene simulato per una durata pari a 16 ore lavorative effettive, prendendo in considerazione la variazione dei tassi di arrivo durante il passaggio da una fascia oraria all'altra. Per garantire la validità dell'analisi a orizzonte infinito, è essenziale che lo stato iniziale e lo stato finale del sistema siano identici. Si iniza ogni simulazione con il sistema in uno stato vuoto e ci si assicura che, al termine di ogni simulazione, il sistema sia nuovamente nello stato vuoto.\\
+Utilizzando questo approccio, il sistema è stato simulato per un periodo di 16 ore lavorative effettive, tenendo conto delle variazioni nei tassi di arrivo durante le diverse fasce orarie. Affinché l'analisi a orizzonte infinito sia affidabile, è fondamentale che lo stato iniziale e quello finale del sistema siano identici. Nel contesto specifico, la simulazione inizia e termina senza che ci siano richieste nel sistema.\\
 
-Simuliamo la giornata lavorativa per 1024 volte e, in ogni esecuzione, partiamo da uno stato vuoto, reimpostiamo tutte le statistiche e continuiamo senza alterare lo stato del generatore dei numeri casuali. Questo approccio garantisce l'indipendenza tra le diverse esecuzioni e ci consente di ottenere risultati affidabili per l'analisi a orizzonte infinito.\\
+Per ottenere risultati robusti per l'analisi a orizzonte infinito, la simulazione di una giornata lavorativa è stata eseguita per 1024 iterazioni. In ciascuna di esse sono state ripristinate tutte le statistiche mentre lo stato del generatore di numeri casuali è stato mantenuto inalterato. Questo approccio assicura l'indipendenza tra le diverse esecuzioni.\\
 
-Anche qui l'analisi viene condotta per ciascun tipo di richiesta limitandoci però ai soli tempi di risposta, sia introducendo il fattore gaussiano che non. I risultati vengono presentati in forma tabellare e grafica; in particolare, nelle tabelle si riportano i risultati sperimentali ottenuti mediando su tutti i \textit{run} con un intervallo di confidenza al 95\%.\\
-
+Anche in questo caso, è stata condotta un'analisi separata per ciascun tipo di richiesta, considerando i tempi di risposta con e senza l'introduzione del fattore gaussiano. I risultati sono stati presentati in forma tabellare e grafica, con le tabelle che riportano i risultati sperimentali ottenuti mediante la media di tutti i \textit{run}, con un intervallo di confidenza del 95\%.
 
 \begin{adjustbox}{width=\textwidth}
 \centering
@@ -1095,12 +1093,15 @@ Anche qui l'analisi viene condotta per ciascun tipo di richiesta limitandoci per
 \end{adjustbox}
 \bigskip
 
-Come ci aspettavamo dalle precedenti osservazioni, il valore teorico non cade quasi mai all'interno dell'intervallo di confidenza della statistica sperimentale. D'altra parte, i QoS vengono rispettati in ogni situazione con la configurazione che prevede $m_B = 2$. Si può notare che la scelta di $m_B = 1$ non rende il sistema stabile nella prima fascia oraria, dove $\lambda_B = 0.5 j/min$, infatti, per un servente singolo:
+Come previsto dalle osservazioni precedenti, il valore teorico raramente rientra nell'intervallo di confidenza della statistica sperimentale. Tuttavia, con la configurazione che prevede $m_B = 2$, tutti i requisiti di Qualità del Servizio (QoS) sono costantemente rispettati. È importante notare che la scelta di $m_B = 1$ non rende il sistema stabile nella prima fascia oraria, in cui $\lambda_B = 0.5 j/min$. Per un unico server, infatti:
 \[
 	\rho = \lambda E(S) = 0.5\ j/min \cdot 2\ min = 1
 \]
 
-La scelta di $m_B = 2$ è quindi la più logica: è il minor valore di $m$ che rispetta i QoS. Anche le utilizzazioni dei serventi sono accettabili e vengono riportati insieme ai valori delle altre grandezze:\\
+Quindi, la scelta di $m_B = 2$ appare come la più logica, in quanto rappresenta il valore minimo di $m$ che garantisce il rispetto dei QoS.\\
+
+Inoltre, anche le utilizzazioni dei server sono accettabili e vengono riportate insieme ai valori delle altre grandezze nelle seguenti immagini:
+
 \begin{minipage}{0.5\textwidth}
 \begin{figure}[H]
 \centering
@@ -1136,7 +1137,9 @@ La scelta di $m_B = 2$ è quindi la più logica: è il minor valore di $m$ che r
 \end{minipage}
 \bigskip
 
-Il numero di job riportati nelle immagini precedenti corrisponde alla media dei job processati nei vari \textit{run}, ed è il valore che verrà utilizzato successivamente come numero di richieste giornaliere nell'analisi dei costi. Il calcolo è stata effettuato su base mensile (4 settimane), e perciò le grandezze giornaliere sono state convertite; le configurazioni usate sono quelle di default presenti nel file \key{configurations/Config.py}.
+
+Il numero di job presente nelle immagini precedenti rappresenta la media dei job processati in diverse esecuzioni e verrà utilizzato successivamente come numero di richieste giornaliere nell'analisi dei costi. I calcoli sono stati effettuati su base mensile (4 settimane), e quindi le grandezze giornaliere sono state convertite di conseguenza. Le configurazioni utilizzate sono quelle di default presenti nel file \key{configurations/Config.py}.
+
 
 \subsection{Analisi delle spese}
 \begin{table}[H]
@@ -1146,78 +1149,92 @@ Il numero di job riportati nelle immagini precedenti corrisponde alla media dei 
 \cellcolor{cellcolor}Spesa & \cellcolor{cellcolor}Valore & \cellcolor{cellcolor}Contributo mensile \\
 \hline
 \hline
-Baristi & 40 $\mbox{\euro}$ al giorno per barista & $40 \cdot 28 \cdot 2 = 2240\ \mbox{\euro}$ al mese \\
+Baristi & $40,00 \mbox{\euro}$ al giorno per barista & $40,00 \cdot 28 \cdot 2 = 2.240,00\ \mbox{\euro}$ al mese \\
 \hline
-Pizzaiolo & 50 $\mbox{\euro}$ al giorno & $50 \cdot 28 = 1400\ \mbox{\euro}$  al mese\\
+Pizzaiolo & $40,00 \mbox{\euro}$ al giorno & $50,00 \cdot 28 = 1400\ \mbox{\euro}$  al mese\\
 \hline
-Bollette & 2750 $\mbox{\euro}$ al mese & 2750 $\mbox{\euro}$ al mese \\
+Bollette & $2.750,00 \mbox{\euro}$ al mese & $2.750,00 \mbox{\euro}$ al mese \\
 \hline
-Affitto & 1500 $\mbox{\euro}$ al mese & 1500 $\mbox{\euro}$ al mese\\
+Affitto & $1.500,00 \mbox{\euro}$ al mese & $1.500,00 \mbox{\euro}$ al mese\\
 \hline
-Fornitori & 2000 $\mbox{\euro}$ al mese & 2000 $\mbox{\euro}$ al mese\\
+Fornitori & $2.000,00 \mbox{\euro}$ al mese & $2.000,00 \mbox{\euro}$ al mese\\
 \hline
 \hline
-%\multicolumn{2}{|c|}{Totale} & \cellcolor{red!40} \textcolor[RGB]{230,10,10}{12970 $\mbox{\euro}$}\\
-\multicolumn{2}{|c|}{Totale} & \cellcolor{red!40} 12970 $\mbox{\euro}$\\
+\multicolumn{2}{|c|}{Totale} & \cellcolor{red!40} $12.970,00 \mbox{\euro}$\\
 \hline
 
 \end{tabular}
 \end{table}
 
 \subsection{Analisi dei guadagni}
+
+\subsubsection{Senza fattore gaussiano}
 \begin{adjustbox}{width=\textwidth}
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\cellcolor{cellcolor}Tipo richiesta & \cellcolor{cellcolor}Richieste \textit{week} & \cellcolor{cellcolor}Richieste \textit{weekend} & \cellcolor{cellcolor}Guadagno & \cellcolor{cellcolor}Contributo mensile \\
+\cellcolor{cellcolor}Tipo richiesta & \cellcolor{cellcolor}Richieste \textit{week} & \cellcolor{cellcolor}Richieste \textit{weekend} & \cellcolor{cellcolor}Guadagno & \cellcolor{cellcolor}Contributo mensile &
+\cellcolor{cellcolor} Con IVA al 10\% \\
 \hline
-\noalign{\vspace{0.5ex}}
 \hline
-Tipo B & 275 & $5\ \mbox{\euro}$ a richiesta & \makecell{$275 \cdot 5\ \mbox{\euro} \cdot 5 \cdot 4 =$ \\ $27500\ \mbox{\euro}$ al mese }\\
+Tipo B & 275 & 395 & $5,00\ \mbox{\euro}$ a richiesta & \makecell{$ (275 \cdot 5 + 395 \cdot 2 )\cdot 5,00 \cdot 4 =$ \\ $43.300,00 \mbox{\euro}$ al mese } & $ 43.300,00 \cdot 0.9 = 38.970,00 \mbox{\euro}$ \\
 \hline
-Tipo P & 41 & $10\ \mbox{\euro}$ a richiesta & \makecell{$41 \cdot 10\ \mbox{\euro} \cdot 2 \cdot 4 =$ \\ $820\ \mbox{\euro}$} \\
+Tipo P & 41 & 116 & $10\ \mbox{\euro}$ a richiesta & \makecell{$ (41 \cdot 5 + 116 \cdot 2 )\cdot 10,00 \cdot 4 =$ \\ $17.480,00\ \mbox{\euro}$ al mese } & $ 17480 \cdot 0.9 = 15.732,00 \mbox{\euro}$ \\
 
 \hline
 \hline
 
 %\multicolumn{2}{|c|}{Totale} & \cellcolor{red!40} \textcolor[RGB]{230,10,10}{12970 $\mbox{\euro}$}\\
-\multicolumn{4}{|c|}{Totale} & \cellcolor{green!40} 12970 $\mbox{\euro}$\\
+\multicolumn{5}{|c|}{Totale} & \cellcolor{green!40} $54.702,00 \mbox{\euro}$\\
 \hline
 
 \end{tabular}
 \end{adjustbox}
+\bigskip
 
 
-\section{Conclusioni}
-Come si nota dai risultati ottenuti, a parte per qualche errore di
-approssimazione, i risultati della simulazione tendono a quelli
-teorici.\\
-I risultati dell'analisi mostrano che il numero migliore di baristi da assumere
-è 2: infatti questo è il numero minimo con cui si riesce a rispettare il
-vincolo sul tempo di risposta, anche se il guadagno sarebbe stato maggiore con
-$m = 1$. Continuando invece ad aumentare il numero di baristi, il guadagno
-diminuisce sempre di più, mentre migliorano i tempi di risposta:
-\bigskip 
-\begin{center}
-\begin{tabular}{ |c|c|c| }
-  \hline
-  $m$ & $E[T\textsubscript{S}]$ & $r(\tau)$ \\
-  \hline
-  \hline
-  1 & 5.53 min & 3070.10 $\mbox{\euro}\text{ al mese}$ \\
-  \hline
-  2 & 2.18 min & 1853.43 $\mbox{\euro}\text{ al mese}$ \\
-  \hline
-  3 & 2.02 min & 636.76 $\mbox{\euro}\text{ al mese}$ \\
-  \hline
-  4 & 2.00 min & -579.90 $\mbox{\euro}\text{ al mese}$ \\
-  \hline
+Il guadagno netto mensile risulta essere:
+\[
+	54.702,00 - 12.970,00 = 41.732,00 \mbox{\euro}
+\]
+
+\subsubsection{Con fattore gaussiano}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\cellcolor{cellcolor}Tipo richiesta & \cellcolor{cellcolor}Richieste \textit{week} & \cellcolor{cellcolor}Richieste \textit{weekend} & \cellcolor{cellcolor}Guadagno & \cellcolor{cellcolor}Contributo mensile &
+\cellcolor{cellcolor} Con IVA al 10\% \\
+\hline
+\hline
+Tipo B & 77 & 120 & $5,00\ \mbox{\euro}$ a richiesta & \makecell{$ (77 \cdot 5 + 120 \cdot 2 )\cdot 5,00 \cdot 4 =$ \\ $12.500,00 \mbox{\euro}$ al mese } & $ 12.500,00 \cdot 0.9 = 11.250,00 \mbox{\euro}$ \\
+\hline
+Tipo P & 10 & 31 & $10,00\ \mbox{\euro}$ a richiesta & \makecell{$ (10 \cdot 5 + 31 \cdot 2 )\cdot 10,00 \cdot 4 =$ \\ $4.480,00 \mbox{\euro}$ al mese } & $ 4.480,00 \cdot 0.9 = 4.032,00 \mbox{\euro}$ \\
+
+\hline
+\hline
+
+\multicolumn{5}{|c|}{Totale} & \cellcolor{green!40} $15.282,00 \mbox{\euro}$\\
+\hline
+
 \end{tabular}
-\end{center}
+\end{adjustbox}
+\bigskip
 
-Si può notare che, al crescere di $m$, la differenza dei tempi con il caso $m
-- 1$ è sempre minore: questo si può spiegare considerando che i tassi di arrivo
-non sono stati cambiati: aumentando $m$, quindi, si va a diminuire il tempo di
-coda di ogni job, che tende quindi a 0.
+Il guadagno netto mensile risulta essere:
+\[
+	15.282,00 - 12.970,00 = 2.312,00 \mbox{\euro}
+\]
+
+
+
+\subsection{Conclusioni}
+Nel caso in cui non si utilizzi la normalizzazione gaussiana, si osserva un guadagno netto mensile di 41.732 euro. Tuttavia, questo valore sembra essere ottimistico poiché non tiene conto di alcuna concentrazione delle richieste nelle diverse fasce orarie. Dall'altro lato, nel caso in cui si utilizzi la normalizzazione gaussiana, il guadagno mensile si riduce a 2.312 euro.
+
+I risultati suggeriscono che la seconda cifra sia più realistica e rappresenti meglio la situazione effettiva, dato che l'arrivo delle richieste tende a concentrarsi maggiormente nelle diverse fasce orarie.
+
+In conclusione, la scelta di utilizzare la normalizzazione gaussiana sembra più aderente alla realtà operativa e produce una stima più conservativa dei guadagni mensili, che si attesta a 2.312 euro. Questo valore riflette meglio le condizioni operative del sistema in cui le richieste sono distribuite in modo più realistico nel corso della giornata.
+
+%L'analisi dei costi eseguita porta a un guadagno netto mensile di 41732 euro al mese nel caso in cui non si utilizzi la normalizzazione gaussiana o di 2312 euro se la si utilizza. Il secondo caso sembra essere una cifra più realistica, come di fatto è più realistico che l'arrivo delle richieste si concentri maggiormente attorno a delle fasce orarie. 
+
 
 %
 %\section{Immagini}

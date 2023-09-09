@@ -203,23 +203,22 @@ if __name__ =='__main__':
 
     parser.add_argument("-a", "--all", action='store_true', help="generate all graphs for files in '../finite/' and '../infinite' and for all statistics. If this option is active, any other option is ignored")
     parser.add_argument("-sg", "--show_graph", action='store_true', help="specify to show each generated graph")
+    parser.add_argument("-in", "--input", metavar='INPUT_FILE', help="specify input csv file")
+    parser.add_argument("-s", "--stat", metavar='STATISTIC', help="specify the statistic for which generate graphic")
+    parser.add_argument("-tv", "--theoretical_value", metavar='VALUE', help="specify the theoretical value")
+    parser.add_argument("-out", "--output", metavar='OUTPUT_FILE', help="specify output png file")
+    parser.add_argument("-t", "--title", metavar='TITLE', help="specify graph title")
+    parser.add_argument("-q", "--qos", metavar='QOS_VALUE', help="specify qos value")
 
-    args, other_args = parser.parse_known_args()
+    args = parser.parse_args()
+    
     displayAll = args.show_graph
     if args.all:
         generateAll(displayAll)
     else:
+        if not (args.input and args.stat and args.theoretical_value):
+            raise Exception('graph_generator.py: error: the following arguments are required if -a not specified: -in/--input, -s/--stat, -tv/--theoretical_value')
 
-        parser.add_argument("-in", "--input", metavar='INPUT_FILE', required=True, help="specify input csv file")
-        parser.add_argument("-s", "--stat", metavar='STATISTIC', required=True, help="specify the statistic for which generate graphic")
-        parser.add_argument("-tv", "--theoretical_value", metavar='VALUE', required=True, help="specify the theoretical value")
-        parser.add_argument("-out", "--output", metavar='OUTPUT_FILE', help="specify output png file")
-        parser.add_argument("-t", "--title", metavar='TITLE', help="specify graph title")
-        parser.add_argument("-q", "--qos", metavar='QOS_VALUE', help="specify qos value")
-
-        args = parser.parse_args(other_args)
-    
-    
         fileName = args.input
         stat = args.stat
         tv = args.theoretical_value
@@ -231,4 +230,4 @@ if __name__ =='__main__':
             qos = float(qos_)
         
         makeGraph(fileName, stat, tv, outputFile,title,displayAll,qos=qos)
-        print('done')
+        

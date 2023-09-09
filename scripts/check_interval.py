@@ -107,8 +107,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     statistics = ['avgInterarrivals','avgWaits','avgNumNodes','avgDelays','avgNumQueues']
-    finiteDirPath = '../finite'
-    infiniteDirPath = '../infinite'
+    finiteDirPath = '../output/finite'
+    infiniteDirPath = '../output/infinite'
     
     finiteFiles = os.listdir(finiteDirPath)
     infiniteFiles = os.listdir(infiniteDirPath)

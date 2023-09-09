@@ -1,14 +1,17 @@
 class Config:
 
     def __init__(self):
+        # to compute from minutes to hours
+        self.CONVERSION_FACTOR = 60
+
         # time in which arrival rate changes. it is built by taking hours in which
         # rates change and multiplying it by 60 minutes    
-        self.SLOTSTIME = [ (i * 60) for i in [7, 11, 15, 18, 19, 23] ]
+        self.SLOTSTIME = [ (i * self.CONVERSION_FACTOR) for i in [7, 11, 15, 18, 19, 23] ]
         self.B_WORKING_HOURS = 16
         self.P_WORKING_HOURS = 4
 
         # 2:00 am == 26:00. STOP_B = 27 * 60 this is for B-requests
-        self.STOP_B = 26 * 60        
+        self.STOP_B = 26 * self.CONVERSION_FACTOR        
         self.STOP_P = self.SLOTSTIME[5]   
 
         # the bar will close at 15 and will reopen at 18. This means that the first B-Arrival after 
@@ -77,8 +80,6 @@ class Config:
 
         self.SAMPLING_UNIFORM_A = 1.5
         self.SAMPLING_UNIFORM_B = 2
-        # to compute from minutes to hours
-        self.CONVERSION_FACTOR = 60
 
         self.SPLIT_STATS_ANALYSIS_FOR_8_H = True
 

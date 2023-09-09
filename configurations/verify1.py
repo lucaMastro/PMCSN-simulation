@@ -1,14 +1,17 @@
 class Config:
 
     def __init__(self):
+        # to compute from minutes to hours
+        self.CONVERSION_FACTOR = 3600
+
         # time in which arrival rate changes. it is built by taking hours in which
         # rates change and multiplying it by 60 minutes    
-        self.SLOTSTIME = [ (i * 3600) for i in [7, 11, 15, 18, 19, 23] ]
+        self.SLOTSTIME = [ (i * self.CONVERSION_FACTOR) for i in [7, 11, 15, 18, 19, 23] ]
         self.B_WORKING_HOURS = 16
         self.P_WORKING_HOURS = 4
 
         # 2:00 am == 26:00. STOP_B = 27 * 60 this is for B-requests
-        self.STOP_B = 26 * 3600      
+        self.STOP_B = 26 * self.CONVERSION_FACTOR      
         self.STOP_P = self.SLOTSTIME[5]   
 
         # the bar will close at 15 and will reopen at 18. This means that the first B-Arrival after 
@@ -36,7 +39,7 @@ class Config:
         #timing, in minutes. the third element is 0 because the bar is closed and its needed 
         # for indexing 
         #self.WEEK_LAMBDA_B = [4.2, 4.2, 0, 2.1, 2.1, 2.1]
-        self.WEEK_LAMBDA_B = [2,2,0,3,3,3]
+        self.WEEK_LAMBDA_B = [2, 2, 0, 3, 3, 3]
         self.WEEKEND_LAMBDA_B = [0.5, 0.34, 0, 0.75, 0.375, 0.34]
         self.WEEK_LAMBDA_P = 1.7
         self.WEEKEND_LAMBDA_P = 0.5
@@ -44,11 +47,12 @@ class Config:
         self.MEAN_SERVICE_TIME_B = 0.3
         self.MEAN_SERVICE_TIME_P = 0.5
 
-        self.COSTS = [40, 50]
-        self.REVENUES = [4, 7]
-        self.RENT = 1500         # € for month
-        self.IVA = 0.22            # 22%
-        self.BILL_COSTS = 2000   # € for month
+        self.WORKERS_COSTS = [40, 50]      # € for worker [B, P] per day
+        self.REVENUES = [5, 10]     # € for request [B, P]
+        self.RENT = 1500           # € for month
+        self.IVA = 0.10            # 10%
+        self.BILL_COSTS = 2750     # € for month
+        self.SUPPLIERS_COST = 2000 # € for month
 
         self.GAUSSIAN_MEANS_B = [8, 13.5, 0, 18.5, 22.5, 24] # in hours
         self.GAUSSIAN_STD_DEV_B = [1.2, 2, 0, 0.4, 2, 0.9]
@@ -77,8 +81,6 @@ class Config:
 
         self.SAMPLING_UNIFORM_A = 1.5
         self.SAMPLING_UNIFORM_B = 2
-        # to compute from minutes to hours
-        self.CONVERSION_FACTOR = 3600
 
         self.SPLIT_STATS_ANALYSIS_FOR_8_H = True
 
