@@ -285,95 +285,104 @@ Il periodo di osservazione copre una giornata lavorativa composta dalle fasce or
 
 \target{interarrivi gaussiani}
 \subsection{Distribuzione degli arrivi}
-I valori dei vari tassi di arrivo sono stati raccolti analizzando un caso reale, anche se si tratta comunque di una stima. Per rappresentare il processo degli arrivi è stata utilizzata la distribuzione esponenziale, utilizzando $\lambda$ diversi per ogni fascia oraria. Inoltre, all'interno della singola fascia oraria, gli arrivi potrebbero essere modellati come una distribuzione gaussiana, centrata attorno all'ora in cui le richieste sono più probabili. A partire da questa osservazione, si è scelto di utilizzare la distribuzione esponenziale per modellare gli arrivi, ma la media utilizzata è pesata opportunamente per una probabilità che è tanto più alta quanto più il tempo di simulazione è vicino all'ora di massima affluenza per quella fascia oraria. Per modellare questo, si definiscono delle frequenze di interarrivo medie per ogni fascia oraria, riportate qui in minuti:
-\bigskip
+I valori dei tassi di arrivo sono stati raccolti attraverso l'analisi di dati reali, fornendo una stima attendibile ma flessibile. Per modellare il processo degli arrivi, è stata scelta la distribuzione esponenziale, con un tasso di arrivo $\lambda$ variabile per ciascuna fascia oraria. Tuttavia, per catturare le variazioni nei tempi di arrivo dei clienti, si è introdotto un elemento di realismo attraverso l'utilizzo di una distribuzione gaussiana all'interno di ciascuna fascia oraria. Questa scelta è basata sulle seguenti motivazioni:
+\begin{itemize}
+\item Flessibilità del modello: L'utilizzo della distribuzione esponenziale come base del modello offre una notevole flessibilità, consentendo la generazione di tempi di interarrivo casuali che possono variare significativamente. Questa flessibilità riflette in modo accurato la natura casuale degli arrivi in un bar, che può manifestare variazioni significative nel tempo, anche quando la frequenza di arrivo media è nota.
 
-\begin{minipage}{.5\textwidth}
-\centering             
-\begin{tabular}{ |c|c|c| }
-	\hline
-    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
-	\hline
-    \hline
+\item Introduzione del ritardo gaussiano: L'introduzione di un ritardo gaussiano arricchisce ulteriormente il modello, consentendo di tenere conto di effetti come le ore di punta o i momenti in cui ci si aspetta una maggiore affluenza. Questo approccio rende il modello più aderente alla realtà senza la necessità di creare un modello basato completamente su una distribuzione gaussiana, che potrebbe non rappresentare in modo accurato la variabilità dei tempi di interarrivo.
+\end{itemize}
 
-	07:00 $\rightarrow$ 11:00 & 0.5 j/min & \xmark \\
 
-    \hline
-    
 
-	11:00 $\rightarrow$ 15:00 & 0.21 j/min & \xmark \\
+%Per modellare questo, si definiscono delle frequenze di interarrivo medie per ogni fascia oraria, riportate qui in minuti:
+%\bigskip
 
-    \hline
-    
-
-	18:00 $\rightarrow$ 19:00 & 0.42 j/min & \xmark \\
-
-    \hline
-    
-
-	19:00 $\rightarrow$ 23:00 & 0.21 j/min & 0.17 j/min \\
-
-    \hline
-    
-
-	23:00 $\rightarrow$ 02:00 & 0.17 j/min & \xmark \\
-
-    \hline
-\end{tabular}
-\bigskip
-              
-\textit{Frequenze di arrivo settimanali}
-\end{minipage}
+%\begin{minipage}{.5\textwidth}
+%\centering             
+%\begin{tabular}{ |c|c|c| }
+%	\hline
+%    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
+%	\hline
+%    \hline
 %
-\begin{minipage}{.5\textwidth}
-\centering
-\begin{tabular}{ |c|c|c| }
-	\hline
-    \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,WE}}
-    &\cellcolor{cellcolor} $\lambda${\textsubscript{P,WE}} \\
-    \hline
-    \hline
-	07:00 $\rightarrow$ 11:00 & 0.5 j/min & \xmark \\ 
-    \hline
-	11:00 $\rightarrow$ 15:00 & 0.34 j/min & \xmark \\
-    \hline
-	18:00 $\rightarrow$ 19:00 & 0.75 j/min & \xmark \\
-    \hline
-	19:00 $\rightarrow$ 23:00 & 0.375 j/min & 0.5 j/min \\
-    \hline
-	23:00 $\rightarrow$ 02:00 & 0.34 j/min & \xmark \\
-    \hline
-\end{tabular}
-\bigskip
-              
-\textit{Frequenze di arrivo fine-settimanali} 
-\end{minipage} 
-\bigskip
+%	07:00 $\rightarrow$ 11:00 & 0.5 j/min & \xmark \\
+%
+%    \hline
+%    
+%
+%	11:00 $\rightarrow$ 15:00 & 0.21 j/min & \xmark \\
+%
+%    \hline
+%    
+%
+%	18:00 $\rightarrow$ 19:00 & 0.42 j/min & \xmark \\
+%
+%    \hline
+%    
+%
+%	19:00 $\rightarrow$ 23:00 & 0.21 j/min & 0.17 j/min \\
+%
+%    \hline
+%    
+%
+%	23:00 $\rightarrow$ 02:00 & 0.17 j/min & \xmark \\
+%
+%    \hline
+%\end{tabular}
+%\bigskip
+%              
+%\textit{Frequenze di arrivo settimanali}
+%\end{minipage}
+%%
+%\begin{minipage}{.5\textwidth}
+%\centering
+%\begin{tabular}{ |c|c|c| }
+%	\hline
+%    \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,WE}}
+%    &\cellcolor{cellcolor} $\lambda${\textsubscript{P,WE}} \\
+%    \hline
+%    \hline
+%	07:00 $\rightarrow$ 11:00 & 0.5 j/min & \xmark \\ 
+%    \hline
+%	11:00 $\rightarrow$ 15:00 & 0.34 j/min & \xmark \\
+%    \hline
+%	18:00 $\rightarrow$ 19:00 & 0.75 j/min & \xmark \\
+%    \hline
+%	19:00 $\rightarrow$ 23:00 & 0.375 j/min & 0.5 j/min \\
+%    \hline
+%	23:00 $\rightarrow$ 02:00 & 0.34 j/min & \xmark \\
+%    \hline
+%\end{tabular}
+%\bigskip
+%              
+%\textit{Frequenze di arrivo fine-settimanali} 
+%\end{minipage} 
+%\bigskip
 
 Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:\\
 
 \begin{minipage}{0.45\textwidth}
 \begin{table}[H]
 \centering
-\begin{tabular}{ |c|c|c| }
+\begin{tabular}{ |c|c|c|c| }
 	\hline
-    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\mu$ & \cellcolor{cellcolor}$\sigma$\\
+    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\mu$ & \cellcolor{cellcolor}$\sigma$ & \cellcolor{cellcolor}Link all'immagine\\
 	\hline
     \hline
 
-  	07:00 $\rightarrow$ 11:00 & 8 & 1.2 \\
+  	07:00 $\rightarrow$ 11:00 & 8 & 1.2 & \hyperlink{distribuzione gaussiana 7-11}{Link}\\
     \hline	
 	
-	11:00 $\rightarrow$ 15:00 & 13.5 & 2 \\
+	11:00 $\rightarrow$ 15:00 & 13.5 & 2 & \hyperlink{distribuzione gaussiana 11-15}{Link}\\
     \hline
   
-	18:00 $\rightarrow$ 19:00 & 18.5 & 0.4 \\  
+	18:00 $\rightarrow$ 19:00 & 18.5 & 0.4 & \hyperlink{distribuzione gaussiana 18-19}{Link}\\   
     \hline
     
-	19:00 $\rightarrow$ 23:00 & 22.5 & 2\\
+	19:00 $\rightarrow$ 23:00 & 22.5 & 2 & \hyperlink{distribuzione gaussiana 19-23}{Link}\\
     \hline
     
-    23:00 $\rightarrow$ 02:00 & 24 & 0.9 \\
+    23:00 $\rightarrow$ 02:00 & 24 & 0.9 & \hyperlink{distribuzione gaussiana 23-26}{Link}\\ 
     \hline        
 \end{tabular}
 \end{table}
@@ -382,12 +391,12 @@ Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:
 \begin{minipage}{0.45\textwidth}
 \begin{table}[H]
 \centering
-\begin{tabular}{ |c|c|c| }
+\begin{tabular}{ |c|c|c|c| }
 	\hline
-    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\mu$ & \cellcolor{cellcolor}$\sigma$\\
+    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\mu$ & \cellcolor{cellcolor}$\sigma$ & \cellcolor{cellcolor}Link all'immagine\\
 	\hline
     \hline
-    19:00 $\rightarrow$ 23:00 & 20.5 & 1\\
+    19:00 $\rightarrow$ 23:00 & 20.5 & 1 & \hyperlink{distribuzione gaussiana P}{Link}\\
     \hline
 \end{tabular}
 \end{table}
@@ -405,23 +414,17 @@ Per ogni fascia oraria si definisce una distribuzione di probabilità gaussiana:
 \end{minipage}
 \bigskip
 
-La loro rappresentazione grafica è riportata \hyperlink{rappresentazione grafica gaussiane}{in fondo al documento}. 
-\bigskip
-
-Ora, supponiamo di essere all'istante di simulazione $t_0$ di un giorno settimanale, nella prima fascia oraria; in questo caso $\lambda = 0.5\ j/min$ .  Per generare il prossimo tempo di interarrivo, si usa:
-\begin{center}
-\key{Exponential(1/$\lambda$) * $f^n(t0)$}
-\end{center}
-dove $f^n(t_0)$ è il valore della distribuzione normale relativa alla fascia oraria valutata in $t_0$ e normalizzata rispetto alla fascia oraria. Nell'esempio:
+Per comprendere meglio come funziona il calcolo dei tempi di interarrivo, esaminiamo un esempio specifico. Per esempio, supponiamo di essere all'istante di simulazione $t_0$ di un giorno lavorativo settimanale, all'interno della prima fascia oraria, dove $\lambda$ è pari a 0.5 arrivi al minuto. Per calcolare il prossimo tempo di interarrivo, utilizziamo la seguente formula:
 \[
-f^n(t_0) = \frac{f(t_0)}{F(11) - F(7)}
+	\frac{\texttt{Exponential(1/}\lambda)}{f^n(t_0)}
 \]
-con $F(x)$ funzione cumulativa della distribuzione gaussiana relativa alla fascia oraria 07:00 $\rightarrow$ 11:00.\\
+Dove $f^n(t_0)$ rappresenta il valore della distribuzione di probabilità gaussiana relativa alla fascia oraria valutata in $t_0$, troncata riespetto all'intera fascia oraria. Nel nostro esempio specifico:
+\[
+	f^n(t_0) = \frac{f(t_0)}{F(11) - F(7)}
+\]
+dove $F(x)$ funzione cumulativa della distribuzione gaussiana relativa alla fascia oraria dalle 07:00 alle 11:00.\\
 
-Non si è usata una gaussiana direttamente come distribuizione del tempo di interarrivo perché avrebbe modellato una cosa diversa: in quel caso i tempi sarebbero molto più vicini al valor medio della distribuzione all'interno dell'intera fascia in esame, invece si vuole modellare che il tempo di interarrivo diminuisce in un intorno di un certo tempo. \\
-
-La simulazione permette di disabilitare questa opzione inserendo l'opportuno \textit{flag} nel lancio del programma.
-
+È importante sottolineare che non è stata adottata direttamente una distribuzione gaussiana per i tempi di interarrivo perché questa avrebbe modellato un comportamento diverso, dove i tempi sarebbero concentrati intorno al valore medio della distribuzione per l'intera fascia oraria. L'obiettivo era invece modellare una diminuzione dei tempi di interarrivo in prossimità di determinati momenti. È tuttavia possibile disabilitare questa opzione di ritardo gaussiano durante la simulazione tramite l'apposito flag a riga comando, conferendo al simulatore la flessibilità di adattarsi alle diverse esigenze di modellazione.
 
 \subsection{Assunzioni}
 \begin{itemize}
@@ -504,13 +507,78 @@ for index, ev in enumerate(stats.events):
 		times.append(ev.t)
 stats.events[e].t = min(times) + samplingInterarrivalTime
 \end{lstlisting}
-Il valore costante da aggiungere a ogni nuova schedulazione è generato a inizio simulazione con una invocazione della funzione \key{Uniform(config.SAMPLING_UNIFORM_A, config.SAMPLING_UNIFORM_B)}, in modo da evitare di schedulare successivamente due eventi di campionamento. Nel corso della simulazione, i vari campioni raccolti vengono conservati in un'apposita istanza di \key{SamplingList}. Il metodo \key{append()} di questa classe, oltre ad aggiungere il nuovo campione alla fine della lista, implementa anche l'algoritmo \textit{one-pass} di Welford per calcolare dinamicamente la media e la varianza per ciascuna delle grandezze rilevate. Alla fine della simulazione, è necessario invocare il metodo  \key{makeCorrectVariance()}, che divide le varianze calcolate per ciascuna grandezza per il numero totale di campioni raccolti. 
+Il valore costante da aggiungere a ogni nuova schedulazione è generato a inizio simulazione con una invocazione della funzione \key{Uniform(config.SAMPLING_UNIFORM_A, config.SAMPLING_UNIFORM_B)}, in modo da evitare di schedulare successivamente due eventi di campionamento. Nel corso della simulazione, i vari campioni raccolti vengono conservati in un'apposita istanza di \key{SamplingList}. Il metodo \key{append()} di questa classe, oltre ad aggiungere il nuovo campione alla fine della lista, implementa anche l'algoritmo \textit{one-pass} di Welford per calcolare dinamicamente la media e la varianza per ciascuna delle grandezze rilevate. Alla fine della simulazione, è necessario invocare il metodo  \key{makeCorrectVariance()}, che divide le varianze calcolate per ciascuna grandezza per il numero totale di campioni raccolti. \\
+
+Le frequenze di arrivo utilizzate nella configurazione di default sono quelle indicate \hyperlink{tabelle riassuntive dei tassi di arrivo}{precedentemente}, ma convertite in $j/min$:\\
+
+\begin{minipage}{.5\textwidth}
+\centering             
+\begin{tabular}{ |c|c|c| }
+	\hline
+    \cellcolor{cellcolor} Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,W}} & \cellcolor{cellcolor}$\lambda${\textsubscript{P,W}} \\
+	\hline
+    \hline
+
+	07:00 $\rightarrow$ 11:00 & 0.5 j/min & \xmark \\
+
+    \hline
+    
+
+	11:00 $\rightarrow$ 15:00 & 0.21 j/min & \xmark \\
+
+    \hline
+    
+
+	18:00 $\rightarrow$ 19:00 & 0.42 j/min & \xmark \\
+
+    \hline
+    
+
+	19:00 $\rightarrow$ 23:00 & 0.21 j/min & 0.17 j/min \\
+
+    \hline
+    
+
+	23:00 $\rightarrow$ 02:00 & 0.17 j/min & \xmark \\
+
+    \hline
+\end{tabular}
+\bigskip
+              
+\textit{Frequenze di arrivo settimanali}
+\end{minipage}
+%
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{tabular}{ |c|c|c| }
+	\hline
+    \cellcolor{cellcolor}Fascia oraria & \cellcolor{cellcolor}$\lambda${\textsubscript{B,WE}}
+    &\cellcolor{cellcolor} $\lambda${\textsubscript{P,WE}} \\
+    \hline
+    \hline
+	07:00 $\rightarrow$ 11:00 & 0.5 j/min & \xmark \\ 
+    \hline
+	11:00 $\rightarrow$ 15:00 & 0.34 j/min & \xmark \\
+    \hline
+	18:00 $\rightarrow$ 19:00 & 0.75 j/min & \xmark \\
+    \hline
+	19:00 $\rightarrow$ 23:00 & 0.375 j/min & 0.5 j/min \\
+    \hline
+	23:00 $\rightarrow$ 02:00 & 0.34 j/min & \xmark \\
+    \hline
+\end{tabular}
+\bigskip
+              
+\textit{Frequenze di arrivo fine-settimanali} 
+\end{minipage} 
+\bigskip
+
 
 \subsection{Makefile}
 Nella directory principale è presente un \key{Makefile} che aiuta ad eseguire correttamente il programma. Usando le configurazioni predisposte, nessun parametro di configurazione viene modificato: il flag \key{-cc} non viene mai usato. \\
 
 In particolare, il comando \key{make clean} elimina tutti i file di output \key{.csv} generati da precedenti esecuzioni. Il comando \key{make}, che corrisponde a \key{make all}, esegue, in ordine:
-\begin{lstlisting}[language=Bash, numbers=none, frame=none]
+\begin{lstlisting}[language=Bash, numbers=none]
 rm -f ./output/*.csv
 rm -f ./output/finite/*.csv
 rm -f ./output/infinite/*.csv
@@ -555,6 +623,8 @@ Nella cartella \key{scripts/} sono presenti degli script di supporto utilizzati:
 \item \key{costs_analysis.py}: effettua l'analisi dei costi e dei guadagni a partire dai valori teorici ottenuti. Questi parametri devono essere configurati all'interno del codice.
 
 \item \key{graph_generator.py}: genera tutti i grafici mostrati nel corso della presentazione. Può crearli tutti contemporaneamente o uno per volta, specificando le opzioni opportune.
+
+\item \key{gaussian.py}: importa il file contenente la configurazione di default e grafica le gaussiane presentate nella sezione immagini.
 \end{itemize}
 
 \section{Verifica}
@@ -1233,719 +1303,721 @@ I risultati suggeriscono che la seconda cifra sia più realistica e rappresenti 
 
 In conclusione, la scelta di utilizzare la normalizzazione gaussiana sembra più aderente alla realtà operativa e produce una stima più conservativa dei guadagni mensili, che si attesta a 2.312 euro. Questo valore riflette meglio le condizioni operative del sistema in cui le richieste sono distribuite in modo più realistico nel corso della giornata.
 
-%L'analisi dei costi eseguita porta a un guadagno netto mensile di 41732 euro al mese nel caso in cui non si utilizzi la normalizzazione gaussiana o di 2312 euro se la si utilizza. Il secondo caso sembra essere una cifra più realistica, come di fatto è più realistico che l'arrivo delle richieste si concentri maggiormente attorno a delle fasce orarie. 
 
 
-%
-%\section{Immagini}
-%
-%\target{rappresentazione grafica gaussiane}
-%\subsection{Distribuzioni gaussiane per gli arrivi}
-%\[
-%y=\frac{1}{\sqrt{2\pi}\sigma}e^\frac{-(x-\mu)^2}{2\sigma^2}
-%\]
-%
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{7-11-gaussian}
-%\bigskip
-%
-%\textit{Fascia oraria: 07:00 $\rightarrow$ 11:00}
-%\[ \mu = 8;\ \sigma = 1.2 \]
-%\end{figure}
-%
-%
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{11-15-gaussian}\bigskip
-%
-%\textit{Fascia oraria: 11:00 $\rightarrow$ 15:00}
-%\[ \mu = 13.5;\ \sigma = 2 \]
-%\end{figure}
-%
-%
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{18-19-gaussian}\bigskip
-%
-%\textit{Fascia oraria: 18:00 $\rightarrow$ 19:00}
-%\[ \mu = 18.5;\ \sigma = 0.4 \]
-%\end{figure}
-%
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{19-23-gaussian}\bigskip
-%
-%\textit{Fascia oraria: 19:00 $\rightarrow$ 23:00, bar}
-%\[ \mu = 22.5;\ \sigma = 2 \]
-%\end{figure}
-%
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{19-23-gaussian-pizza}\bigskip
-%
-%\textit{Fascia oraria: 19:00 $\rightarrow$ 23:00, pizzeria}
-%\[ \mu = 20.5;\ \sigma = 1 \]
-%\end{figure}
-%
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{23-02-gaussian}\bigskip
-%
-%\textit{Fascia oraria: 23:00 $\rightarrow$ 02:00}
-%\[ \mu = 24;\ \sigma = 0.9 \]
-%\end{figure}
-%
-%%__________________________________________
-%
-%
-%\subsection{Interarrivi}
-%\subsubsection{Week - orizzonte infinito}
-%\target{interarrivo infinito week slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgInterarrivals/week_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{interarrivo infinito week slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgInterarrivals/week_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{interarrivo infinito week slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgInterarrivals/week_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{interarrivo infinito week slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgInterarrivals/week_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{interarrivo infinito week slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgInterarrivals/week_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{interarrivo infinito week P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgInterarrivals/week_P_4}
-%\centering \textit{}
-%\end{figure}
-%
-%
-%\subsubsection{Weekend - orizzonte infinito}
-%\target{interarrivo infinito weekend slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgInterarrivals/weekend_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{Slot 1}
-%\target{interarrivo infinito weekend slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgInterarrivals/weekend_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{Slot 3}
-%\target{interarrivo infinito weekend slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgInterarrivals/weekend_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{Slot 4}
-%\target{interarrivo infinito weekend slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgInterarrivals/weekend_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{Slot 5}
-%\target{interarrivo infinito weekend slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgInterarrivals/weekend_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{interarrivo infinito weekend P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgInterarrivals/weekend_P_4}
-%\centering \textit{}
-%\end{figure}
-%%__________________________________________
-%
-%
-%
-%\subsection{Attesa}
-%\subsubsection{Week - orizzonte infinito}
-%\target{attesa infinita week slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgWaits/week_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa infinita week slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgWaits/week_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa infinita week slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgWaits/week_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa infinita week slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgWaits/week_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa infinita week slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgWaits/week_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{attesa infinita week P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgWaits/week_P_4}
-%\centering \textit{}
-%\end{figure}
-%
-%
-%\subsubsection{Weekend - orizzonte infinito}
-%\target{attesa infinita weekend slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgWaits/weekend_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa infinita weekend slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgWaits/weekend_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa infinita weekend slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgWaits/weekend_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa infinita weekend slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgWaits/weekend_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa infinita weekend slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgWaits/weekend_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{attesa infinita weekend P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgWaits/weekend_P_4}
-%\centering \textit{}
-%\end{figure}
-%
-%
-%\subsubsection{Week - orizzonte finito}
-%\target{attesa finita week B no gau}
-%\paragraph{Tipo B - no gaussian factor}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/finite/avgWaits/week_B}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa finita week P no gau}
-%\paragraph{Tipo P - no gaussian factor}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/finite/avgWaits/week_P}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa finita week B gau}
-%\paragraph{Tipo B - gaussian factor}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/finite/avgWaits/week_B_gau}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa finita week P gau}
-%\paragraph{Tipo P - gaussian factor}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/finite/avgWaits/week_P_gau}
-%\centering \textit{}
-%\end{figure}
-%
-%
-%
-%\subsubsection{Weekend - orizzonte finito}
-%\target{attesa finita weekend B no gau}
-%\paragraph{Tipo B}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/finite/avgWaits/weekend_B}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa finita weekend P no gau}
-%\paragraph{Tipo P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/finite/avgWaits/weekend_P}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa finita weekend B gau}
-%\paragraph{Tipo B - gaussian factor}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/finite/avgWaits/weekend_B_gau}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{attesa finita weekend P gau}
-%\paragraph{Tipo P - gaussian factor}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/finite/avgWaits/weekend_P_gau}
-%\centering \textit{}
-%\end{figure}
-%
-%
-%%__________________________________________
-%
-%\subsection{Popolazione nel centro}
-%\subsubsection{Week - orizzonte infinito}
-%\target{centro infinito week slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgNumNodes/week_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{centro infinito week slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgNumNodes/week_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{centro infinito week slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgNumNodes/week_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{centro infinito week slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumNodes/week_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{centro infinito week slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgNumNodes/week_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{centro infinito week P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumNodes/week_P_4}
-%\centering \textit{}
-%\end{figure}
-%
-%
-%\subsubsection{Weekend - orizzonte infinito}
-%\target{centro infinito weekend slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgNumNodes/weekend_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{centro infinito weekend slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgNumNodes/weekend_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{centro infinito weekend slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgNumNodes/weekend_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{centro infinito weekend slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumNodes/weekend_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{centro infinito weekend slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgNumNodes/weekend_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{centro infinito weekend P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumNodes/weekend_P_4}
-%\centering \textit{}
-%\end{figure}
-%
-%%__________________________________________
-%
-%
-%\subsection{Ritardo}
-%\subsubsection{Week - orizzonte infinito}
-%\target{ritardo infinito week slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgDelays/week_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{ritardo infinito week slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgDelays/week_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{ritardo infinito week slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgDelays/week_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{ritardo infinito week slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgDelays/week_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{ritardo infinito week slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgDelays/week_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{ritardo infinito week P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgDelays/week_P_4}
-%\centering \textit{}
-%\end{figure}
-%
-%
-%\subsubsection{Weekend - orizzonte infinito}
-%\target{ritardo infinito weekend slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgDelays/weekend_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{ritardo infinito weekend slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgDelays/weekend_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{ritardo infinito weekend slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgDelays/weekend_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{ritardo infinito weekend slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgDelays/weekend_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{ritardo infinito weekend P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgDelays/weekend_P_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{ritardo infinito weekend slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgDelays/weekend_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%
-%%__________________________________________
-%
-%
-%\subsection{Popolazione in coda}
-%\subsubsection{Week - orizzonte infinito}
-%\target{coda infinita week slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgNumQueues/week_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{coda infinita week slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgNumQueues/week_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{coda infinita week slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgNumQueues/week_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{coda infinita week slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumQueues/week_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{coda infinita week slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgNumQueues/week_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{coda infinita week P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumQueues/week_P_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\subsubsection{Weekend - orizzonte infinito}
-%\target{coda infinita weekend slot 0}
-%\paragraph{Slot 0}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgNumQueues/weekend_B_0}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{coda infinita weekend slot 1}
-%\paragraph{Slot 1}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgNumQueues/weekend_B_1}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{coda infinita weekend slot 3}
-%\paragraph{Slot 3}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgNumQueues/weekend_B_3}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{coda infinita weekend slot 4}
-%\paragraph{Slot 4}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumQueues/weekend_B_4}
-%\centering \textit{}
-%\end{figure}
-%
-%\target{coda infinita weekend slot 5}
-%\paragraph{Slot 5}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgNumQueues/weekend_B_5}
-%\centering \textit{}
-%\end{figure}
-%
-%\paragraph{P}
-%\target{coda infinita weekend P}
-%\subparagraph*{}
-%\begin{figure}[H]
-%\centering 
-%\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumQueues/weekend_P_4}
-%\centering \textit{}
-%\end{figure}
+\section{Immagini}
+
+\target{rappresentazione grafica gaussiane}
+\subsection{Distribuzioni gaussiane per gli arrivi}
+\[
+y=\frac{1}{\sqrt{2\pi}\sigma}e^\frac{-(x-\mu)^2}{2\sigma^2}
+\]
+
+\target{distribuzione gaussiana 7-11}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.7\textwidth]{7-11-gaussian}
+\bigskip
+
+\textit{Fascia oraria: 07:00 $\rightarrow$ 11:00}
+\[ \mu = 8;\ \sigma = 1.2 \]
+\end{figure}
+
+\target{distribuzione gaussiana 11-15}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.7\textwidth]{11-15-gaussian}\bigskip
+
+\textit{Fascia oraria: 11:00 $\rightarrow$ 15:00}
+\[ \mu = 13.5;\ \sigma = 2 \]
+\end{figure}
+
+\target{distribuzione gaussiana 18-19}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.7\textwidth]{18-19-gaussian}\bigskip
+
+\textit{Fascia oraria: 18:00 $\rightarrow$ 19:00}
+\[ \mu = 18.5;\ \sigma = 0.4 \]
+\end{figure}
+
+\target{distribuzione gaussiana 19-23}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.7\textwidth]{19-23-gaussian}\bigskip
+
+\textit{Fascia oraria: 19:00 $\rightarrow$ 23:00, bar}
+\[ \mu = 22.5;\ \sigma = 2 \]
+\end{figure}
+
+\target{distribuzione gaussiana P}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.7\textwidth]{19-23-gaussian-pizza}\bigskip
+
+\textit{Fascia oraria: 19:00 $\rightarrow$ 23:00, pizzeria}
+\[ \mu = 20.5;\ \sigma = 1 \]
+\end{figure}
+
+\target{distribuzione gaussiana 23-26}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.7\textwidth]{23-02-gaussian}\bigskip
+
+\textit{Fascia oraria: 23:00 $\rightarrow$ 02:00}
+\[ \mu = 24;\ \sigma = 0.9 \]
+\end{figure}
+
+%__________________________________________
+
+
+\subsection{Interarrivi}
+\subsubsection{Week - orizzonte infinito}
+\target{interarrivo infinito week slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgInterarrivals/week_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{interarrivo infinito week slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgInterarrivals/week_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{interarrivo infinito week slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgInterarrivals/week_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{interarrivo infinito week slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgInterarrivals/week_B_4}
+\centering \textit{}
+\end{figure}
+
+\target{interarrivo infinito week slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgInterarrivals/week_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{interarrivo infinito week P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgInterarrivals/week_P_4}
+\centering \textit{}
+\end{figure}
+
+
+\subsubsection{Weekend - orizzonte infinito}
+\target{interarrivo infinito weekend slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgInterarrivals/weekend_B_0}
+\centering \textit{}
+\end{figure}
+
+\paragraph{Slot 1}
+\target{interarrivo infinito weekend slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgInterarrivals/weekend_B_1}
+\centering \textit{}
+\end{figure}
+
+\paragraph{Slot 3}
+\target{interarrivo infinito weekend slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgInterarrivals/weekend_B_3}
+\centering \textit{}
+\end{figure}
+
+\paragraph{Slot 4}
+\target{interarrivo infinito weekend slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgInterarrivals/weekend_B_4}
+\centering \textit{}
+\end{figure}
+
+\paragraph{Slot 5}
+\target{interarrivo infinito weekend slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgInterarrivals/weekend_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{interarrivo infinito weekend P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgInterarrivals/weekend_P_4}
+\centering \textit{}
+\end{figure}
+%__________________________________________
+
+
+
+\subsection{Attesa}
+\subsubsection{Week - orizzonte infinito}
+\target{attesa infinita week slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgWaits/week_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{attesa infinita week slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgWaits/week_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{attesa infinita week slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgWaits/week_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{attesa infinita week slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgWaits/week_B_4}
+\centering \textit{}
+\end{figure}
+
+\target{attesa infinita week slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgWaits/week_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{attesa infinita week P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgWaits/week_P_4}
+\centering \textit{}
+\end{figure}
+
+
+\subsubsection{Weekend - orizzonte infinito}
+\target{attesa infinita weekend slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgWaits/weekend_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{attesa infinita weekend slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgWaits/weekend_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{attesa infinita weekend slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgWaits/weekend_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{attesa infinita weekend slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgWaits/weekend_B_4}
+\centering \textit{}
+\end{figure}
+
+\target{attesa infinita weekend slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgWaits/weekend_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{attesa infinita weekend P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgWaits/weekend_P_4}
+\centering \textit{}
+\end{figure}
+
+
+\subsubsection{Week - orizzonte finito}
+\target{attesa finita week B no gau}
+\paragraph{Tipo B - no gaussian factor}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/finite/avgWaits/week_B}
+\centering \textit{}
+\end{figure}
+
+\target{attesa finita week P no gau}
+\paragraph{Tipo P - no gaussian factor}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/finite/avgWaits/week_P}
+\centering \textit{}
+\end{figure}
+
+\target{attesa finita week B gau}
+\paragraph{Tipo B - gaussian factor}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/finite/avgWaits/week_B_gau}
+\centering \textit{}
+\end{figure}
+
+\target{attesa finita week P gau}
+\paragraph{Tipo P - gaussian factor}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/finite/avgWaits/week_P_gau}
+\centering \textit{}
+\end{figure}
+
+
+
+\subsubsection{Weekend - orizzonte finito}
+\target{attesa finita weekend B no gau}
+\paragraph{Tipo B}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/finite/avgWaits/weekend_B}
+\centering \textit{}
+\end{figure}
+
+\target{attesa finita weekend P no gau}
+\paragraph{Tipo P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/finite/avgWaits/weekend_P}
+\centering \textit{}
+\end{figure}
+
+\target{attesa finita weekend B gau}
+\paragraph{Tipo B - gaussian factor}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/finite/avgWaits/weekend_B_gau}
+\centering \textit{}
+\end{figure}
+
+\target{attesa finita weekend P gau}
+\paragraph{Tipo P - gaussian factor}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/finite/avgWaits/weekend_P_gau}
+\centering \textit{}
+\end{figure}
+
+
+%__________________________________________
+
+\subsection{Popolazione nel centro}
+\subsubsection{Week - orizzonte infinito}
+\target{centro infinito week slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgNumNodes/week_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{centro infinito week slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgNumNodes/week_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{centro infinito week slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgNumNodes/week_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{centro infinito week slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumNodes/week_B_4}
+\centering \textit{}
+\end{figure}
+
+\target{centro infinito week slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgNumNodes/week_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{centro infinito week P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumNodes/week_P_4}
+\centering \textit{}
+\end{figure}
+
+
+\subsubsection{Weekend - orizzonte infinito}
+\target{centro infinito weekend slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgNumNodes/weekend_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{centro infinito weekend slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgNumNodes/weekend_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{centro infinito weekend slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgNumNodes/weekend_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{centro infinito weekend slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumNodes/weekend_B_4}
+\centering \textit{}
+\end{figure}
+
+\target{centro infinito weekend slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgNumNodes/weekend_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{centro infinito weekend P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumNodes/weekend_P_4}
+\centering \textit{}
+\end{figure}
+
+%__________________________________________
+
+
+\subsection{Ritardo}
+\subsubsection{Week - orizzonte infinito}
+\target{ritardo infinito week slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgDelays/week_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{ritardo infinito week slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgDelays/week_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{ritardo infinito week slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgDelays/week_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{ritardo infinito week slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgDelays/week_B_4}
+\centering \textit{}
+\end{figure}
+
+\target{ritardo infinito week slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgDelays/week_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{ritardo infinito week P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgDelays/week_P_4}
+\centering \textit{}
+\end{figure}
+
+
+\subsubsection{Weekend - orizzonte infinito}
+\target{ritardo infinito weekend slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgDelays/weekend_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{ritardo infinito weekend slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgDelays/weekend_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{ritardo infinito weekend slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgDelays/weekend_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{ritardo infinito weekend slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgDelays/weekend_B_4}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{ritardo infinito weekend P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgDelays/weekend_P_4}
+\centering \textit{}
+\end{figure}
+
+\target{ritardo infinito weekend slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgDelays/weekend_B_5}
+\centering \textit{}
+\end{figure}
+
+
+%__________________________________________
+
+
+\subsection{Popolazione in coda}
+\subsubsection{Week - orizzonte infinito}
+\target{coda infinita week slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgNumQueues/week_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{coda infinita week slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgNumQueues/week_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{coda infinita week slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgNumQueues/week_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{coda infinita week slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumQueues/week_B_4}
+\centering \textit{}
+\end{figure}
+
+\target{coda infinita week slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgNumQueues/week_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{coda infinita week P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumQueues/week_P_4}
+\centering \textit{}
+\end{figure}
+
+\subsubsection{Weekend - orizzonte infinito}
+\target{coda infinita weekend slot 0}
+\paragraph{Slot 0}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_0/avgNumQueues/weekend_B_0}
+\centering \textit{}
+\end{figure}
+
+\target{coda infinita weekend slot 1}
+\paragraph{Slot 1}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_1/avgNumQueues/weekend_B_1}
+\centering \textit{}
+\end{figure}
+
+\target{coda infinita weekend slot 3}
+\paragraph{Slot 3}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_3/avgNumQueues/weekend_B_3}
+\centering \textit{}
+\end{figure}
+
+\target{coda infinita weekend slot 4}
+\paragraph{Slot 4}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumQueues/weekend_B_4}
+\centering \textit{}
+\end{figure}
+
+\target{coda infinita weekend slot 5}
+\paragraph{Slot 5}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_5/avgNumQueues/weekend_B_5}
+\centering \textit{}
+\end{figure}
+
+\paragraph{P}
+\target{coda infinita weekend P}
+\subparagraph*{}
+\begin{figure}[H]
+\centering 
+\includegraphics[width=0.8\textwidth]{/infinite/slot_4/avgNumQueues/weekend_P_4}
+\centering \textit{}
+\end{figure}
 
 \end{document}
