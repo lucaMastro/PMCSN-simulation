@@ -1,0 +1,3575 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/nixos.org) (preloaded format=pdflatex 1980.1.1)  19 SEP 2023 09:57
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**slides_project.tex
+(./slides_project.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24>
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamer.cls
+Document Class: beamer 2022/02/08 v3.66 A class for typesetting presentations
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasemodes.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count185
+)
+\beamer@tempbox=\box50
+\beamer@tempcount=\count186
+\c@beamerpauses=\count187
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasedecode.sty
+\beamer@slideinframe=\count188
+\beamer@minimum=\count189
+\beamer@decode@box=\box51
+)
+\beamer@commentbox=\box52
+\beamer@modecount=\count190
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
+\headdp=\dimen138
+\footheight=\dimen139
+\sidebarheight=\dimen140
+\beamer@tempdim=\dimen141
+\beamer@finalheight=\dimen142
+\beamer@animht=\dimen143
+\beamer@animdp=\dimen144
+\beamer@animwd=\dimen145
+\beamer@leftmargin=\dimen146
+\beamer@rightmargin=\dimen147
+\beamer@leftsidebar=\dimen148
+\beamer@rightsidebar=\dimen149
+\beamer@boxsize=\dimen150
+\beamer@vboxoffset=\dimen151
+\beamer@descdefault=\dimen152
+\beamer@descriptionwidth=\dimen153
+\beamer@lastskip=\skip47
+\beamer@areabox=\box53
+\beamer@animcurrent=\box54
+\beamer@animshowbox=\box55
+\beamer@sectionbox=\box56
+\beamer@logobox=\box57
+\beamer@linebox=\box58
+\beamer@sectioncount=\count191
+\beamer@subsubsectionmax=\count192
+\beamer@subsectionmax=\count193
+\beamer@sectionmax=\count194
+\beamer@totalheads=\count195
+\beamer@headcounter=\count196
+\beamer@partstartpage=\count197
+\beamer@sectionstartpage=\count198
+\beamer@subsectionstartpage=\count199
+\beamer@animationtempa=\count266
+\beamer@animationtempb=\count267
+\beamer@xpos=\count268
+\beamer@ypos=\count269
+\beamer@ypos@offset=\count270
+\beamer@showpartnumber=\count271
+\beamer@currentsubsection=\count272
+\beamer@coveringdepth=\count273
+\beamer@sectionadjust=\count274
+\beamer@toclastsection=\count275
+\beamer@tocsectionnumber=\count276
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaseoptions.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+))
+\beamer@paperwidth=\skip48
+\beamer@paperheight=\skip49
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count277
+\Gm@cntv=\count278
+\c@Gm@tempcnt=\count279
+\Gm@bindingoffset=\dimen154
+\Gm@wd@mp=\dimen155
+\Gm@odd@mp=\dimen156
+\Gm@even@mp=\dimen157
+\Gm@layoutwidth=\dimen158
+\Gm@layoutheight=\dimen159
+\Gm@layouthoffset=\dimen160
+\Gm@layoutvoffset=\dimen161
+\Gm@dimlist=\toks17
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pgf/math/pgfmath.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pgf/utilities/pgfrcs.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks18
+\pgfutil@tempdima=\dimen162
+\pgfutil@tempdimb=\dimen163
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/utilities/pgfutil-common-lists.tex))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box59
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pgf/utilities/pgfkeys.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks19
+\pgfkeys@temptoks=\toks20
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
+\pgfkeys@tmptoks=\toks21
+)))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmath.code.tex
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathutil.code.tex
+\pgf@x=\dimen164
+\pgf@xa=\dimen165
+\pgf@xb=\dimen166
+\pgf@xc=\dimen167
+\pgf@y=\dimen168
+\pgf@ya=\dimen169
+\pgf@yb=\dimen170
+\pgf@yc=\dimen171
+\c@pgf@counta=\count280
+\c@pgf@countb=\count281
+\c@pgf@countc=\count282
+\c@pgf@countd=\count283
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen172
+\pgfmath@count=\count284
+\pgfmath@box=\box60
+\pgfmath@toks=\toks22
+\pgfmath@stack@operand=\toks23
+\pgfmath@stack@operation=\toks24
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.random.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.round.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex)))
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count285
+)))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/size11.clo
+File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pgf/basiclayer/pgfcore.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen173
+\Gin@req@width=\dimen174
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pgf/systemlayer/pgfsys.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex)
+\pgf@x=\dimen175
+\pgf@y=\dimen176
+\pgf@xa=\dimen177
+\pgf@ya=\dimen178
+\pgf@xb=\dimen179
+\pgf@yb=\dimen180
+\pgf@xc=\dimen181
+\pgf@yc=\dimen182
+\pgf@xd=\dimen183
+\pgf@yd=\dimen184
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count286
+\c@pgf@countb=\count287
+\c@pgf@countc=\count288
+\c@pgf@countd=\count289
+\t@pgf@toka=\toks25
+\t@pgf@tokb=\toks26
+\t@pgf@tokc=\toks27
+\pgf@sys@id@count=\count290
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2021/05/15 v3.1.9a (3.1.9a)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
+)))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfsyssoftpath@smallbuffer@items=\count291
+\pgfsyssoftpath@bigbuffer@items=\count292
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen185
+\ar@mcellbox=\box61
+\extrarowheight=\dimen186
+\NC@list=\toks28
+\extratabsurround=\skip50
+\backup@length=\skip51
+\ar@cellbox=\box62
+)
+\everycr=\toks29
+\minrowclearance=\skip52
+)
+\rownum=\count293
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfmath.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/math/pgfint.code.tex)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@picminx=\dimen187
+\pgf@picmaxx=\dimen188
+\pgf@picminy=\dimen189
+\pgf@picmaxy=\dimen190
+\pgf@pathminx=\dimen191
+\pgf@pathmaxx=\dimen192
+\pgf@pathminy=\dimen193
+\pgf@pathmaxy=\dimen194
+\pgf@xx=\dimen195
+\pgf@xy=\dimen196
+\pgf@yx=\dimen197
+\pgf@yy=\dimen198
+\pgf@zx=\dimen199
+\pgf@zy=\dimen256
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@path@lastx=\dimen257
+\pgf@path@lasty=\dimen258
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@shorten@end@additional=\dimen259
+\pgf@shorten@start@additional=\dimen260
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfpic=\box63
+\pgf@hbox=\box64
+\pgf@layerbox@main=\box65
+\pgf@picture@serial@count=\count294
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgflinewidth=\dimen261
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@pt@x=\dimen262
+\pgf@pt@y=\dimen263
+\pgf@pt@temp=\dimen264
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfarrowsep=\dimen265
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@max=\dimen266
+\pgf@sys@shading@range@num=\count295
+\pgf@shadingcount=\count296
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfexternal@startupbox=\box66
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pgf/utilities/xxcolor.sty
+Package: xxcolor 2003/10/24 ver 0.1
+\XC@nummixins=\count297
+\XC@countmixins=\count298
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+)
+\@linkdim=\dimen267
+\Hy@linkcounter=\count299
+\Hy@pagecounter=\count300
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2022-02-21 v7.00n Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count301
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/hyperref/puenc.def
+File: puenc.def 2022-02-21 v7.00n Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `bookmarks' set `true' on input line 4018.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 4018.
+Package hyperref Info: Option `implicit' set `false' on input line 4018.
+Package hyperref Info: Hyper figures OFF on input line 4137.
+Package hyperref Info: Link nesting OFF on input line 4142.
+Package hyperref Info: Hyper index ON on input line 4145.
+Package hyperref Info: Plain pages OFF on input line 4152.
+Package hyperref Info: Backreferencing OFF on input line 4157.
+Package hyperref Info: Implicit mode OFF; no redefinition of LaTeX internals.
+Package hyperref Info: Bookmarks ON on input line 4390.
+\c@Hy@tempcnt=\count302
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4749.
+\XeTeXLinkMargin=\dimen268
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count303
+\Field@Width=\dimen269
+\Fld@charsize=\dimen270
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring OFF on input line 6047.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
+LaTeX Info: Redefining \ref on input line 6097.
+LaTeX Info: Redefining \pageref on input line 6101.
+\Hy@abspage=\count304
+
+
+Package hyperref Message: Stopped early.
+
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2022-02-21 v7.00n Hyperref driver for pdfTeX
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count305
+\c@bookmark@seq@number=\count306
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaserequires.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasecompatibility.sty)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasefont.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks30
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/sansmathaccent/sansmathaccent.sty
+Package: sansmathaccent 2020/01/31
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2021/11/13 v3.35 KOMA-Script package (file load hooks)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/koma-script/scrlfile-hook.sty
+Package: scrlfile-hook 2021/11/13 v3.35 KOMA-Script package (using LaTeX hooks)
+
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/koma-script/scrlogo.sty
+Package: scrlogo 2021/11/13 v3.35 KOMA-Script package (logo)
+)))))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasetranslator.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/translator/translator.sty
+Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasemisc.sty)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasetwoscreens.sty)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaseoverlay.sty
+\beamer@argscount=\count307
+\beamer@lastskipcover=\skip53
+\beamer@trivlistdepth=\count308
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasetitle.sty)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasesection.sty
+\c@lecture=\count309
+\c@part=\count310
+\c@section=\count311
+\c@subsection=\count312
+\c@subsubsection=\count313
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaseframe.sty
+\beamer@framebox=\box67
+\beamer@frametitlebox=\box68
+\beamer@zoombox=\box69
+\beamer@zoomcount=\count314
+\beamer@zoomframecount=\count315
+\beamer@frametextheight=\dimen271
+\c@subsectionslide=\count316
+\beamer@frametopskip=\skip54
+\beamer@framebottomskip=\skip55
+\beamer@frametopskipautobreak=\skip56
+\beamer@framebottomskipautobreak=\skip57
+\beamer@envbody=\toks31
+\framewidth=\dimen272
+\c@framenumber=\count317
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaseverbatim.sty
+\beamer@verbatimfileout=\write4
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaseframesize.sty
+\beamer@splitbox=\box70
+\beamer@autobreakcount=\count318
+\beamer@autobreaklastheight=\dimen273
+\beamer@frametitletoks=\toks32
+\beamer@framesubtitletoks=\toks33
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaseframecomponents.sty
+\beamer@footins=\box71
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasecolor.sty)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasenotes.sty
+\beamer@frameboxcopy=\box72
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasetoc.sty)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasetemplates.sty
+\beamer@sbttoks=\toks34
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaseauxtemplates.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaseboxes.sty
+\bmb@box=\box73
+\bmb@colorbox=\box74
+\bmb@boxwidth=\dimen274
+\bmb@boxheight=\dimen275
+\bmb@prevheight=\dimen276
+\bmb@temp=\dimen277
+\bmb@dima=\dimen278
+\bmb@dimb=\dimen279
+\bmb@prevheight=\dimen280
+)
+\beamer@blockheadheight=\dimen281
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbaselocalstructure.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks35
+)
+\beamer@bibiconwidth=\skip58
+\c@figure=\count319
+\c@table=\count320
+\abovecaptionskip=\skip59
+\belowcaptionskip=\skip60
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasenavigation.sty
+\beamer@section@min@dim=\dimen282
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasetheorems.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2021/10/15 v2.17l AMS math features
+\@mathmargin=\skip61
+
+For additional information on amsmath, use the `?' option.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks36
+\ex@=\dimen283
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen284
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2021/08/26 v2.02 operator names
+)
+\inf@bad=\count321
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count322
+\leftroot@=\count323
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count324
+\DOTSCASE@=\count325
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box75
+\strutbox@=\box76
+\big@size=\dimen285
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count326
+\c@MaxMatrixCols=\count327
+\dotsspace@=\muskip17
+\c@parentequation=\count328
+\dspbrk@lvl=\count329
+\tag@help=\toks37
+\row@=\count330
+\column@=\count331
+\maxfields@=\count332
+\andhelp@=\toks38
+\eqnshift@=\dimen286
+\alignsep@=\dimen287
+\tagshift@=\dimen288
+\tagwidth@=\dimen289
+\totwidth@=\dimen290
+\lineht@=\dimen291
+\@envbody=\toks39
+\multlinegap=\skip62
+\multlinetaggap=\skip63
+\mathdisplay@stack=\toks40
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks41
+\thm@bodyfont=\toks42
+\thm@headfont=\toks43
+\thm@notefont=\toks44
+\thm@headpunct=\toks45
+\thm@preskip=\skip64
+\thm@postskip=\skip65
+\thm@headsep=\skip66
+\dth@everypar=\toks46
+)
+\c@theorem=\count333
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerbasethemes.sty))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerthemedefault.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerfontthemedefault.sty)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamercolorthemedefault.sty)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerinnerthemedefault.sty
+\beamer@dima=\dimen292
+\beamer@dimb=\dimen293
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/beamer/beamerouterthemedefault.sty)))
+(./beamerouterthemeprogress.sty
+\my@tempsize=\skip67
+\c@my@sectnum=\count334
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/ragged2e/ragged2e.sty
+Package: ragged2e 2021/12/15 v3.1 ragged2e Package
+\CenteringLeftskip=\skip68
+\RaggedLeftLeftskip=\skip69
+\RaggedRightLeftskip=\skip70
+\CenteringRightskip=\skip71
+\RaggedLeftRightskip=\skip72
+\RaggedRightRightskip=\skip73
+\CenteringParfillskip=\skip74
+\RaggedLeftParfillskip=\skip75
+\RaggedRightParfillskip=\skip76
+\JustifyingParfillskip=\skip77
+\CenteringParindent=\skip78
+\RaggedLeftParindent=\skip79
+\RaggedRightParindent=\skip80
+\JustifyingParindent=\skip81
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/eurosym/eurosym.sty
+Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
+\@eurobox=\box77
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pythontex/pythontex.sty
+Package: pythontex 2021/06/06 v0.18 execute and typeset Python code and other l
+anguages
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/fvextra/fvextra.sty
+Package: fvextra 2019/02/04 v1.4 fvextra - extensions and patches for fancyvrb
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
+\FV@CodeLineNo=\count335
+\FV@InFile=\read3
+\FV@TabBox=\box78
+\c@FancyVerbLine=\count336
+\FV@StepNumber=\count337
+\FV@OutFile=\write5
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/lineno/lineno.sty
+Package: lineno 2005/11/02 line numbers on paragraphs v4.41
+\linenopenalty=\count338
+\output=\toks47
+\linenoprevgraf=\count339
+\linenumbersep=\dimen294
+\linenumberwidth=\dimen295
+\c@linenumber=\count340
+\c@pagewiselinenumber=\count341
+\c@LN@truepage=\count342
+\c@internallinenumber=\count343
+\c@internallinenumbers=\count344
+\quotelinenumbersep=\dimen296
+\bframerule=\dimen297
+\bframesep=\dimen298
+\bframebox=\box79
+LaTeX Info: Redefining \\ on input line 3056.
+)
+\c@FV@TrueTabGroupLevel=\count345
+\c@FV@TrueTabCounter=\count346
+\FV@TabBox@Group=\box80
+\FV@TmpLength=\skip82
+\c@FV@HighlightLinesStart=\count347
+\c@FV@HighlightLinesStop=\count348
+\FV@LoopCount=\count349
+\FV@NCharsBox=\box81
+\FV@BreakIndent=\dimen299
+\FV@BreakIndentNChars=\count350
+\FV@BreakSymbolSepLeft=\dimen300
+\FV@BreakSymbolSepLeftNChars=\count351
+\FV@BreakSymbolSepRight=\dimen301
+\FV@BreakSymbolSepRightNChars=\count352
+\FV@BreakSymbolIndentLeft=\dimen302
+\FV@BreakSymbolIndentLeftNChars=\count353
+\FV@BreakSymbolIndentRight=\dimen303
+\FV@BreakSymbolIndentRightNChars=\count354
+\c@FancyVerbLineBreakLast=\count355
+\FV@LineBox=\box82
+\FV@LineIndentBox=\box83
+\FV@LineWidth=\dimen304
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/xstring/xstring.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/xstring/xstring.tex
+\integerpart=\count356
+\decimalpart=\count357
+)
+Package: xstring 2021/07/21 v1.84 String manipulations (CT)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pgfopts/pgfopts.sty
+Package: pgfopts 2014/07/10 v2.1a LaTeX package options with pgfkeys
+\pgfopts@list@add@a@toks=\toks48
+\pgfopts@list@add@b@toks=\toks49
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/newfloat/newfloat.sty
+Package: newfloat 2019/09/02 v1.1l Defining new floating environments (AR)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/currfile/currfile.sty
+Package: currfile 2020/09/29 v0.7d Provides the file path elements of the curre
+nt input file
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/filehook/filehook.sty
+Package: filehook 2020/09/29 v0.8a Hooks for input files
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/filehook/filehook-2020.sty
+Package: filehook-2020 2020/09/29 v0.8a Hooks for input files
+))
+\c@currfiledepth=\count358
+)
+\pytx@codefile=\write6
+\openout6 = `slides_project.pytxcode'.
+
+\c@pytx@FancyVerbLineTemp=\count359
+\c@pytx@py@default@default=\count360
+\c@pytx@pycon@default@default=\count361
+\c@pytx@sympy@default@default=\count362
+\c@pytx@sympycon@default@default=\count363
+\c@pytx@pylab@default@default=\count364
+\c@pytx@pylabcon@default@default=\count365
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/tools/hhline.sty
+Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen305
+\lightrulewidth=\dimen306
+\cmidrulewidth=\dimen307
+\belowrulesep=\dimen308
+\belowbottomsep=\dimen309
+\aboverulesep=\dimen310
+\abovetopsep=\dimen311
+\cmidrulesep=\dimen312
+\cmidrulekern=\dimen313
+\defaultaddspace=\dimen314
+\@cmidla=\count366
+\@cmidlb=\count367
+\@aboverulesep=\dimen315
+\@belowrulesep=\dimen316
+\@thisruleclass=\count368
+\@lastruleclass=\count369
+\@thisrulewidth=\dimen317
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/caption/caption.sty
+Package: caption 2022/03/01 v3.6b Customizing captions (AR)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/caption/caption3.sty
+Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
+\caption@tempdima=\dimen318
+\captionmargin=\dimen319
+\caption@leftmargin=\dimen320
+\caption@rightmargin=\dimen321
+\caption@width=\dimen322
+\caption@indent=\dimen323
+\caption@parindent=\dimen324
+\caption@hangindent=\dimen325
+Package caption Info: beamer document class detected.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/caption/caption-beamer.sto
+File: caption-beamer.sto 2022/01/06 v2.0c Adaption of the caption package to th
+e beamer document classes (AR)
+))
+\c@caption@flags=\count370
+\c@continuedfloat=\count371
+Package caption Info: hyperref package is loaded.
+Package caption Info: Hyperref support is turned off
+(caption)             because hyperref has stopped early.
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen326
+\c@nlinenum=\count372
+\TeXr@lab=\toks50
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/lipsum/lipsum.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/l3kernel/expl3.sty
+Package: expl3 2022-02-24 L3 programming layer (loader) 
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count373
+\l__pdf_internal_box=\box84
+))
+Package: l3keys2e 2022-01-12 LaTeX2e option processing using LaTeX3 keys
+)
+Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
+\g__lipsum_par_int=\count374
+\l__lipsum_a_int=\count375
+\l__lipsum_b_int=\count376
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/lipsum/lipsum.ltd.tex))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/psnfss/pifont.sty
+Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
+LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
+
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/psnfss/upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
+
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/psnfss/upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks51
+\inpenc@posthook=\toks52
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/babel/babel.sty
+Package: babel 2022/02/26 3.73 The Babel package
+\babel@savecnt=\count377
+\U@D=\dimen327
+\l@unhyphenated=\language87
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read4
+LaTeX Info: Redefining \textlatin on input line 3969.
+\bbl@dirlevel=\count378
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/babel-italian/italian.ldf
+Language: italian 2020/05/21 v.1.4.04 Italian support for the babel system
+\it@lettering=\count379
+\it@doublequoteactive=\count380
+\it@ISOcompliance=\count381
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/spverbatim/spverbatim.sty
+Package: spverbatim 2009/08/10 v1.0 Verbatim with breakable spaces
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count382
+\float@exts=\toks53
+\float@box=\box85
+\@float@everytoks=\toks54
+\@floatcapt=\box86
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 35.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/newverbs/newverbs.sty
+Package: newverbs 2021/01/06 v1.6 Define new 'verb' commands and short verb. ch
+aracters
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/shortvrb.sty
+Package: shortvrb 2021/10/04 v2.1n Standard LaTeX documentation package (FMi)
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/xifthen/xifthen.sty
+Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count383
+\calc@Bcount=\count384
+\calc@Adimen=\dimen328
+\calc@Bdimen=\dimen329
+\calc@Askip=\skip83
+\calc@Bskip=\skip84
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count385
+\calc@Cskip=\skip85
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/ifmtarg/ifmtarg.sty
+Package: ifmtarg 2018/04/16 v1.2b check for an empty argument
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/multirow/multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip86
+\multirow@cntb=\count386
+\multirow@dima=\skip87
+\bigstrutjot=\dimen330
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2020/08/19 v1.3 Adjusting TeX boxes (trim, clip, ...)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/xkeyval/xkeyval.tex
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks55
+\XKV@tempa@toks=\toks56
+)
+\XKV@depth=\count387
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
+\collectedbox=\box87
+)
+\tc@llx=\dimen331
+\tc@lly=\dimen332
+\tc@urx=\dimen333
+\tc@ury=\dimen334
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen335
+\adjbox@Height=\dimen336
+\adjbox@Depth=\dimen337
+\adjbox@Totalheight=\dimen338
+\adjbox@pwidth=\dimen339
+\adjbox@pheight=\dimen340
+\adjbox@pdepth=\dimen341
+\adjbox@ptotalheight=\dimen342
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count388
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box88
+\sift@deathcycles=\count389
+\@vwid@loff=\dimen343
+\@vwid@roff=\dimen344
+))
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/chngcntr/chngcntr.sty
+Package: chngcntr 2018/04/09 v1.1a change counter resetting
+Package chngcntr Info: \counterwithout already defined.
+(chngcntr)             Quitting chngcntr on input line 21.
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/listings/listings.sty
+\lst@mode=\count390
+\lst@gtempboxa=\box89
+\lst@token=\toks57
+\lst@length=\count391
+\lst@currlwidth=\dimen345
+\lst@column=\count392
+\lst@pos=\count393
+\lst@lostspace=\dimen346
+\lst@width=\dimen347
+\lst@newlines=\count394
+\lst@lineno=\count395
+\lst@maxwidth=\dimen348
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count396
+\lst@skipnumbers=\count397
+\lst@framebox=\box90
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/pgf/utilities/pgfpages.sty
+Package: pgfpages 2011/01/05 ver 0.02
+\pgf@logicalpages=\count398
+\pgf@firstshipout=\count399
+\pgf@lastshipout=\count400
+\pgf@currentshipout=\count401
+\pgf@cpn=\count402
+\pgf@shipoutnextto=\count403
+\pgfphysicalheight=\dimen349
+\pgfphysicalwidth=\dimen350
+\pgfpages@shipoutbox=\box91
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/textpos/textpos.sty
+Package: textpos 2020/09/26 v1.10
+
+Package: textpos 2020/09/26 1.10, absolute positioning of text on the page
+Package textpos Info: choosing support for LaTeX3 on input line 61.
+\TP@textbox=\box92
+\TP@holdbox=\box93
+\TPHorizModule=\dimen351
+\TPVertModule=\dimen352
+\TP@margin=\dimen353
+\TP@absmargin=\dimen354
+Grid set 16 x 16 = 22.7622pt x 17.07166pt
+\TPboxrulesize=\dimen355
+\TP@ox=\dimen356
+\TP@oy=\dimen357
+\TP@tbargs=\toks58
+TextBlockOrigin set to 0pt x 0pt
+) (./slides_project.aux)
+\openout1 = `slides_project.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: custom
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: includehead includefoot 
+* h-part:(L,W,R)=(28.45274pt, 307.28987pt, 28.45274pt)
+* v-part:(T,H,B)=(0.0pt, 273.14662pt, 0.0pt)
+* \paperwidth=364.19536pt
+* \paperheight=273.14662pt
+* \textwidth=307.28987pt
+* \textheight=244.6939pt
+* \oddsidemargin=-43.81725pt
+* \evensidemargin=-43.81725pt
+* \topmargin=-72.26999pt
+* \headheight=14.22636pt
+* \headsep=0.0pt
+* \topskip=11.0pt
+* \footskip=14.22636pt
+* \marginparwidth=4.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count404
+\scratchdimen=\dimen358
+\scratchbox=\box94
+\nofMPsegments=\count405
+\nofMParguments=\count406
+\everyMPshowfont=\toks59
+\MPscratchCnt=\count407
+\MPscratchDim=\dimen359
+\MPnumerator=\count408
+\makeMPintoPDFobject=\count409
+\everyMPtoPDFconversion=\toks60
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package hyperref Info: Link coloring ON on input line 193.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/hyperref/nameref.sty
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count410
+)
+LaTeX Info: Redefining \ref on input line 193.
+LaTeX Info: Redefining \pageref on input line 193.
+LaTeX Info: Redefining \nameref on input line 193.
+
+(./slides_project.out) (./slides_project.out)
+\@outlinefile=\write7
+\openout7 = `slides_project.out'.
+
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 193.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 193.
+\symnumbers=\mathgroup6
+\sympureletters=\mathgroup7
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
+(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 193.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> T1/cmss/b/n on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> T1/cmss/b/n on input line 193.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> T1/cmss/m/n on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> T1/cmss/m/n on input line 193.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> T1/cmss/m/it on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> T1/cmss/m/it on input line 193.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 193.
+LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
+(Font)                  T1/cmss/m/n --> T1/cmss/b/n on input line 193.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
+(Font)                  OT1/cmss/b/n --> T1/cmr/b/n on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  T1/cmss/b/n --> T1/cmss/b/n on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  T1/cmss/m/n --> T1/cmss/b/n on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 193.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 193.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 193.
+LaTeX Font Info:    Encoding `T1' has changed to `OT1' for symbol font
+(Font)              `pureletters' in the math version `normal' on input line 19
+3.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
+(Font)                  T1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 19
+3.
+LaTeX Font Info:    Encoding `T1' has changed to `OT1' for symbol font
+(Font)              `pureletters' in the math version `bold' on input line 193.
+
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  T1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 19
+3.
+LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
+ut line 193.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/translator/translator-basic-dictionary-English.dict
+Dictionary: translator-basic-dictionary, Language: English 
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/translator/translator-bibliography-dictionary-English.dict
+Dictionary: translator-bibliography-dictionary, Language: English 
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/translator/translator-environment-dictionary-English.dict
+Dictionary: translator-environment-dictionary, Language: English 
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/translator/translator-months-dictionary-English.dict
+Dictionary: translator-months-dictionary, Language: English 
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/translator/translator-numbers-dictionary-English.dict
+Dictionary: translator-numbers-dictionary, Language: English 
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/translator/translator-theorem-dictionary-English.dict
+Dictionary: translator-theorem-dictionary, Language: English 
+)
+Package newfloat Info: `float' package detected.
+
+No file pythontex-files-slides_project/slides_project.pytxmcr.
+Run PythonTeX to create it.
+Package newfloat Info: New float `listing' with options `fileext=lopytx' on inp
+ut line 193.
+\c@listing=\count411
+Package newfloat Info: float type `listing'=4 on input line 193.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Info: Redefining \it@ocap on input line 193.
+LaTeX Info: Redefining \it@ccap on input line 193.
+\c@lstlisting=\count412
+(./slides_project.nav)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 193
+.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 193
+.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
+ut line 193.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/sansmathaccent/ot1mathkerncmss.fd
+File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
+thkerncmss.
+)
+Overfull \hbox (44.64261pt too wide) in paragraph at lines 193--193
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+
+Package hyperref Warning: Option `pdfauthor' has already been used,
+(hyperref)                setting the option has no effect on input line 197.
+
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[1
+
+{/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./slides_project.toc)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[2
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+
+ []
+
+[3
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][]  
+ []
+
+[4
+
+] (./slides_project.toc)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][]  
+ []
+
+[5
+
+]
+<./images//conceptual_model.png, id=512, 1091.07625pt x 507.8975pt>
+File: ./images//conceptual_model.png Graphic file (type png)
+<use ./images//conceptual_model.png>
+Package pdftex.def Info: ./images//conceptual_model.png  used on input line 243
+.
+(pdftex.def)             Requested size: 218.21138pt x 101.5777pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][]  
+ []
+
+[6
+
+ <./images//conceptual_model.png>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][]  
+ []
+
+[7
+
+] (./slides_project.toc)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[8
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[9
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[10
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ 
+ []
+
+[11
+
+] (./slides_project.toc)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][]  
+ []
+
+[12
+
+]
+<./images//program_help.png, id=992, 1176.03pt x 610.07143pt>
+File: ./images//program_help.png Graphic file (type png)
+<use ./images//program_help.png>
+Package pdftex.def Info: ./images//program_help.png  used on input line 335.
+(pdftex.def)             Requested size: 235.20183pt x 122.01212pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][]  
+ []
+
+[13
+
+ <./images//program_help.png (PNG copy)>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][]  
+ []
+
+[14
+
+]
+\openout4 = `slides_project.vrb'.
+
+ (./slides_project.vrb
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
+.
+
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+))
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[15
+
+] (./slides_project.toc)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[16
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[17
+
+]
+\openout4 = `slides_project.vrb'.
+
+ (./slides_project.vrb)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[18
+
+]
+Overfull \hbox (2.41777pt too wide) in paragraph at lines 500--500
+[]$[]$ $[]$
+ []
+
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+  
+ []
+
+[19
+
+]
+Overfull \hbox (1.59329pt too wide) in paragraph at lines 522--522
+[]\T1/cmss/m/n/10.95 Per man-te-ne-re un'a-na-li-si me-dia equi-li-bra-ta, si è
+ in-tro-dot-ta un'op-
+ []
+
+
+Overfull \hbox (2.41777pt too wide) in paragraph at lines 522--522
+[]$[]$ $[]$ 
+ []
+
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][]  
+ []
+
+[20
+
+]
+\openout4 = `slides_project.vrb'.
+
+ (./slides_project.vrb
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/s
+hare/texmf/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+))
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][]  
+ []
+
+[21
+
+]
+\openout4 = `slides_project.vrb'.
+
+ (./slides_project.vrb
+<./images//rho_services_b.png, id=1592, 628.84285pt x 403.58571pt>
+File: ./images//rho_services_b.png Graphic file (type png)
+<use ./images//rho_services_b.png>
+Package pdftex.def Info: ./images//rho_services_b.png  used on input line 13.
+(pdftex.def)             Requested size: 122.91406pt x 78.88055pt.
+<./images//rho_services_p.png, id=1593, 628.84285pt x 403.58571pt>
+File: ./images//rho_services_p.png Graphic file (type png)
+<use ./images//rho_services_p.png>
+Package pdftex.def Info: ./images//rho_services_p.png  used on input line 17.
+(pdftex.def)             Requested size: 122.91406pt x 78.88055pt.
+)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][]  
+ []
+
+[22
+
+ <./images//rho_services_b.png (PNG copy)> <./images//rho_services_p.png (PNG c
+opy)>] (./slides_project.toc)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[23
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[24
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[25
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[26
+
+]
+<./images///infinite/slot_0/avgInterarrivals/week_B_0.png, id=1926, 722.7pt x 4
+33.62pt>
+File: ./images///infinite/slot_0/avgInterarrivals/week_B_0.png Graphic file (ty
+pe png)
+<use ./images///infinite/slot_0/avgInterarrivals/week_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgInterarrivals/week_B_0.p
+ng  used on input line 650.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgInterarrivals/week_B_1.png, id=1927, 722.7pt x 4
+33.62pt>
+File: ./images///infinite/slot_1/avgInterarrivals/week_B_1.png Graphic file (ty
+pe png)
+<use ./images///infinite/slot_1/avgInterarrivals/week_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgInterarrivals/week_B_1.p
+ng  used on input line 650.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgInterarrivals/week_B_3.png, id=1928, 722.7pt x 4
+33.62pt>
+File: ./images///infinite/slot_3/avgInterarrivals/week_B_3.png Graphic file (ty
+pe png)
+<use ./images///infinite/slot_3/avgInterarrivals/week_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgInterarrivals/week_B_3.p
+ng  used on input line 650.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgInterarrivals/week_B_4.png, id=1929, 722.7pt x 4
+33.62pt>
+File: ./images///infinite/slot_4/avgInterarrivals/week_B_4.png Graphic file (ty
+pe png)
+<use ./images///infinite/slot_4/avgInterarrivals/week_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgInterarrivals/week_B_4.p
+ng  used on input line 650.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgInterarrivals/week_B_5.png, id=1930, 722.7pt x 4
+33.62pt>
+File: ./images///infinite/slot_5/avgInterarrivals/week_B_5.png Graphic file (ty
+pe png)
+<use ./images///infinite/slot_5/avgInterarrivals/week_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgInterarrivals/week_B_5.p
+ng  used on input line 650.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+]  
+ []
+
+[27
+
+ <./images///infinite/slot_0/avgInterarrivals/week_B_0.png> <./images///infinit
+e/slot_1/avgInterarrivals/week_B_1.png> <./images///infinite/slot_3/avgInterarr
+ivals/week_B_3.png> <./images///infinite/slot_4/avgInterarrivals/week_B_4.png> 
+<./images///infinite/slot_5/avgInterarrivals/week_B_5.png>]
+<./images///infinite/slot_0/avgInterarrivals/weekend_B_0.png, id=2001, 722.7pt 
+x 433.62pt>
+File: ./images///infinite/slot_0/avgInterarrivals/weekend_B_0.png Graphic file 
+(type png)
+<use ./images///infinite/slot_0/avgInterarrivals/weekend_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgInterarrivals/weekend_B_
+0.png  used on input line 660.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgInterarrivals/weekend_B_1.png, id=2002, 722.7pt 
+x 433.62pt>
+File: ./images///infinite/slot_1/avgInterarrivals/weekend_B_1.png Graphic file 
+(type png)
+<use ./images///infinite/slot_1/avgInterarrivals/weekend_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgInterarrivals/weekend_B_
+1.png  used on input line 660.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgInterarrivals/weekend_B_3.png, id=2003, 722.7pt 
+x 433.62pt>
+File: ./images///infinite/slot_3/avgInterarrivals/weekend_B_3.png Graphic file 
+(type png)
+<use ./images///infinite/slot_3/avgInterarrivals/weekend_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgInterarrivals/weekend_B_
+3.png  used on input line 660.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgInterarrivals/weekend_B_4.png, id=2004, 722.7pt 
+x 433.62pt>
+File: ./images///infinite/slot_4/avgInterarrivals/weekend_B_4.png Graphic file 
+(type png)
+<use ./images///infinite/slot_4/avgInterarrivals/weekend_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgInterarrivals/weekend_B_
+4.png  used on input line 660.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgInterarrivals/weekend_B_5.png, id=2005, 722.7pt 
+x 433.62pt>
+File: ./images///infinite/slot_5/avgInterarrivals/weekend_B_5.png Graphic file 
+(type png)
+<use ./images///infinite/slot_5/avgInterarrivals/weekend_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgInterarrivals/weekend_B_
+5.png  used on input line 660.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][]  
+ []
+
+[28
+
+ <./images///infinite/slot_0/avgInterarrivals/weekend_B_0.png> <./images///infi
+nite/slot_1/avgInterarrivals/weekend_B_1.png> <./images///infinite/slot_3/avgIn
+terarrivals/weekend_B_3.png> <./images///infinite/slot_4/avgInterarrivals/weeke
+nd_B_4.png> <./images///infinite/slot_5/avgInterarrivals/weekend_B_5.png>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][]  
+ []
+
+[29
+
+]
+<./images///infinite/slot_0/avgWaits/week_B_0.png, id=2140, 722.7pt x 433.62pt>
+
+File: ./images///infinite/slot_0/avgWaits/week_B_0.png Graphic file (type png)
+<use ./images///infinite/slot_0/avgWaits/week_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgWaits/week_B_0.png  used
+ on input line 707.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgWaits/week_B_1.png, id=2141, 722.7pt x 433.62pt>
+
+File: ./images///infinite/slot_1/avgWaits/week_B_1.png Graphic file (type png)
+<use ./images///infinite/slot_1/avgWaits/week_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgWaits/week_B_1.png  used
+ on input line 707.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgWaits/week_B_3.png, id=2142, 722.7pt x 433.62pt>
+
+File: ./images///infinite/slot_3/avgWaits/week_B_3.png Graphic file (type png)
+<use ./images///infinite/slot_3/avgWaits/week_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgWaits/week_B_3.png  used
+ on input line 707.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgWaits/week_B_4.png, id=2143, 722.7pt x 433.62pt>
+
+File: ./images///infinite/slot_4/avgWaits/week_B_4.png Graphic file (type png)
+<use ./images///infinite/slot_4/avgWaits/week_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgWaits/week_B_4.png  used
+ on input line 707.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgWaits/week_B_5.png, id=2144, 722.7pt x 433.62pt>
+
+File: ./images///infinite/slot_5/avgWaits/week_B_5.png Graphic file (type png)
+<use ./images///infinite/slot_5/avgWaits/week_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgWaits/week_B_5.png  used
+ on input line 707.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][]  
+ []
+
+[30
+
+ <./images///infinite/slot_0/avgWaits/week_B_0.png> <./images///infinite/slot_1
+/avgWaits/week_B_1.png> <./images///infinite/slot_3/avgWaits/week_B_3.png> <./i
+mages///infinite/slot_4/avgWaits/week_B_4.png> <./images///infinite/slot_5/avgW
+aits/week_B_5.png>]
+<./images///infinite/slot_0/avgWaits/weekend_B_0.png, id=2214, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_0/avgWaits/weekend_B_0.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_0/avgWaits/weekend_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgWaits/weekend_B_0.png  u
+sed on input line 716.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgWaits/weekend_B_1.png, id=2215, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_1/avgWaits/weekend_B_1.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_1/avgWaits/weekend_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgWaits/weekend_B_1.png  u
+sed on input line 716.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgWaits/weekend_B_3.png, id=2216, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_3/avgWaits/weekend_B_3.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_3/avgWaits/weekend_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgWaits/weekend_B_3.png  u
+sed on input line 716.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgWaits/weekend_B_4.png, id=2217, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_4/avgWaits/weekend_B_4.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_4/avgWaits/weekend_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgWaits/weekend_B_4.png  u
+sed on input line 716.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgWaits/weekend_B_5.png, id=2218, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_5/avgWaits/weekend_B_5.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_5/avgWaits/weekend_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgWaits/weekend_B_5.png  u
+sed on input line 716.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[31
+
+ <./images///infinite/slot_0/avgWaits/weekend_B_0.png> <./images///infinite/slo
+t_1/avgWaits/weekend_B_1.png> <./images///infinite/slot_3/avgWaits/weekend_B_3.
+png> <./images///infinite/slot_4/avgWaits/weekend_B_4.png> <./images///infinite
+/slot_5/avgWaits/weekend_B_5.png>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[32
+
+]
+<./images///infinite/slot_0/avgNumNodes/week_B_0.png, id=2355, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_0/avgNumNodes/week_B_0.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_0/avgNumNodes/week_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgNumNodes/week_B_0.png  u
+sed on input line 764.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgNumNodes/week_B_1.png, id=2356, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_1/avgNumNodes/week_B_1.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_1/avgNumNodes/week_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgNumNodes/week_B_1.png  u
+sed on input line 764.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgNumNodes/week_B_3.png, id=2357, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_3/avgNumNodes/week_B_3.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_3/avgNumNodes/week_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgNumNodes/week_B_3.png  u
+sed on input line 764.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgNumNodes/week_B_4.png, id=2358, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_4/avgNumNodes/week_B_4.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_4/avgNumNodes/week_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgNumNodes/week_B_4.png  u
+sed on input line 764.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgNumNodes/week_B_5.png, id=2359, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_5/avgNumNodes/week_B_5.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_5/avgNumNodes/week_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgNumNodes/week_B_5.png  u
+sed on input line 764.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[33
+
+ <./images///infinite/slot_0/avgNumNodes/week_B_0.png> <./images///infinite/slo
+t_1/avgNumNodes/week_B_1.png> <./images///infinite/slot_3/avgNumNodes/week_B_3.
+png> <./images///infinite/slot_4/avgNumNodes/week_B_4.png> <./images///infinite
+/slot_5/avgNumNodes/week_B_5.png>]
+<./images///infinite/slot_0/avgNumNodes/weekend_B_0.png, id=2429, 722.7pt x 433
+.62pt>
+File: ./images///infinite/slot_0/avgNumNodes/weekend_B_0.png Graphic file (type
+ png)
+<use ./images///infinite/slot_0/avgNumNodes/weekend_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgNumNodes/weekend_B_0.png
+  used on input line 772.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgNumNodes/weekend_B_1.png, id=2430, 722.7pt x 433
+.62pt>
+File: ./images///infinite/slot_1/avgNumNodes/weekend_B_1.png Graphic file (type
+ png)
+<use ./images///infinite/slot_1/avgNumNodes/weekend_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgNumNodes/weekend_B_1.png
+  used on input line 772.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgNumNodes/weekend_B_3.png, id=2431, 722.7pt x 433
+.62pt>
+File: ./images///infinite/slot_3/avgNumNodes/weekend_B_3.png Graphic file (type
+ png)
+<use ./images///infinite/slot_3/avgNumNodes/weekend_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgNumNodes/weekend_B_3.png
+  used on input line 772.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgNumNodes/weekend_B_4.png, id=2432, 722.7pt x 433
+.62pt>
+File: ./images///infinite/slot_4/avgNumNodes/weekend_B_4.png Graphic file (type
+ png)
+<use ./images///infinite/slot_4/avgNumNodes/weekend_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgNumNodes/weekend_B_4.png
+  used on input line 772.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgNumNodes/weekend_B_5.png, id=2433, 722.7pt x 433
+.62pt>
+File: ./images///infinite/slot_5/avgNumNodes/weekend_B_5.png Graphic file (type
+ png)
+<use ./images///infinite/slot_5/avgNumNodes/weekend_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgNumNodes/weekend_B_5.png
+  used on input line 772.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[34
+
+ <./images///infinite/slot_0/avgNumNodes/weekend_B_0.png> <./images///infinite/
+slot_1/avgNumNodes/weekend_B_1.png> <./images///infinite/slot_3/avgNumNodes/wee
+kend_B_3.png> <./images///infinite/slot_4/avgNumNodes/weekend_B_4.png> <./image
+s///infinite/slot_5/avgNumNodes/weekend_B_5.png>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[]  
+ []
+
+[35
+
+]
+<./images///infinite/slot_0/avgDelays/week_B_0.png, id=2569, 722.7pt x 433.62pt
+>
+File: ./images///infinite/slot_0/avgDelays/week_B_0.png Graphic file (type png)
+
+<use ./images///infinite/slot_0/avgDelays/week_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgDelays/week_B_0.png  use
+d on input line 822.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgDelays/week_B_1.png, id=2570, 722.7pt x 433.62pt
+>
+File: ./images///infinite/slot_1/avgDelays/week_B_1.png Graphic file (type png)
+
+<use ./images///infinite/slot_1/avgDelays/week_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgDelays/week_B_1.png  use
+d on input line 822.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgDelays/week_B_3.png, id=2571, 722.7pt x 433.62pt
+>
+File: ./images///infinite/slot_3/avgDelays/week_B_3.png Graphic file (type png)
+
+<use ./images///infinite/slot_3/avgDelays/week_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgDelays/week_B_3.png  use
+d on input line 822.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgDelays/week_B_4.png, id=2572, 722.7pt x 433.62pt
+>
+File: ./images///infinite/slot_4/avgDelays/week_B_4.png Graphic file (type png)
+
+<use ./images///infinite/slot_4/avgDelays/week_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgDelays/week_B_4.png  use
+d on input line 822.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgDelays/week_B_5.png, id=2573, 722.7pt x 433.62pt
+>
+File: ./images///infinite/slot_5/avgDelays/week_B_5.png Graphic file (type png)
+
+<use ./images///infinite/slot_5/avgDelays/week_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgDelays/week_B_5.png  use
+d on input line 822.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][]  
+ []
+
+[36
+
+ <./images///infinite/slot_0/avgDelays/week_B_0.png> <./images///infinite/slot_
+1/avgDelays/week_B_1.png> <./images///infinite/slot_3/avgDelays/week_B_3.png> <
+./images///infinite/slot_4/avgDelays/week_B_4.png> <./images///infinite/slot_5/
+avgDelays/week_B_5.png>]
+<./images///infinite/slot_0/avgDelays/weekend_B_0.png, id=2643, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_0/avgDelays/weekend_B_0.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_0/avgDelays/weekend_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgDelays/weekend_B_0.png  
+used on input line 830.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgDelays/weekend_B_1.png, id=2644, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_1/avgDelays/weekend_B_1.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_1/avgDelays/weekend_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgDelays/weekend_B_1.png  
+used on input line 830.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgDelays/weekend_B_3.png, id=2645, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_3/avgDelays/weekend_B_3.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_3/avgDelays/weekend_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgDelays/weekend_B_3.png  
+used on input line 830.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgDelays/weekend_B_4.png, id=2646, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_4/avgDelays/weekend_B_4.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_4/avgDelays/weekend_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgDelays/weekend_B_4.png  
+used on input line 830.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgDelays/weekend_B_5.png, id=2647, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_5/avgDelays/weekend_B_5.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_5/avgDelays/weekend_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgDelays/weekend_B_5.png  
+used on input line 830.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][]  
+ []
+
+[37
+
+ <./images///infinite/slot_0/avgDelays/weekend_B_0.png> <./images///infinite/sl
+ot_1/avgDelays/weekend_B_1.png> <./images///infinite/slot_3/avgDelays/weekend_B
+_3.png> <./images///infinite/slot_4/avgDelays/weekend_B_4.png> <./images///infi
+nite/slot_5/avgDelays/weekend_B_5.png>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][]  
+ []
+
+[38
+
+]
+<./images///infinite/slot_0/avgNumQueues/week_B_0.png, id=2784, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_0/avgNumQueues/week_B_0.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_0/avgNumQueues/week_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgNumQueues/week_B_0.png  
+used on input line 880.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgNumQueues/week_B_1.png, id=2785, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_1/avgNumQueues/week_B_1.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_1/avgNumQueues/week_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgNumQueues/week_B_1.png  
+used on input line 880.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgNumQueues/week_B_3.png, id=2786, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_3/avgNumQueues/week_B_3.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_3/avgNumQueues/week_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgNumQueues/week_B_3.png  
+used on input line 880.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgNumQueues/week_B_4.png, id=2787, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_4/avgNumQueues/week_B_4.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_4/avgNumQueues/week_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgNumQueues/week_B_4.png  
+used on input line 880.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgNumQueues/week_B_5.png, id=2788, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_5/avgNumQueues/week_B_5.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_5/avgNumQueues/week_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgNumQueues/week_B_5.png  
+used on input line 880.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[39
+
+ <./images///infinite/slot_0/avgNumQueues/week_B_0.png> <./images///infinite/sl
+ot_1/avgNumQueues/week_B_1.png> <./images///infinite/slot_3/avgNumQueues/week_B
+_3.png> <./images///infinite/slot_4/avgNumQueues/week_B_4.png> <./images///infi
+nite/slot_5/avgNumQueues/week_B_5.png>]
+<./images///infinite/slot_0/avgNumQueues/weekend_B_0.png, id=2858, 722.7pt x 43
+3.62pt>
+File: ./images///infinite/slot_0/avgNumQueues/weekend_B_0.png Graphic file (typ
+e png)
+<use ./images///infinite/slot_0/avgNumQueues/weekend_B_0.png>
+Package pdftex.def Info: ./images///infinite/slot_0/avgNumQueues/weekend_B_0.pn
+g  used on input line 888.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_1/avgNumQueues/weekend_B_1.png, id=2859, 722.7pt x 43
+3.62pt>
+File: ./images///infinite/slot_1/avgNumQueues/weekend_B_1.png Graphic file (typ
+e png)
+<use ./images///infinite/slot_1/avgNumQueues/weekend_B_1.png>
+Package pdftex.def Info: ./images///infinite/slot_1/avgNumQueues/weekend_B_1.pn
+g  used on input line 888.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_3/avgNumQueues/weekend_B_3.png, id=2860, 722.7pt x 43
+3.62pt>
+File: ./images///infinite/slot_3/avgNumQueues/weekend_B_3.png Graphic file (typ
+e png)
+<use ./images///infinite/slot_3/avgNumQueues/weekend_B_3.png>
+Package pdftex.def Info: ./images///infinite/slot_3/avgNumQueues/weekend_B_3.pn
+g  used on input line 888.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgNumQueues/weekend_B_4.png, id=2861, 722.7pt x 43
+3.62pt>
+File: ./images///infinite/slot_4/avgNumQueues/weekend_B_4.png Graphic file (typ
+e png)
+<use ./images///infinite/slot_4/avgNumQueues/weekend_B_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgNumQueues/weekend_B_4.pn
+g  used on input line 888.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_5/avgNumQueues/weekend_B_5.png, id=2862, 722.7pt x 43
+3.62pt>
+File: ./images///infinite/slot_5/avgNumQueues/weekend_B_5.png Graphic file (typ
+e png)
+<use ./images///infinite/slot_5/avgNumQueues/weekend_B_5.png>
+Package pdftex.def Info: ./images///infinite/slot_5/avgNumQueues/weekend_B_5.pn
+g  used on input line 888.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[40
+
+ <./images///infinite/slot_0/avgNumQueues/weekend_B_0.png> <./images///infinite
+/slot_1/avgNumQueues/weekend_B_1.png> <./images///infinite/slot_3/avgNumQueues/
+weekend_B_3.png> <./images///infinite/slot_4/avgNumQueues/weekend_B_4.png> <./i
+mages///infinite/slot_5/avgNumQueues/weekend_B_5.png>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[41
+
+]
+<./images///infinite/slot_4/avgInterarrivals/week_P_4.png, id=2997, 722.7pt x 4
+33.62pt>
+File: ./images///infinite/slot_4/avgInterarrivals/week_P_4.png Graphic file (ty
+pe png)
+<use ./images///infinite/slot_4/avgInterarrivals/week_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgInterarrivals/week_P_4.p
+ng  used on input line 938.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgWaits/week_P_4.png, id=2998, 722.7pt x 433.62pt>
+
+File: ./images///infinite/slot_4/avgWaits/week_P_4.png Graphic file (type png)
+<use ./images///infinite/slot_4/avgWaits/week_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgWaits/week_P_4.png  used
+ on input line 938.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgNumNodes/week_P_4.png, id=2999, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_4/avgNumNodes/week_P_4.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_4/avgNumNodes/week_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgNumNodes/week_P_4.png  u
+sed on input line 938.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgDelays/week_P_4.png, id=3000, 722.7pt x 433.62pt
+>
+File: ./images///infinite/slot_4/avgDelays/week_P_4.png Graphic file (type png)
+
+<use ./images///infinite/slot_4/avgDelays/week_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgDelays/week_P_4.png  use
+d on input line 938.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgNumQueues/week_P_4.png, id=3001, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_4/avgNumQueues/week_P_4.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_4/avgNumQueues/week_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgNumQueues/week_P_4.png  
+used on input line 938.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[42
+
+ <./images///infinite/slot_4/avgInterarrivals/week_P_4.png> <./images///infinit
+e/slot_4/avgWaits/week_P_4.png> <./images///infinite/slot_4/avgNumNodes/week_P_
+4.png> <./images///infinite/slot_4/avgDelays/week_P_4.png> <./images///infinite
+/slot_4/avgNumQueues/week_P_4.png>]
+<./images///infinite/slot_4/avgInterarrivals/weekend_P_4.png, id=3072, 722.7pt 
+x 433.62pt>
+File: ./images///infinite/slot_4/avgInterarrivals/weekend_P_4.png Graphic file 
+(type png)
+<use ./images///infinite/slot_4/avgInterarrivals/weekend_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgInterarrivals/weekend_P_
+4.png  used on input line 946.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgWaits/weekend_P_4.png, id=3073, 722.7pt x 433.62
+pt>
+File: ./images///infinite/slot_4/avgWaits/weekend_P_4.png Graphic file (type pn
+g)
+<use ./images///infinite/slot_4/avgWaits/weekend_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgWaits/weekend_P_4.png  u
+sed on input line 946.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgNumNodes/weekend_P_4.png, id=3074, 722.7pt x 433
+.62pt>
+File: ./images///infinite/slot_4/avgNumNodes/weekend_P_4.png Graphic file (type
+ png)
+<use ./images///infinite/slot_4/avgNumNodes/weekend_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgNumNodes/weekend_P_4.png
+  used on input line 946.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgDelays/weekend_P_4.png, id=3075, 722.7pt x 433.6
+2pt>
+File: ./images///infinite/slot_4/avgDelays/weekend_P_4.png Graphic file (type p
+ng)
+<use ./images///infinite/slot_4/avgDelays/weekend_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgDelays/weekend_P_4.png  
+used on input line 946.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+<./images///infinite/slot_4/avgNumQueues/weekend_P_4.png, id=3076, 722.7pt x 43
+3.62pt>
+File: ./images///infinite/slot_4/avgNumQueues/weekend_P_4.png Graphic file (typ
+e png)
+<use ./images///infinite/slot_4/avgNumQueues/weekend_P_4.png>
+Package pdftex.def Info: ./images///infinite/slot_4/avgNumQueues/weekend_P_4.pn
+g  used on input line 946.
+(pdftex.def)             Requested size: 122.91406pt x 73.7475pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][]  
+ []
+
+[43
+
+ <./images///infinite/slot_4/avgInterarrivals/weekend_P_4.png> <./images///infi
+nite/slot_4/avgWaits/weekend_P_4.png> <./images///infinite/slot_4/avgNumNodes/w
+eekend_P_4.png> <./images///infinite/slot_4/avgDelays/weekend_P_4.png> <./image
+s///infinite/slot_4/avgNumQueues/weekend_P_4.png>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][]  
+ []
+
+[44
+
+] (./slides_project.toc)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][]  
+ []
+
+[45
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][]  
+ []
+
+[46
+
+]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[47
+
+]
+<./images///finite/avgWaits/week_B.png, id=3416, 722.7pt x 433.62pt>
+File: ./images///finite/avgWaits/week_B.png Graphic file (type png)
+<use ./images///finite/avgWaits/week_B.png>
+Package pdftex.def Info: ./images///finite/avgWaits/week_B.png  used on input l
+ine 1046.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgWaits/week_P.png, id=3417, 722.7pt x 433.62pt>
+File: ./images///finite/avgWaits/week_P.png Graphic file (type png)
+<use ./images///finite/avgWaits/week_P.png>
+Package pdftex.def Info: ./images///finite/avgWaits/week_P.png  used on input l
+ine 1046.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgWaits/weekend_B.png, id=3418, 722.7pt x 433.62pt>
+File: ./images///finite/avgWaits/weekend_B.png Graphic file (type png)
+<use ./images///finite/avgWaits/weekend_B.png>
+Package pdftex.def Info: ./images///finite/avgWaits/weekend_B.png  used on inpu
+t line 1046.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgWaits/weekend_P.png, id=3419, 722.7pt x 433.62pt>
+File: ./images///finite/avgWaits/weekend_P.png Graphic file (type png)
+<use ./images///finite/avgWaits/weekend_P.png>
+Package pdftex.def Info: ./images///finite/avgWaits/weekend_P.png  used on inpu
+t line 1046.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (2.41777pt too wide) in paragraph at lines 1046--1046
+[]$[]$ $[]$ 
+ []
+
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[48
+
+ <./images///finite/avgWaits/week_B.png> <./images///finite/avgWaits/week_P.png
+> <./images///finite/avgWaits/weekend_B.png> <./images///finite/avgWaits/weeken
+d_P.png>]
+<./images///finite/avgWaits/week_B_gau.png, id=3489, 722.7pt x 433.62pt>
+File: ./images///finite/avgWaits/week_B_gau.png Graphic file (type png)
+<use ./images///finite/avgWaits/week_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgWaits/week_B_gau.png  used on inp
+ut line 1061.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgWaits/week_P_gau.png, id=3490, 722.7pt x 433.62pt>
+File: ./images///finite/avgWaits/week_P_gau.png Graphic file (type png)
+<use ./images///finite/avgWaits/week_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgWaits/week_P_gau.png  used on inp
+ut line 1061.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgWaits/weekend_B_gau.png, id=3491, 722.7pt x 433.62pt>
+File: ./images///finite/avgWaits/weekend_B_gau.png Graphic file (type png)
+<use ./images///finite/avgWaits/weekend_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgWaits/weekend_B_gau.png  used on 
+input line 1061.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgWaits/weekend_P_gau.png, id=3492, 722.7pt x 433.62pt>
+File: ./images///finite/avgWaits/weekend_P_gau.png Graphic file (type png)
+<use ./images///finite/avgWaits/weekend_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgWaits/weekend_P_gau.png  used on 
+input line 1061.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (2.41777pt too wide) in paragraph at lines 1061--1061
+[]$[]$ $[]$ 
+ []
+
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[49
+
+ <./images///finite/avgWaits/week_B_gau.png> <./images///finite/avgWaits/week_P
+_gau.png> <./images///finite/avgWaits/weekend_B_gau.png> <./images///finite/avg
+Waits/weekend_P_gau.png>]
+\openout4 = `slides_project.vrb'.
+
+ (./slides_project.vrb)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[50
+
+] (./slides_project.toc)
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][]  
+ []
+
+[51
+
+]
+<./images///finite/avgInterarrivals/week_B.png, id=3700, 722.7pt x 433.62pt>
+File: ./images///finite/avgInterarrivals/week_B.png Graphic file (type png)
+<use ./images///finite/avgInterarrivals/week_B.png>
+Package pdftex.def Info: ./images///finite/avgInterarrivals/week_B.png  used on
+ input line 1144.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgInterarrivals/weekend_B.png, id=3701, 722.7pt x 433.62pt>
+
+File: ./images///finite/avgInterarrivals/weekend_B.png Graphic file (type png)
+<use ./images///finite/avgInterarrivals/weekend_B.png>
+Package pdftex.def Info: ./images///finite/avgInterarrivals/weekend_B.png  used
+ on input line 1144.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgInterarrivals/week_B_gau.png, id=3702, 722.7pt x 433.62pt
+>
+File: ./images///finite/avgInterarrivals/week_B_gau.png Graphic file (type png)
+
+<use ./images///finite/avgInterarrivals/week_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgInterarrivals/week_B_gau.png  use
+d on input line 1144.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgInterarrivals/weekend_B_gau.png, id=3703, 722.7pt x 433.6
+2pt>
+File: ./images///finite/avgInterarrivals/weekend_B_gau.png Graphic file (type p
+ng)
+<use ./images///finite/avgInterarrivals/weekend_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgInterarrivals/weekend_B_gau.png  
+used on input line 1144.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][]  
+ []
+
+[52
+
+ <./images///finite/avgInterarrivals/week_B.png> <./images///finite/avgInterarr
+ivals/weekend_B.png> <./images///finite/avgInterarrivals/week_B_gau.png> <./ima
+ges///finite/avgInterarrivals/weekend_B_gau.png>]
+<./images///finite/avgInterarrivals/week_P.png, id=3773, 722.7pt x 433.62pt>
+File: ./images///finite/avgInterarrivals/week_P.png Graphic file (type png)
+<use ./images///finite/avgInterarrivals/week_P.png>
+Package pdftex.def Info: ./images///finite/avgInterarrivals/week_P.png  used on
+ input line 1162.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgInterarrivals/weekend_P.png, id=3774, 722.7pt x 433.62pt>
+
+File: ./images///finite/avgInterarrivals/weekend_P.png Graphic file (type png)
+<use ./images///finite/avgInterarrivals/weekend_P.png>
+Package pdftex.def Info: ./images///finite/avgInterarrivals/weekend_P.png  used
+ on input line 1162.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgInterarrivals/week_P_gau.png, id=3775, 722.7pt x 433.62pt
+>
+File: ./images///finite/avgInterarrivals/week_P_gau.png Graphic file (type png)
+
+<use ./images///finite/avgInterarrivals/week_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgInterarrivals/week_P_gau.png  use
+d on input line 1162.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgInterarrivals/weekend_P_gau.png, id=3776, 722.7pt x 433.6
+2pt>
+File: ./images///finite/avgInterarrivals/weekend_P_gau.png Graphic file (type p
+ng)
+<use ./images///finite/avgInterarrivals/weekend_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgInterarrivals/weekend_P_gau.png  
+used on input line 1162.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][]  
+ []
+
+[53
+
+ <./images///finite/avgInterarrivals/week_P.png> <./images///finite/avgInterarr
+ivals/weekend_P.png> <./images///finite/avgInterarrivals/week_P_gau.png> <./ima
+ges///finite/avgInterarrivals/weekend_P_gau.png>]
+<./images///finite/avgNumNodes/week_B.png, id=3845, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumNodes/week_B.png Graphic file (type png)
+<use ./images///finite/avgNumNodes/week_B.png>
+Package pdftex.def Info: ./images///finite/avgNumNodes/week_B.png  used on inpu
+t line 1181.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumNodes/weekend_B.png, id=3846, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumNodes/weekend_B.png Graphic file (type png)
+<use ./images///finite/avgNumNodes/weekend_B.png>
+Package pdftex.def Info: ./images///finite/avgNumNodes/weekend_B.png  used on i
+nput line 1181.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumNodes/week_B_gau.png, id=3847, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumNodes/week_B_gau.png Graphic file (type png)
+<use ./images///finite/avgNumNodes/week_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgNumNodes/week_B_gau.png  used on 
+input line 1181.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumNodes/weekend_B_gau.png, id=3848, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumNodes/weekend_B_gau.png Graphic file (type png)
+<use ./images///finite/avgNumNodes/weekend_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgNumNodes/weekend_B_gau.png  used 
+on input line 1181.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][]  
+ []
+
+[54
+
+ <./images///finite/avgNumNodes/week_B.png> <./images///finite/avgNumNodes/week
+end_B.png> <./images///finite/avgNumNodes/week_B_gau.png> <./images///finite/av
+gNumNodes/weekend_B_gau.png>]
+<./images///finite/avgNumNodes/week_P.png, id=3918, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumNodes/week_P.png Graphic file (type png)
+<use ./images///finite/avgNumNodes/week_P.png>
+Package pdftex.def Info: ./images///finite/avgNumNodes/week_P.png  used on inpu
+t line 1199.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumNodes/weekend_P.png, id=3919, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumNodes/weekend_P.png Graphic file (type png)
+<use ./images///finite/avgNumNodes/weekend_P.png>
+Package pdftex.def Info: ./images///finite/avgNumNodes/weekend_P.png  used on i
+nput line 1199.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumNodes/week_P_gau.png, id=3920, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumNodes/week_P_gau.png Graphic file (type png)
+<use ./images///finite/avgNumNodes/week_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgNumNodes/week_P_gau.png  used on 
+input line 1199.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumNodes/weekend_P_gau.png, id=3921, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumNodes/weekend_P_gau.png Graphic file (type png)
+<use ./images///finite/avgNumNodes/weekend_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgNumNodes/weekend_P_gau.png  used 
+on input line 1199.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[55
+
+ <./images///finite/avgNumNodes/week_P.png> <./images///finite/avgNumNodes/week
+end_P.png> <./images///finite/avgNumNodes/week_P_gau.png> <./images///finite/av
+gNumNodes/weekend_P_gau.png>]
+<./images///finite/avgDelays/week_B.png, id=3992, 722.7pt x 433.62pt>
+File: ./images///finite/avgDelays/week_B.png Graphic file (type png)
+<use ./images///finite/avgDelays/week_B.png>
+Package pdftex.def Info: ./images///finite/avgDelays/week_B.png  used on input 
+line 1218.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgDelays/weekend_B.png, id=3993, 722.7pt x 433.62pt>
+File: ./images///finite/avgDelays/weekend_B.png Graphic file (type png)
+<use ./images///finite/avgDelays/weekend_B.png>
+Package pdftex.def Info: ./images///finite/avgDelays/weekend_B.png  used on inp
+ut line 1218.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgDelays/week_B_gau.png, id=3994, 722.7pt x 433.62pt>
+File: ./images///finite/avgDelays/week_B_gau.png Graphic file (type png)
+<use ./images///finite/avgDelays/week_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgDelays/week_B_gau.png  used on in
+put line 1218.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgDelays/weekend_B_gau.png, id=3995, 722.7pt x 433.62pt>
+File: ./images///finite/avgDelays/weekend_B_gau.png Graphic file (type png)
+<use ./images///finite/avgDelays/weekend_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgDelays/weekend_B_gau.png  used on
+ input line 1218.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[56
+
+ <./images///finite/avgDelays/week_B.png> <./images///finite/avgDelays/weekend_
+B.png> <./images///finite/avgDelays/week_B_gau.png> <./images///finite/avgDelay
+s/weekend_B_gau.png>]
+<./images///finite/avgDelays/week_P.png, id=4064, 722.7pt x 433.62pt>
+File: ./images///finite/avgDelays/week_P.png Graphic file (type png)
+<use ./images///finite/avgDelays/week_P.png>
+Package pdftex.def Info: ./images///finite/avgDelays/week_P.png  used on input 
+line 1236.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgDelays/weekend_P.png, id=4065, 722.7pt x 433.62pt>
+File: ./images///finite/avgDelays/weekend_P.png Graphic file (type png)
+<use ./images///finite/avgDelays/weekend_P.png>
+Package pdftex.def Info: ./images///finite/avgDelays/weekend_P.png  used on inp
+ut line 1236.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgDelays/week_P_gau.png, id=4066, 722.7pt x 433.62pt>
+File: ./images///finite/avgDelays/week_P_gau.png Graphic file (type png)
+<use ./images///finite/avgDelays/week_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgDelays/week_P_gau.png  used on in
+put line 1236.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgDelays/weekend_P_gau.png, id=4067, 722.7pt x 433.62pt>
+File: ./images///finite/avgDelays/weekend_P_gau.png Graphic file (type png)
+<use ./images///finite/avgDelays/weekend_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgDelays/weekend_P_gau.png  used on
+ input line 1236.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[57
+
+ <./images///finite/avgDelays/week_P.png> <./images///finite/avgDelays/weekend_
+P.png> <./images///finite/avgDelays/week_P_gau.png> <./images///finite/avgDelay
+s/weekend_P_gau.png>]
+<./images///finite/avgNumQueues/week_B.png, id=4137, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumQueues/week_B.png Graphic file (type png)
+<use ./images///finite/avgNumQueues/week_B.png>
+Package pdftex.def Info: ./images///finite/avgNumQueues/week_B.png  used on inp
+ut line 1255.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumQueues/weekend_B.png, id=4138, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumQueues/weekend_B.png Graphic file (type png)
+<use ./images///finite/avgNumQueues/weekend_B.png>
+Package pdftex.def Info: ./images///finite/avgNumQueues/weekend_B.png  used on 
+input line 1255.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumQueues/week_B_gau.png, id=4139, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumQueues/week_B_gau.png Graphic file (type png)
+<use ./images///finite/avgNumQueues/week_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgNumQueues/week_B_gau.png  used on
+ input line 1255.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumQueues/weekend_B_gau.png, id=4140, 722.7pt x 433.62pt>
+
+File: ./images///finite/avgNumQueues/weekend_B_gau.png Graphic file (type png)
+<use ./images///finite/avgNumQueues/weekend_B_gau.png>
+Package pdftex.def Info: ./images///finite/avgNumQueues/weekend_B_gau.png  used
+ on input line 1255.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[58
+
+ <./images///finite/avgNumQueues/week_B.png> <./images///finite/avgNumQueues/we
+ekend_B.png> <./images///finite/avgNumQueues/week_B_gau.png> <./images///finite
+/avgNumQueues/weekend_B_gau.png>]
+<./images///finite/avgNumQueues/week_P.png, id=4210, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumQueues/week_P.png Graphic file (type png)
+<use ./images///finite/avgNumQueues/week_P.png>
+Package pdftex.def Info: ./images///finite/avgNumQueues/week_P.png  used on inp
+ut line 1273.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumQueues/weekend_P.png, id=4211, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumQueues/weekend_P.png Graphic file (type png)
+<use ./images///finite/avgNumQueues/weekend_P.png>
+Package pdftex.def Info: ./images///finite/avgNumQueues/weekend_P.png  used on 
+input line 1273.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumQueues/week_P_gau.png, id=4212, 722.7pt x 433.62pt>
+File: ./images///finite/avgNumQueues/week_P_gau.png Graphic file (type png)
+<use ./images///finite/avgNumQueues/week_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgNumQueues/week_P_gau.png  used on
+ input line 1273.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+<./images///finite/avgNumQueues/weekend_P_gau.png, id=4213, 722.7pt x 433.62pt>
+
+File: ./images///finite/avgNumQueues/weekend_P_gau.png Graphic file (type png)
+<use ./images///finite/avgNumQueues/weekend_P_gau.png>
+Package pdftex.def Info: ./images///finite/avgNumQueues/weekend_P_gau.png  used
+ on input line 1273.
+(pdftex.def)             Requested size: 153.64493pt x 92.18768pt.
+
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][]  
+ []
+
+[59
+
+ <./images///finite/avgNumQueues/week_P.png> <./images///finite/avgNumQueues/we
+ekend_P.png> <./images///finite/avgNumQueues/week_P_gau.png> <./images///finite
+/avgNumQueues/weekend_P_gau.png>]
+Overfull \hbox (44.64261pt too wide) has occurred while \output is active
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][]  
+ []
+
+[60
+
+]
+\tf@nav=\write8
+\openout8 = `slides_project.nav'.
+
+\tf@toc=\write9
+\openout9 = `slides_project.toc'.
+
+\tf@snm=\write10
+\openout10 = `slides_project.snm'.
+
+ (./slides_project.aux)
+Package rerunfilecheck Info: File `slides_project.out' has not changed.
+(rerunfilecheck)             Checksum: C942ECCB34639A4FD717EBDB0476E7BB;1157.
+ ) 
+Here is how much of TeX's memory you used:
+ 33150 strings out of 478278
+ 697790 string characters out of 5819600
+ 1221685 words of memory out of 5000000
+ 50393 multiletter control sequences out of 15000+600000
+ 491138 words of font info for 89 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 128i,20n,122p,442b,1431s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final
+/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</nix/store/pqfkdb47f8v98
+6qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/share/texmf/fonts/type1/pu
+blic/amsfonts/cm/cmmi10.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texliv
+e-combined-full-2021-final/share/texmf/fonts/type1/public/amsfonts/cm/cmmi8.pfb
+></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/
+share/texmf/fonts/type1/public/amsfonts/cm/cmss10.pfb></nix/store/pqfkdb47f8v98
+6qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/share/texmf/fonts/type1/pu
+blic/amsfonts/cm/cmss12.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texliv
+e-combined-full-2021-final/share/texmf/fonts/type1/public/amsfonts/cm/cmssi10.p
+fb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-fina
+l/share/texmf/fonts/type1/public/amsfonts/cm/cmssi12.pfb></nix/store/pqfkdb47f8
+v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/share/texmf/fonts/type1
+/public/amsfonts/cm/cmssi8.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-tex
+live-combined-full-2021-final/share/texmf/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-fi
+nal/share/texmf/fonts/type1/public/amsfonts/cm/cmsy6.pfb></nix/store/pqfkdb47f8
+v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/share/texmf/fonts/type1
+/public/eurosym/feymr10.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texliv
+e-combined-full-2021-final/share/texmf/fonts/type1/public/amsfonts/symbols/msam
+10.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-
+final/share/texmf/fonts/type1/public/cm-super/sfsi1095.pfb></nix/store/pqfkdb47
+f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/share/texmf/fonts/typ
+e1/public/cm-super/sfsi1440.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-te
+xlive-combined-full-2021-final/share/texmf/fonts/type1/public/cm-super/sfss0600
+.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-fi
+nal/share/texmf/fonts/type1/public/cm-super/sfss0800.pfb></nix/store/pqfkdb47f8
+v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/share/texmf/fonts/type1
+/public/cm-super/sfss1000.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texl
+ive-combined-full-2021-final/share/texmf/fonts/type1/public/cm-super/sfss1095.p
+fb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-fina
+l/share/texmf/fonts/type1/public/cm-super/sfss1440.pfb></nix/store/pqfkdb47f8v9
+86qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/share/texmf/fonts/type1/p
+ublic/cm-super/sftt0800.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texliv
+e-combined-full-2021-final/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb
+></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/
+share/texmf/fonts/type1/public/cm-super/sftt1095.pfb></nix/store/pqfkdb47f8v986
+qwixlh01mcz86m7dhb-texlive-combined-full-2021-final/share/texmf/fonts/type1/pub
+lic/cm-super/sftt1440.pfb></nix/store/pqfkdb47f8v986qwixlh01mcz86m7dhb-texlive-
+combined-full-2021-final/share/texmf/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on slides_project.pdf (60 pages, 2927943 bytes).
+PDF statistics:
+ 4475 PDF objects out of 5155 (max. 8388607)
+ 4055 compressed objects within 41 object streams
+ 129 named destinations out of 1000 (max. 500000)
+ 627 words of extra memory for PDF output out of 10000 (max. 10000000)
+

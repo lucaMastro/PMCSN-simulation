@@ -153,7 +153,7 @@ def generateAll(display = False):
                 outputName += '_gau'
             if not os.path.exists(outputDir):
                 os.makedirs(outputDir)
-            makeGraph(path, stat, theoreticals[stat][0], outputName, show=display, qos=qos)
+            makeGraph(path, stat, theoreticals[stat][0], outputName, show=display, qos=True)
 
 
     # infinite dir genaration:
@@ -195,7 +195,7 @@ def generateAll(display = False):
             outputName = f'{outputDir}/{output}'
             if not os.path.exists(outputDir):
                 os.makedirs(outputDir)
-            makeGraph(path, stat, theoreticals[stat][index], outputName, show=display, qos=qos)
+            makeGraph(path, stat, theoreticals[stat][index], outputName, show=display, qos=False)
 
 
 if __name__ =='__main__':

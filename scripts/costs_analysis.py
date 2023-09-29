@@ -11,8 +11,11 @@ if __name__ == '__main__':
     weekend_numberB = 395
     weekend_numberP = 116
 
+    # m_b = config.SERVERS_B
+    m_b = 3
+    m_p = config.SERVERS_P
     # each daily works is 16h. a worker B works for 8 hour. doubling the cost:
-    dailyWorkersCost = 2 * config.SERVERS_B * config.WORKERS_COSTS[0] + config.SERVERS_P * config.WORKERS_COSTS[0]
+    dailyWorkersCost = 2 * m_b * config.WORKERS_COSTS[0] + m_p * config.WORKERS_COSTS[0]
     monthlyWorkersCost = dailyWorkersCost * 28
 
     monthlyCosts = config.BILL_COSTS + config.SUPPLIERS_COST + config.RENT + monthlyWorkersCost

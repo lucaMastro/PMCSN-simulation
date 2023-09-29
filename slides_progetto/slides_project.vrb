@@ -1,0 +1,61 @@
+\frametitle{Costi e guadagni}
+\justifying
+
+\centering
+\begin{adjustbox}{scale=0.55}
+\begin{tabular}{|c|c|c|}
+\hline
+\cellcolor{cellcolor}Spesa & \cellcolor{cellcolor}Valore & \cellcolor{cellcolor}Contributo mensile \\
+\hline
+\hline
+Baristi & $40,00 \mbox{\euro}$ al giorno per barista & $2.240,00\ \mbox{\euro}$ al mese \\
+\hline
+Pizzaiolo & $40,00 \mbox{\euro}$ al giorno & $1.400,00\ \mbox{\euro}$  al mese\\
+\hline
+Bollette & $2.750,00 \mbox{\euro}$ al mese & $2.750,00 \mbox{\euro}$ al mese \\
+\hline
+Affitto & $1.500,00 \mbox{\euro}$ al mese & $1.500,00 \mbox{\euro}$ al mese\\
+\hline
+Fornitori & $2.000,00 \mbox{\euro}$ al mese & $2.000,00 \mbox{\euro}$ al mese\\
+\hline
+\hline
+\multicolumn{2}{|c|}{Totale} & \cellcolor{red!40} $12.970,00 \mbox{\euro}$\\
+\hline
+
+\end{tabular}
+\end{adjustbox}
+
+\bigskip
+
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\cline{2-7}
+\multicolumn{1}{c|}{} &
+\cellcolor{cellcolor}Tipo richiesta & \cellcolor{cellcolor}Richieste \textit{week} & \cellcolor{cellcolor}Richieste \textit{weekend} & \cellcolor{cellcolor}Guadagno & \cellcolor{cellcolor}Contributo mensile &
+\cellcolor{cellcolor} Con IVA al 10\% \\
+\cline{2-7}
+\noalign{\vspace{0.5ex}}
+\hline
+\multicolumn{1}{|c|}{\cellcolor{cellcolor}} & Tipo B & 275 & 395 & $5,00\ \mbox{\euro}$ a richiesta & $43.300,00\ \mbox{\euro}$ al mese & $ 38.970,00\ \mbox{\euro}$ \\
+\cline{2-7}
+\multicolumn{1}{|c|}{\cellcolor{cellcolor}} & Tipo P & 41 & 116 & $10\ \mbox{\euro}$ a richiesta & $17.480,00\ \mbox{\euro}$ al mese & $ 15.732,00\ \mbox{\euro}$ \\
+\cline{2-7}
+
+%\multicolumn{2}{|c|}{Totale} & \cellcolor{red!40} \textcolor[RGB]{230,10,10}{12970 $\mbox{\euro}$}\\
+\multirow{-3}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}\makecell{No\\gauss.}}} & \multicolumn{5}{c|}{Totale} & \cellcolor{green!40} $54.702,00\ \mbox{\euro}$\\
+
+\hline
+\hline
+
+\cellcolor{cellcolor} & Tipo B & 77 & 120 & $5,00\ \mbox{\euro}$ a richiesta & $12.500,00 \mbox{\euro}$ al mese & $ 11.250,00\ \mbox{\euro}$ \\
+\cline{2-7}
+\cellcolor{cellcolor} & Tipo P & 10 & 31 & $10,00\ \mbox{\euro}$ a richiesta & $4.480,00 \mbox{\euro}$ al mese & $ 4.032,00\ \mbox{\euro}$ \\
+\cline{2-7}
+\multirow{-3}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Gauss.}} & \multicolumn{5}{c|}{Totale} & \cellcolor{green!40} $15.282,00 \mbox{\euro}$\\
+\hline
+
+\end{tabular}
+\end{adjustbox}
+\bigskip
+
+Il guadagno netto mensile risulta essere $41.732,00 \mbox{\euro}$ nel caso non si usi il ritardo gaussiano e $2.312,00 \mbox{\euro}$ nel caso in cui lo si utilizzi.

@@ -213,7 +213,7 @@ Dopo un'osservazione settimanale di altri locali che offrono servizi simili, è 
 \subsection{Obiettivi}
 L'obiettivo dell'analisi è determinare il numero ottimale di baristi da assumere per massimizzare i guadagni, tenendo conto di alcune condizioni e vincoli specifici.\\
 
-Si considera una retribuzione di 40,00 $\mbox{\euro}$ al giorno per ciascun barista, con un turno lavorativo di 8 ore. Si presume che ogni barista sia in grado di servire un'ordinazione in 2 minuti, durante i quali si dedica esclusivamente a quella richiesta. Si assume inoltre che il prezzo medio delle richieste al bar sia di 5,00 $\mbox{\euro}$, mentre quello delle richieste alla pizzeria sia di 7,00 $\mbox{\euro}$. Tuttavia, esistono alcuni vincoli che si vuole che siano sempre rispettati:
+Si considera una retribuzione di 40,00 $\mbox{\euro}$ al giorno per ciascun barista, con un turno lavorativo di 8 ore. Si presume che ogni barista sia in grado di servire un'ordinazione in 2 minuti, durante i quali si dedica esclusivamente a quella richiesta. Si assume inoltre che il prezzo medio delle richieste al bar sia di 5,00 $\mbox{\euro}$, mentre quello delle richieste alla pizzeria sia di 10,00 $\mbox{\euro}$. Tuttavia, esistono alcuni vincoli che si vuole che siano sempre rispettati:
 \begin{itemize}
 \item Ogni ordinazione al bar deve essere servita entro un massimo di 3 minuti.
 \item Ogni ordinazione per la pizzeria deve essere servita entro un massimo di 10 minuti.
@@ -497,7 +497,7 @@ Il programma è stato realizzato seguendo l'approccio della \textit{next-event s
 
 Le funzioni per elaborare gli arrivi sono \key{processArrivalB()} e \key{processArrivalP()}, all'interno delle quali è implementata la logica per ottenere il tasso di arrivo $\lambda$ corretto in base alla fascia oraria. L'inverso di questo tasso di arrivo viene poi utilizzato come parametro per le funzioni \key{getArrivalB(m)} e \key{getArrivalP(m)}, che richiamanono a loro volta la funzione \key{Exponential(m)} dopo aver selezionato opportunamente uno specifico \textit{stream}. Le funzioni per gestire le partenze sono invece \key{processDepartureB()} e \key{processDepartureP()}. \\
 
-La selezione del servente avviene in modo diverso per le richieste al bar e alla pizzeria. Per le richieste "B", viene utilizzata la politica di \textit{equity}, cercando il server che è rimasto libero per più tempo. Per quanto riguarda le richieste alla pizzeria ("P"), la selezione avviene in base al primo server libero di quel tipo che viene trovato, scandendo la lista in ordine crescente. Questa scelta è motivata dal fatto che i server di tipo "P" simulano un pizzaiolo capace di cuocere contemporaneamente 2 pizze, ed avrebbe poco senso modellarlo con una politica di equità.\\
+La selezione del servente avviene in modo diverso per le richieste al bar e alla pizzeria. Per le richieste al bar, viene utilizzata la politica di \textit{equity}, cercando il server che è rimasto libero per più tempo. Per quanto riguarda le richieste alla pizzeria, la selezione avviene in base al primo server libero di quel tipo che viene trovato, scandendo la lista in ordine crescente. Questa scelta è motivata dal fatto che i server di tipo "P" simulano un pizzaiolo capace di cuocere contemporaneamente 2 pizze, ed avrebbe poco senso modellarlo con una politica di equità.\\
 
 L'evento di campionamento viene programmato aggiungendo un valore di tempo costante al tempo minimo tra i prossimi eventi schedulati:
 \begin{lstlisting}[language=Python, firstnumber=242, title=\key{simulation.py}, tabsize=3,framexleftmargin={\dimexpr 1.5em+15pt}, xleftmargin={\dimexpr 1.5em+15pt},]
@@ -698,15 +698,15 @@ Per ovviare al problema del basso tasso di interarrivo, si è costruito il file 
     &\cellcolor{cellcolor} $\lambda${\textsubscript{P,W}} \\
     \hline
     \hline
-	07:00 $\rightarrow$ 11:00 & 4.2 j/s & \xmark \\ 
+	07:00 $\rightarrow$ 11:00 & 2 j/s & \xmark \\ 
     \hline
-	11:00 $\rightarrow$ 15:00 & 4.2 j/s & \xmark \\
+	11:00 $\rightarrow$ 15:00 & 2 j/s & \xmark \\
     \hline
-	18:00 $\rightarrow$ 19:00 & 2.1 j/s & \xmark \\
+	18:00 $\rightarrow$ 19:00 & 3 j/s & \xmark \\
     \hline
-	19:00 $\rightarrow$ 23:00 & 2.1 j/s & 2 j/s \\
+	19:00 $\rightarrow$ 23:00 & 3 j/s & 1.7 j/s \\
     \hline
-	23:00 $\rightarrow$ 02:00 & 2.1 j/s & \xmark \\
+	23:00 $\rightarrow$ 02:00 & 3 j/s & \xmark \\
     \hline
 \end{tabular}
 \end{table}
@@ -739,7 +739,7 @@ avgInterarrivals & 0.317 s & 0.466 $\pm$ 0.002 s \\
 \hline
 avgWaits & 0.415 s & 0.337 $\pm$ 0.000 s \\
 \hline
-avgNumNodes & 1.394 j & 0.739 $\pm$ 0.008 j \\
+avgNumNodes & 1.394 j & 0.730 $\pm$ 0.001 j \\
 \hline
 avgDelays & 0.115 s & 0.037 $\pm$ 0.000 s \\
 \hline
@@ -766,7 +766,7 @@ avgInterarrivals & 0.588 s & 0.593 $\pm$ 0.000 s \\
 \hline
 avgWaits & 0.610 s & 0.603 $\pm$ 0.000 s \\
 \hline
-avgNumNodes & 1.037 j & 1.017 $\pm$ 0.001 j \\
+avgNumNodes & 1.037 j & 1.016 $\pm$ 0.000 j \\
 \hline
 avgDelays & 0.110 s & 0.105 $\pm$ 0.000 s \\
 \hline
@@ -829,8 +829,8 @@ avgService (2) & 0.3 s & 0.299 $\pm$ 0.000 s \\
 
 Anche per le richieste di tipo "B", adesso i risultati convergono a quelli teorici.
 
-\subsection{Verifica dello scheduling}
-È stato esaminato anche un altro aspetto importante, ovvero la politica di schedulazione utilizzata. Per valutarla, è stato eseguito il seguente comando:\\
+\subsection{Verifica della politica di selezione dei server}
+È stato esaminato anche un altro aspetto importante, ovvero la politica di selezione dei serventi utilizzata. Per valutarla, è stato eseguito il seguente comando:\\
 
 \key{python simulation.py -s 123 -ngf -cf configurations/verify1.py -cc servers_b 10 -cc servers_p 10}\\
 
@@ -847,7 +847,7 @@ I risultati ottenuti da questa configurazione sono riportati di seguito:\\
 \hspace*{\fill}
 \bigskip
 
-Dai risultati relativi all'utilizzazione, al tempo medio di servizio e alla condivisione delle risorse, emerge chiaramente il rispetto delle specifiche prestabilite: infatti tutti i server di tipo "B" presentano valori simili per tutte le grandezze in esame mentre per i server di tipo "P" si osserva una tendenza al decremento dei valori all'aumentare dell'indice del server.
+Dai risultati relativi all'utilizzazione, al tempo medio di servizio e allo \textit{share}, emerge chiaramente il rispetto delle specifiche prestabilite: infatti tutti i server di tipo "B" presentano valori simili per tutte le grandezze in esame mentre per i server di tipo "P" si osserva una tendenza al decremento dei valori all'aumentare dell'indice del server.
 
 \subsection{Conclusione}
 
@@ -855,11 +855,9 @@ Sulla base dei risultati ottenuti dagli esperimenti condotti, è possibile trarr
 
 
 \section{Validazione}
-Nella fase di validazione il quesito fondamentale è: "Stiamo costruendo il prodotto giusto?" Tuttavia, durante il processo di validazione, si sono riscontrate delle sfide significative nell'utilizzo dell'analisi a orizzonte finito, principalmente dovute al numero limitato di job processati. Un aspetto critico che ha reso l'analisi a orizzonte finito inadeguata è il basso numero di job processati in ciascun \textit{run} di simulazione, una caratteristica intrinseca del caso di studio in esame. Questa limitazione ha comportato un campione statistico ridotto e, di conseguenza, una maggiore variabilità nei risultati osservati. In altre parole, la variabilità è emersa come una problematica principale a causa della limitata quantità di dati disponibili. \\
+Durante il processo di validazione si sono riscontrate delle sfide significative nell'utilizzo dell'analisi a orizzonte finito, principalmente dovute al numero limitato di job processati. Questa limitazione ha comportato un campione statistico ridotto e, di conseguenza, una maggiore variabilità nei risultati osservati. In altre parole, la variabilità è emersa come una problematica a causa della limitata quantità di dati disponibili. È importante notare che, in un contesto in cui avessimo processato un numero significativamente maggiore di job in ogni run, la variabilità non avrebbe avuto un impatto significativo. \\
 
-È importante notare che, in un contesto in cui avessimo processato un numero significativamente maggiore di job in ogni run, la variabilità non avrebbe avuto un impatto significativo. \\
-
-Per affrontare questa sfida, si è deciso di adottare un'analisi a orizzonte infinito in modo da ottenere risultati più stabili. In questa fase di validazione, verifichiamo se, per ciascuna fascia oraria, le statistiche generate dal nostro simulatore convergono ai valori teorici, considerati come punti di riferimento per il nostro sistema. Questo approccio ci assicura che il sistema software risponda alle caratteristiche previste e ai requisiti desiderati. 
+Per validare il modello, quindi, si è deciso di adottare un'analisi a orizzonte infinito in modo da ottenere risultati più stabili. In questa fase verifichiamo se, per ciascuna fascia oraria, le statistiche generate dal nostro simulatore convergono ai valori reali. 
 
 \subsection{Analisi a orizzonte infinito}
 Per condurre un'analisi a orizzonte infinito, è necessario utilizzare i seguenti comandi:
@@ -914,35 +912,35 @@ L'analisi viene condotta per ciascun tipo di richiesta e per ciascuna statistica
 
 \begin{adjustbox}{width=\textwidth}
 \centering
-\begin{tabular}{ |c|c|c|c|c|c|c|c|c| }
-\cline{2-8}
-\multicolumn{1}{c}{} & \multicolumn{7}{|c|}{\cellcolor{cellcolor}\textit{B type - Waits}}\\
-\cline{2-8}
+\begin{tabular}{ |c|c|c|c|c|c|c|c| }
+\cline{2-7}
+\multicolumn{1}{c}{} & \multicolumn{6}{|c|}{\cellcolor{cellcolor}\textit{B type - Waits}}\\
+\cline{2-7}
 \multicolumn{1}{c|}{} & \cellcolor{cellcolor}Slot & \cellcolor{cellcolor}Risultato teorico & \cellcolor{cellcolor}Risultato sperimentale &  \cellcolor{cellcolor}Media nell'intervallo &
-\cellcolor{cellcolor}Errore & \cellcolor{cellcolor}Link all'immagine & \cellcolor{cellcolor} Rispetta \textit{QoS}\\
-\cline{2-8}
+\cellcolor{cellcolor}Errore & \cellcolor{cellcolor}Link all'immagine \\
+\cline{2-7}
 \noalign{\vspace{0.5ex}}
 \hline
-\cellcolor{cellcolor}& 0 & 2.667 min & 2.665 $\pm$ 0.035 min & \checkmark & & \hyperlink{attesa infinita week slot 0}{link} & \checkmark \\ 
-\cline{2-8}
-\cellcolor{cellcolor}& 1 & 2.092 min & 2.083 $\pm$ 0.018 min & \checkmark & & \hyperlink{attesa infinita week slot 1}{link}& \checkmark \\ 
-\cline{2-8}
-\cellcolor{cellcolor}& 3 & 2.428 min & 2.440 $\pm$ 0.027 min & \checkmark & & \hyperlink{attesa infinita week slot 3}{link}& \checkmark \\ 
-\cline{2-8}
-\cellcolor{cellcolor}& 4 & 2.092 min & 2.086 $\pm$ 0.021 min & \checkmark & & \hyperlink{attesa infinita week slot 4}{link}& \checkmark \\ 
-\cline{2-8}
-\multirow{-6}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Week}} & 5 & 2.060 min & 2.067 $\pm$ 0.023 min & \checkmark & & \hyperlink{attesa infinita week slot 5}{link}&  \checkmark \\ 
+\cellcolor{cellcolor}& 0 & 2.667 min & 2.665 $\pm$ 0.035 min & \checkmark & & \hyperlink{attesa infinita week slot 0}{link} \\ 
+\cline{2-7}
+\cellcolor{cellcolor}& 1 & 2.092 min & 2.083 $\pm$ 0.018 min & \checkmark & & \hyperlink{attesa infinita week slot 1}{link}\\ 
+\cline{2-7}
+\cellcolor{cellcolor}& 3 & 2.428 min & 2.440 $\pm$ 0.027 min & \checkmark & & \hyperlink{attesa infinita week slot 3}{link}\\ 
+\cline{2-7}
+\cellcolor{cellcolor}& 4 & 2.092 min & 2.086 $\pm$ 0.021 min & \checkmark & & \hyperlink{attesa infinita week slot 4}{link} \\ 
+\cline{2-7}
+\multirow{-6}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Week}} & 5 & 2.060 min & 2.067 $\pm$ 0.023 min & \checkmark & & \hyperlink{attesa infinita week slot 5}{link}\\ 
 \hline
 \hline
-\cellcolor{cellcolor}& 0 & 2.667 min & 2.665 $\pm$ 0.035 min & \checkmark & & \hyperlink{attesa infinita weekend slot 0}{link}& \checkmark \\ 
-\cline{2-8}
-\cellcolor{cellcolor}& 1 & 2.261 min & 2.257 $\pm$ 0.024 min & \checkmark & &\hyperlink{attesa infinita weekend slot 1}{link}& \checkmark \\ 
-\cline{2-8}
-\cellcolor{cellcolor}& 3 & 4.571 min & 4.499 $\pm$ 0.115 min & \checkmark & & \hyperlink{attesa infinita weekend slot 3}{link}& \xmark \\ 
-\cline{2-8}
-\cellcolor{cellcolor}& 4 & 2.327 min & 2.339 $\pm$ 0.031 min & \checkmark & & \hyperlink{attesa infinita weekend slot 4}{link}& \checkmark \\ 
-\cline{2-8}
-\multirow{-6}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Weekend}} & 5 & 2.261 min & 2.246 $\pm$ 0.025 min & \checkmark & & \hyperlink{attesa infinita weekend slot 5}{link}& \checkmark \\ 
+\cellcolor{cellcolor}& 0 & 2.667 min & 2.665 $\pm$ 0.035 min & \checkmark & & \hyperlink{attesa infinita weekend slot 0}{link}\\ 
+\cline{2-7}
+\cellcolor{cellcolor}& 1 & 2.261 min & 2.257 $\pm$ 0.024 min & \checkmark & &\hyperlink{attesa infinita weekend slot 1}{link}\\ 
+\cline{2-7}
+\cellcolor{cellcolor}& 3 & 4.571 min & 4.499 $\pm$ 0.115 min & \checkmark & & \hyperlink{attesa infinita weekend slot 3}{link}\\ 
+\cline{2-7}
+\cellcolor{cellcolor}& 4 & 2.327 min & 2.339 $\pm$ 0.031 min & \checkmark & & \hyperlink{attesa infinita weekend slot 4}{link}\\ 
+\cline{2-7}
+\multirow{-6}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Weekend}} & 5 & 2.261 min & 2.246 $\pm$ 0.025 min & \checkmark & & \hyperlink{attesa infinita weekend slot 5}{link}\\ 
 \hline
 \end{tabular}
 \end{adjustbox}
@@ -1058,37 +1056,36 @@ L'analisi viene condotta per ciascun tipo di richiesta e per ciascuna statistica
 
 \begin{adjustbox}{width=\textwidth}
 \centering
-\begin{tabular}{ |c|c|c|c|c|c|c|c|c| }
-\cline{2-8}
-\multicolumn{1}{c}{} & \multicolumn{7}{|c|}{\cellcolor{cellcolor}\textit{P type - all statistics in the slot}}\\
-\cline{2-8}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\cline{2-7}
+\multicolumn{1}{c}{} & \multicolumn{6}{|c|}{\cellcolor{cellcolor}\textit{P type - all statistics in the slot}}\\
+\cline{2-7}
 \multicolumn{1}{c|}{} & \cellcolor{cellcolor}Statistica & \cellcolor{cellcolor}Risultato teorico & \cellcolor{cellcolor}Risultato sperimentale &  \cellcolor{cellcolor}Media nell'intervallo &
-\cellcolor{cellcolor}Errore & \cellcolor{cellcolor}Link all'immagine & \cellcolor{cellcolor} Rispetta QoS\\
-\cline{2-8}
+\cellcolor{cellcolor}Errore & \cellcolor{cellcolor}Link all'immagine \\
+\cline{2-7}
 \noalign{\vspace{0.5ex}}
-\cline{1-7}
-\cellcolor{cellcolor}& Interarrivo & 5.882 min & 6.145 $\pm$ 0.499 min & \checkmark & & \hyperlink{interarrivo infinito week P}{link} & \multicolumn{1}{c}{} \\ 
-\cline{2-8} 
-\cellcolor{cellcolor}& Attesa & 3.209 min & 3.223 $\pm$ 0.038 min & \checkmark & & \hyperlink{attesa infinita week P}{link} & \checkmark \\
-\cline{2-8}
-\cellcolor{cellcolor}& Num. nel nodo & 0.545 min & 0.548 $\pm$ 0.009 min & \checkmark & & \hyperlink{centro infinito week P}{link} & \multicolumn{1}{c}{}\\
+\hline
+\cellcolor{cellcolor}& Interarrivo & 5.882 min & 6.145 $\pm$ 0.499 min & \checkmark & & \hyperlink{interarrivo infinito week P}{link} \\ 
 \cline{2-7}
-\cellcolor{cellcolor}& Ritardo & 0.209 min & 0.229 $\pm$ 0.017 min & \xmark & 0.003 & \hyperlink{ritardo infinito week P}{link} & \multicolumn{1}{c}{}\\
+\cellcolor{cellcolor}& Attesa & 3.209 min & 3.223 $\pm$ 0.038 min & \checkmark & & \hyperlink{attesa infinita week P}{link} \\
 \cline{2-7}
-\multirow{-6}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Week}} & Num. in coda & 0.035 min & 0.040 $\pm$ 0.003 min & \xmark & 0.002	 & \hyperlink{coda infinita week P}{link} & \multicolumn{1}{c}{}\\
-\cline{1-7}
-\noalign{\vspace{0.5ex}}
-\cline{1-7}
-\cellcolor{cellcolor}& Interarrivo & 2.000 min & 2.114 $\pm$ 0.228 min & \checkmark & & \hyperlink{interarrivo infinito weekend P}{link} & \multicolumn{1}{c}{} \\ 
-\cline{2-8}
-\cellcolor{cellcolor}& Attesa & 6.867 min & 6.979 $\pm$ 0.281 min & \checkmark & & \hyperlink{attesa infinita weekend P}{link} & \checkmark \\
-\cline{2-8}
-\cellcolor{cellcolor}& Num. nel nodo & 3.429 min & 3.505 $\pm$ 0.150 min & \checkmark & & \hyperlink{centro infinito weekend P}{link} & \multicolumn{1}{c}{}\\
+\cellcolor{cellcolor}& Num. nel nodo & 0.545 min & 0.548 $\pm$ 0.009 min & \checkmark & & \hyperlink{centro infinito week P}{link} \\
 \cline{2-7}
-\cellcolor{cellcolor}& Ritardo & 3.857 min & 3.985 $\pm$ 0.267 min & \checkmark & & \hyperlink{ritardo infinito weekend P}{link} & \multicolumn{1}{c}{}\\
+\cellcolor{cellcolor}& Ritardo & 0.209 min & 0.229 $\pm$ 0.017 min & \xmark & 0.003 & \hyperlink{ritardo infinito week P}{link} \\
 \cline{2-7}
-\multirow{-6}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Weekend}} & Num. in coda & 1.929 min & 2.010 $\pm$ 0.139 min & \checkmark & & \hyperlink{coda infinita weekend P}{link} & \multicolumn{1}{c}{}\\
-\cline{1-7}
+\multirow{-6}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Week}} & Num. in coda & 0.035 min & 0.040 $\pm$ 0.003 min & \xmark & 0.002	 & \hyperlink{coda infinita week P}{link}\\
+\hline
+\hline
+\cellcolor{cellcolor}& Interarrivo & 2.000 min & 2.114 $\pm$ 0.228 min & \checkmark & & \hyperlink{interarrivo infinito weekend P}{link} \\ 
+\cline{2-7}
+\cellcolor{cellcolor}& Attesa & 6.867 min & 6.979 $\pm$ 0.281 min & \checkmark & & \hyperlink{attesa infinita weekend P}{link}\\
+\cline{2-7}
+\cellcolor{cellcolor}& Num. nel nodo & 3.429 min & 3.505 $\pm$ 0.150 min & \checkmark & & \hyperlink{centro infinito weekend P}{link} \\
+\cline{2-7}
+\cellcolor{cellcolor}& Ritardo & 3.857 min & 3.985 $\pm$ 0.267 min & \checkmark & & \hyperlink{ritardo infinito weekend P}{link} \\
+\cline{2-7}
+\multirow{-6}{*}{\rotatebox[origin=c]{90}{\cellcolor{cellcolor}Weekend}} & Num. in coda & 1.929 min & 2.010 $\pm$ 0.139 min & \checkmark & & \hyperlink{coda infinita weekend P}{link} \\
+\hline
 \end{tabular}
 \end{adjustbox}
 \bigskip
@@ -1106,6 +1103,7 @@ Utilizzando questo approccio, il sistema è stato simulato per un periodo di 16 
 Per ottenere risultati robusti per l'analisi a orizzonte infinito, la simulazione di una giornata lavorativa è stata eseguita per 1024 iterazioni. In ciascuna di esse sono state ripristinate tutte le statistiche mentre lo stato del generatore di numeri casuali è stato mantenuto inalterato. Questo approccio assicura l'indipendenza tra le diverse esecuzioni.\\
 
 Anche in questo caso, è stata condotta un'analisi separata per ciascun tipo di richiesta, considerando i tempi di risposta con e senza l'introduzione del fattore gaussiano. I risultati sono stati presentati in forma tabellare e grafica, con le tabelle che riportano i risultati sperimentali ottenuti mediante la media di tutti i \textit{run}, con un intervallo di confidenza del 95\%.
+\bigskip
 
 \begin{adjustbox}{width=\textwidth}
 \centering

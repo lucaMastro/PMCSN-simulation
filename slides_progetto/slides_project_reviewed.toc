@@ -1,0 +1,10 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\beamer@sectionintoc {1}{Introduzione}{2}{0}{1}
+\beamer@sectionintoc {2}{Modello concettuale}{6}{0}{2}
+\beamer@sectionintoc {3}{Modello delle specifiche}{9}{0}{3}
+\beamer@sectionintoc {4}{Modello computazionale}{13}{0}{4}
+\beamer@sectionintoc {5}{Analisi dei costi e dei guadagni}{17}{0}{5}
+\beamer@sectionintoc {6}{Altre statistiche transienti}{23}{0}{6}
+\beamer@sectionintoc {7}{Analisi statistiche stazionarie}{32}{0}{7}
+\beamer@sectionintoc {8}{Conclusioni e lezioni apprese}{52}{0}{8}

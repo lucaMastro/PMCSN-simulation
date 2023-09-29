@@ -38,7 +38,6 @@ class Config:
         #these values will be used for exponential mean, based on the current or next
         #timing, in minutes. the third element is 0 because the bar is closed and its needed 
         # for indexing 
-        #self.WEEK_LAMBDA_B = [4.2, 4.2, 0, 2.1, 2.1, 2.1]
         self.WEEK_LAMBDA_B = [2, 2, 0, 3, 3, 3]
         self.WEEKEND_LAMBDA_B = [0.5, 0.34, 0, 0.75, 0.375, 0.34]
         self.WEEK_LAMBDA_P = 1.7
